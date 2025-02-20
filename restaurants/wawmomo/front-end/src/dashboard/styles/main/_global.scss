@@ -1,0 +1,49 @@
+
+#dashboard{
+    @import '../../components/navbar-component/navbar-style';
+    @import '../../components/header-component/header-style';
+
+    // border: solid 3px blue;
+    height: 100vh;
+    background-color: #f5f4f9;
+
+    #global_bloc{
+        // border: solid 3px red;
+        height: 100%;
+        // @include flex(row, flex-start, center);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        @include media-queries(md){
+            // @include flex(row, flex-start, center);
+            display: flex;
+            flex-direction: row;
+        }
+    }
+    #main_bloc{
+        // border: solid 3px blue;
+        flex: 1;
+    }
+    
+    section{
+        // border: solid 3px green;
+        display: flex;
+        height: 100%;
+        padding: $dash_padding_sm;
+    }
+
+    @include media-queries(md){
+        section{
+            padding: $dash_padding_md;
+        }
+    }
+    
+}
+
+
+
+
+
+
+

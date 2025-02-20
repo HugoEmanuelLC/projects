@@ -1,0 +1,35 @@
+
+$dash_txt_p_size_sm: 14px;
+$dash_txt_p_size_md: 16px;
+
+
+$dash_txt_h3_size_sm: 16px;
+$dash_txt_h3_size_md: 24px;
+$dash_txt_h3_size_lg: 34px;
+
+
+$dash_txt_weight_sm: 100;
+$dash_txt_weight_md: 400;
+$dash_txt_weight_lg: 900;
+
+
+$dash_color_primary: #d7d7d7;
+$dash_color_primary_opo: rgb(197, 197, 197, 0.5);
+
+$dash_color_secondary: #b3b3b3;
+$dash_color_secondary_opo: #b3b3b3;
+
+$dash_color_tertiary: rgb(55, 55, 65);
+$dash_color_tertiary_opo: rgb(55, 55, 65, 0.5);
+
+// $dash_color_quaternary: darkred;
+
+
+$dash_padding_sm: 10px;
+$dash_padding_md: 20px;
+.padding_sm{
+    padding: $dash_padding_sm;
+}
+.padding_md{
+    padding: $dash_padding_md;
+}

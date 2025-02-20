@@ -1,0 +1,35 @@
+
+$txt_p_size_sm: 14px;
+$txt_p_size_md: 16px;
+
+
+$txt_h3_size_sm: 16px;
+$txt_h3_size_md: 24px;
+$txt_h3_size_lg: 34px;
+
+
+$txt_weight_sm: 100;
+$txt_weight_md: 400;
+$txt_weight_lg: 900;
+
+
+$color_primary: #d7d7d7;
+$color_primary_opo: rgb(197, 197, 197, 0.5);
+
+$color_secondary: rgb(255, 229, 159);
+$color_secondary_opo: rgb(255, 229, 159, 0.7);
+
+$color_tertiary: #3a3a3a;
+$color_tertiary_opo: rgb(58, 58, 58, 0.5);
+
+$color_quaternary: darkred;
+
+
+$padding_sm: 10px;
+$padding_md: 20px;
+.padding_sm{
+    padding: $padding_sm;
+}
+.padding_md{
+    padding: $padding_md;
+}

@@ -1,0 +1,62 @@
+
+
+// SCREENS
+@mixin media-queries($breakpoint) {
+    @if $breakpoint == "xs" {
+        @media (max-width: 576px) {
+            @content;
+        }
+    } @else if $breakpoint == "sm" {
+        @media (max-width: 768px) {
+            @content;
+        }
+    } @else if $breakpoint == "md" {
+        @media (min-width: 769px) {
+            @content;
+        }
+    } @else if $breakpoint == "lg" {
+        @media (min-width: 992px) and (max-width: 1200px) {
+            @content;
+        }
+    } @else if $breakpoint == "xl" {
+        @media (min-width: 1200px) and (max-width: 1400px) {
+            @content;
+        }
+    } @else if $breakpoint == "xxl" {
+        @media (min-width: 1400px) {
+            @content;
+        }
+    }
+}
+
+
+// GRID
+@mixin container($max-width: 1110px) {
+    display: grid;
+    grid-template-columns:
+    minmax(5vw, 1fr) repeat(12, minmax(11px, calc($max-width / 12)))
+    minmax(5vw, 1fr);
+}
+
+
+// FLEX
+@mixin flex($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction; /* 'row' par défaut */
+    justify-content: $justify; /* 'center' par défaut */
+    align-items: $align; /* 'stretch' par défaut */
+}
+
+// TEST
+@mixin border($color){
+    border: solid 3px $color;
+}
+
+
+// FONT'S
+@mixin oswald ($weight: 400){
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: $weight;
+    font-style: normal;
+}

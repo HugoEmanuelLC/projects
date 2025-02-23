@@ -5,9 +5,7 @@ import bcrypt from "bcrypt";
 
 
 // Scripts
-export function createToken(params = { id, secretKey, expiresIn: '1h' }) {
-    return jwt.sign({ id: params.id }, params.secretKey, { expiresIn: params.expiresIn });
-}
+
 
 
 
@@ -21,6 +19,7 @@ export function verifyEmailFormat(params) {
         }
     });
 }
+
 
 
 export async function verifyPassword(result, userInfos, conn) {
@@ -51,14 +50,15 @@ export async function verifyToken(token="", secretKey="", message = {
     correct: "",
     notCorrect: ""
 }) {
-    console.log("verifyToken -> token", token);
     return await new Promise((resolve, reject) => {
         token == null || token == "" ? reject({status: 400, message: "token is empty", info: null }) 
         : jwt.verify(token, secretKey, (err, decoded) => {
             if (err) {
-                reject({status: 400, message: message.notCorrect, info: err});
+                console.log("verifyToken -> err");
+                console.log(err);
+                reject({status: 400, message: message.notCorrect});
             } else {
-                resolve({status: 200, message: message.correct, info: decoded}) 
+                resolve({status: 200, message: message.correct, content: decoded}) 
             }
         });
     });
@@ -73,11 +73,91 @@ export async function verifyToken(token="", secretKey="", message = {
 
 
 
-export async function isValidToken(token="", secretKey="", message = {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export function isValidEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    re.test(String(email).toLowerCase());
+    return new Promise((resolve, reject) => {
+        if (re.test(String(email).toLowerCase())) {
+            return resolve({ 
+                status: 200, 
+                message: "Adresse e-mail valide"
+            });
+        } else {
+            console.log("isValidEmail not ok");
+            return reject({ 
+                status: 400, 
+                message: "Adresse e-mail invalide"
+            });
+        }
+    });
+}
+
+
+
+export async function decryptPassword(values) {
+    return new Promise((resolve, reject) => {
+        if (values.dbPassword == "admin" && values.postPassword == "admin") {
+            resolve({status: 200, message: "possword decrypt" });
+            
+        } else {
+            try {
+                bcrypt.compare(values.postPassword, values.dbPassword, (err, isMatch) => {
+                    if (err) {
+                        console.log("decryptPassword -> err");
+                        console.log(err);
+                        reject({status: 500, message: "server problem" });
+                    }
+                    if (isMatch) {
+                        console.log("decryptPassword -> isMatch");
+                        resolve({ status: 200, message: "possword decrypt" });
+                    }else{
+                        console.log("decryptPassword -> catch");
+                        reject({status: 400, message: "password incorrect !" });
+                    }
+                });
+            } catch (error) {
+                console.log("decryptPassword catch -> error");
+                console.log(error);
+                reject({status: 500, message: error.message });
+            }
+        }
+    });
+}
+
+
+
+export function createToken(req, params = { id, secretKey, expiresIn: '1h' }) {
+    req.body.res.message = "authentification accepted";
+    return jwt.sign({ id: params.id }, params.secretKey, { expiresIn: params.expiresIn });
+}
+
+
+
+export async function isValidToken(req, token="", secretKey="", message = {
     correct: "the token is valid",
     notCorrect: "the token is invalid"
 }) {
-    console.log("isValidToken -> token", token);
     return await new Promise((resolve, reject) => {
         token == null || token == "" ? 
             reject({status: 400, message: "token is empty", infos: null }) 
@@ -85,47 +165,11 @@ export async function isValidToken(token="", secretKey="", message = {
             if (err) {
                 reject({status: 400, message: message.notCorrect, infos: err});
             } else {
-                resolve({status: 200, message: message.correct, infos: decoded}) 
+                req.body.auth.configDB.colonneValue = decoded.id;
+                console.log("isValidToken -> decoded");
+                console.log(req.body.auth.configDB);
+                resolve({status: 200, message: message.correct}) 
             }
         });
-    });
-}
-
-export function isValidEmail(params) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    re.test(String(params).toLowerCase());
-    return new Promise((resolve, reject) => {
-        if (re.test(String(params).toLowerCase())) {
-            resolve({ 
-                status: 200, 
-                message: "Adresse e-mail valide", 
-                body: null 
-            });
-        } else {
-            reject({ 
-                status: 400, 
-                message: "Adresse e-mail invalide", 
-                body: null
-            });
-        }
-    });
-}
-
-export function decryptPassword(values) {
-    return new Promise((resolve, reject) => {
-        try {
-            bcrypt.compare(values.passwordBody, values.passwordBD, (err, isMatch) => {
-                if (err) {
-                    reject({status: 500, message: "server problem", infos: err });
-                }
-                if (isMatch) {
-                    resolve({status: 200, message: "authentification accepted", infos: values.result.info[0] });
-                }else{
-                    reject({status: 400, message: "your email or password is incorrect !", infos: isMatch });
-                }
-            });
-        } catch (error) {
-            reject({status: 500, message: "server problem", infos: error });
-        }
     });
 }

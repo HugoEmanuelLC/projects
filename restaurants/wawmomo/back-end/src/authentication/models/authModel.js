@@ -253,16 +253,9 @@ export const sendNewPassword = (req, res) => {
 
 
 export const loginAuthentication = async (values) => {
-    let newValues = {
-        ...values,
-        valueToken: {
-            secretKey: process.env.SECRET_TOKEN_KEY,
-            expiresIn: "1h"
-        }
-    }
     
     return await new Promise((resolve, reject) => {
-        verifAuthenticationLogin(newValues)
+        verifAuthenticationLogin(values)
         .then(data => {
             resolve(data);
         })
@@ -274,7 +267,7 @@ export const loginAuthentication = async (values) => {
 
 export const verifSession = async (values) => {
     return await new Promise((resolve, reject) => {
-        verifSessionToken(values, process.env.SECRET_TOKEN_KEY)
+        verifSessionToken(values)
         .then(data => {
             resolve(data);
         })

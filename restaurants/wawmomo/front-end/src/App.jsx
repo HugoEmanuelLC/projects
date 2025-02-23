@@ -14,6 +14,7 @@ function App() {
   const [ oneLoad, setOneLoad ] = useState(false)
 
   const fncCheckSession = async () => {
+    console.log("checkSession");
     await checkSession("auth")
     .then((res) => {
       setCheckAuth(res)
@@ -27,6 +28,7 @@ function App() {
   useEffect(() => {
     oneLoad == false ? setOneLoad(true) : fncCheckSession();
   }, [oneLoad])
+
 
   return (
     <AppContext.Provider value={{ checkAuth, setCheckAuth }}>

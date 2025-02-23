@@ -20,7 +20,9 @@ const fetchApi = async (url, method, body = {}, token = null) => {
             body: JSON.stringify(body),
         })
         .then(response => {
-            console.log("response : ", response);
+            console.log("response : ");
+            console.log(response);
+
             if (response.status === 200) {
                 response.json().then((data) => {
                     resolve(data);
@@ -136,15 +138,19 @@ export const forgotPassword = (data) => {
 
 export const login = (data) => {
     let body = {
-        email: data.username,
-        password: data.password
+        auth: {
+            email: data.username,
+            password: data.password
+        }
     }
     return new Promise((resolve, reject) => {
-        fetchApi(urlForFetch.login, 'POST', body)
+        fetchApi(urlForFetch.login, 'POST', body, null)
         .then((res) => {
-            console.log("res : ", res);
-            createCookie("auth", res.infos.body.auth.token, 1);
-            resolve(res.infos.body);
+            console.log("res : ", res.content);
+            createCookie("auth", res.token, 1);
+            resolve({
+                auth: res.content.auth
+            });
         })
         .catch((err) => {
             console.error("Err : ", err);
@@ -164,15 +170,22 @@ export const checkSession = (cookieName) => {
 
             fetchApi(urlForFetch.verifSession, 'POST', {}, getCookie)
             .then((res) => {
-                resolve(res.infos.body);
+                console.log("res : ");
+                console.log(res);
+                resolve({
+                    auth: res.content.auth
+                });
             })
             .catch((err) => {
-                console.error("Err : ", err);
+                console.log("err : ", err);
                 if (err.infos.message === "invalid signature") {
-                    console.log("err : ", err);
                     deleteCookie(cookieExistName);
+                    reject({message: "session invalid"});
+
+                }else if(err.infos.message == "jwt expired"){
+                    deleteCookie(cookieExistName);
+                    reject({message: "session expired"});
                 }
-                reject(err);
             });
         } else {
             reject(null);

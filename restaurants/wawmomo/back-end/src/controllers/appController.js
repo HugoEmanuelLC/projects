@@ -1,6 +1,7 @@
 import * as authController from '../authentication/controllers/authController.js';
 import * as emailController from '../emails/controllers/emailController.js';
 import connection from '../dbConfigs/mysql.js';
+import * as appModels from '../models/appModels.js';
 // import {} from "dotenv/config";
 
 
@@ -80,58 +81,67 @@ export const login = async (req, res) => {
 
 
 
+export const managerAuthentication = async (req, res) => {
+    try {
+        
+        await authController.isValidEmail(req, res, next)
+        .then(()=>console.log("isValidEmail"))
+        .catch(error => {
+            res.status(400).json(error);
+        });
+
+        res.status(200).json({
+            status: 200,
+            message: "User logged in successfully",
+            DB: req.body.content
+        });
+
+    } catch (error) {
+        console.log("error 1 ------------");
+        res.status(400).json(error);
+    }
+}
 
 
+export const testContr = async (req, res, next) => {
+    await authController.testContr_2(req, res, next)
+    .then()
+    .catch(error => {
+        res.status(400).json(error);
+    });
+}
 
 
-
-
-export const loginAuthentication = async (req, res) => {
+export const loginAuthentication = async (req, res, next) => {
     // req.body.email = "admin@admin.com";
     // req.body.password = "admin";
-    req.body.email = req.body.email.trim();
-    req.body.password = req.body.password.toLowerCase();
+    // req.body.email = req.body.email && req.body.email.trim().toLowerCase();
+    // req.body.password = req.body.password && req.body.password.trim();
 
-    let values = {
-        body: req.body,
-        connection,
-        valuesTable: {
-            tableAuthName:"auth",
-            colonneEmailName: "email",
-            colonneIdName: "_id",
-        }
-    }
+    // let values = {...appModels.valuesModelBody}
+    // values.body.auth.email = req.body.email;
+    // values.body.auth.password = req.body.password;
 
-    // console.log("values in appController");
-    // console.log(connDB);
-    // res.json({values});
+    // console.log("dataAuth");
 
-    return await authController.loginAuthentication(values)
+    await authController.loginAuthentication(req, res, next)
     .then(dataAuth => {
+        console.log("loginAuthentication -> dataAuth");
+        console.log(dataAuth);
         res.status(dataAuth.status).json(dataAuth);
     })
     .catch(error => {
+        console.log("loginAuthentication -> error");
+        console.log(error);
         res.status(error.status).json(error);
     });
 }
 
 export const verifSession = async (req, res) => {
-    // req.body.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAyNCwiaWF0IjoxNzQwMDQ5ODM4LCJleHAiOjE3NDAwNTM0Mzh9.OaaPz19JrdIkgxT1xjnoSRpxAnfDW4z6-d0SOEUUSr8";
-    req.body.secretKey = process.env.SECRET_TOKEN_KEY;
-    req.body.token = req.headers.authorization;
-
-    let values = {
-        body: req.body,
-        connection,
-        valuesTable: {
-            tableAuthName:"auth",
-            colonneEmailName: null,
-            colonneIdName: "_id",
-        }
-    }
-
-    // console.log("values in appController");
-    // console.log(values);
+    let values = {...appModels.valuesModelBody}
+    values.valuesTable.colonneEmailName = null;
+    values.body.auth.secretKey = process.env.SECRET_TOKEN_KEY;
+    values.body.auth.token = req.headers.authorization;
 
     return await authController.verifSession(values)
     .then(dataAuth => {

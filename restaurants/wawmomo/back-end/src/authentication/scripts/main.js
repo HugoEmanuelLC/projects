@@ -258,10 +258,17 @@ export const resetPassword = (body, conn) => {
 
 
 
-export const verifAuthenticationLogin = (values) => {
-    return new Promise((resolve, reject) => {
+export const verifLoginAuthentication = (req, res, next) => {
+    // console.log("verifAuthenticationLogin -> values");
+    console.log(req.body.authValues);
 
-        if (!values.body.email || !values.body.password) {
+    req.body.authValues.email = req.body.authValues.email && req.body.authValues.email.trim().toLowerCase();
+    req.body.authValues.password = req.body.authValues.password && req.body.authValues.password.trim();
+
+    // req.body.authValues.email = ""
+
+    return new Promise((resolve, reject) => {
+        if (!req.body.authValues.email || !req.body.authValues.password) {
             return reject({
                 status: 400, 
                 message: "Données d'authentification manquantes", 
@@ -269,15 +276,20 @@ export const verifAuthenticationLogin = (values) => {
             });
         } 
 
-        isValidEmail(values.body.email)
+        isValidEmail(req.body.authValues.email)
         .then(data => {
+            console.log("isValidEmail -> data");
+            
+            req.body.testEmail = data;
+            resolve(req.body);
+
             getAuthInformationsFoundInDB(values)
                 .then(data => {
-                    if (data.infos[0].password === "admin" && data.infos[0].password === values.body.password) {
+                    if (data.infos[0].password === "admin" && data.infos[0].password === values.body.auth.password) {
                         let createNewToken = createToken({
                             id: data.infos[0]._id, 
-                            secretKey: values.valueToken.secretKey, 
-                            expiresIn: values.valueToken.expiresIn
+                            secretKey: values.body.auth.secretKey, 
+                            expiresIn: values.body.auth.expiresIn
                         })
                         resolve({
                             status: data.status, 
@@ -296,7 +308,7 @@ export const verifAuthenticationLogin = (values) => {
                     }
 
                     decryptPassword({
-                        passwordBody: values.body.password,
+                        passwordBody: values.body.auth.password,
                         passwordBD: data.infos[0].password
                     })
                     .then(data => {
@@ -337,11 +349,15 @@ export const verifAuthenticationLogin = (values) => {
 }
 
 
-export const verifSessionToken = (values, secretKey) => {
+export const verifSessionToken = (values) => {
     return new Promise((resolve, reject) => {
-        isValidToken(values.body.token, secretKey)
+        console.log("verifSessionToken -> values");
+        console.log(values.body.auth);
+        isValidToken(values.body.auth.token, values.body.auth.secretKey)
         .then(data => {
-            values.body.id = data.infos.id;
+            console.log("isValidToken -> data");
+            console.log(data);
+            values.body.auth.id = data.infos.id;
             getAuthInformationsFoundInDB(values)
             .then(data => {
                 resolve({

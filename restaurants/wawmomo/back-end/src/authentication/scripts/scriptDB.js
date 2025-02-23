@@ -172,8 +172,8 @@ export async function getAuthInformationsFoundInDB(values){
         values.valuesTable.colonneEmailName
 
     let colonneValue = values.valuesTable.colonneEmailName === null ? 
-        values.body.id : 
-        values.body.email
+        values?.body.auth.id : 
+        values?.body.auth.email
 
     return new Promise((resolve, reject) => {
         try {

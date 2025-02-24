@@ -160,6 +160,9 @@ export const login = (data) => {
 }
 
 export const checkSession = (cookieName) => {
+    let body = {
+        auth: {}
+    }
     var cookie = document.cookie;
     let cookieExistName = cookieName + "=";
 
@@ -178,13 +181,16 @@ export const checkSession = (cookieName) => {
             })
             .catch((err) => {
                 console.log("err : ", err);
-                if (err.infos.message === "invalid signature") {
+                if (err.message === "invalid signature") {
                     deleteCookie(cookieExistName);
                     reject({message: "session invalid"});
 
-                }else if(err.infos.message == "jwt expired"){
+                }else if(err.message == "jwt expired"){
                     deleteCookie(cookieExistName);
                     reject({message: "session expired"});
+                }else{
+                    deleteCookie(cookieExistName);
+                    reject({message: "server problem, session invalid"});
                 }
             });
         } else {

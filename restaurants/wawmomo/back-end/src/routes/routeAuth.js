@@ -3,72 +3,20 @@ import { Router } from "express"
 // Controllers
 import * as authController from '../authentication/controllers/authController.js'
 import * as getValuesController from '../dbValues/controllers/getValuesController.js'
-
-// import * as appController from '../controllers/appController.js'
 // import * as emailController from '../emails/controllers/emailController.js'
 
 const routeAuth = Router()
 
 const list = [
-    {
-        name: "register",
-        url: "/auth/register",
-        method: "POST"
-    },
-    {
-        name: "login",
-        url: "/auth/login",
-        method: "POST"
-    },
-    {
-        name: "verify-auth",
-        url: "/auth/verify-auth",
-        method: "GET"
-    },
-    {
-        name: "forgot-password",
-        url: "/auth/forgot-password",
-        method: "POST"
-    },
-    {
-        name: "recover-password",
-        url: "/auth/recover-password",
-        method: "GET"
-    },
-    {
-        name: "update-password",
-        url: "/auth/update-password",
-        method: "GET"
-    },
-    {
-        name: "verify-email-register",
-        url: "/auth/verify-email-register",
-        method: "GET"
-    },
-    {
-        name: "verify-email-forget-password",
-        url: "/auth/verify-email-forget-password",
-        method: "GET"
-    }
+    { name: "login", url: "/auth/login", method: "POST" },
+    { name: "verif-session", url: "/auth/verif-session", method: "POST" },
+    { name: "forgot-password", url: "/auth/forgot-password", method: "POST" },
+    { name: "recover-password", url: "/auth/recover-password", method: "GET" },
+    { name: "update-password", url: "/auth/update-password", method: "GET" },
+    { name: "verify-email-forget-password", url: "/auth/verify-email-forget-password", method: "GET" }
 ]
 
-// get's tests
-routeAuth.get('/', (req, res) => {
-    res.status(200).json({ message: "List d'authentication:", list: list })
-})
-
-
-
-let modelRes = {
-    status: 200,
-    message: "",
-    token: "",
-    content: {
-        auth: {}
-    }
-}
-
-let modelReq = {
+let exempleModelReqForFnc = {
     auth: {
         id: 0,
         email: "",
@@ -82,80 +30,72 @@ let modelReq = {
     }
 }
 
-
-
-routeAuth.post('/login', 
-    (req, res, next) => {
-        // req.body = {
-        //     auth: {
-        //         // email: "admin@admin.com",
-        //         // password: "admin",
-        //         configDB: {
-        //             tableName: "auth",
-        //             colonneName: "email",
-        //             colonneValue: "admin@admin.com"
-        //         }
-        //     },
-        //     res: {}
-        // }
-        req.body.auth.configDB = {
-            tableName: "auth",
-            colonneName: "email",
-            colonneValue: "admin@admin.com"
+function modelObjectBodyForSessionForReq(req, res, next){
+    req.body = { 
+        auth: { configDB: { tableName: "auth", colonneName: "_id", colonneValue: null } },
+        res: { status: 0, message: "", token: "", content: {
+                // auth: {}
+                // userInfos: {}
+                // menusList: {}
+                // menuItem: {}
+                // productsList: {}
+                // timeTable: {}
+            }
         }
-        req.body.res = {
-            status: 0,
-            message: "",
-            token: "",
-            content: {}
-        }
+    }
+    next()
+}
+
+function modelFncForSendResToClient(req, res) {
+    res.status(req.body.res.status).json({
+        status: req.body.res.status,
+        message: req.body.res.message,
+        content: {...req.body.res.content},
+        token: req.body.res.token
+    })
+}
+
+routeAuth.get('/', (req, res) => res.status(200).json({ message: "List d'authentication:", list: list }) )
+
+routeAuth.post('/login', (req, res, next) => {
+        req.body.auth.configDB = { tableName: "auth", colonneName: "email", colonneValue: null }
+        req.body.res = { status: 0, message: "", token: "", content: { auth: {} } }
         next()
     },
-    authController.isValidEmail,
-    getValuesController.getValuesAuthFromDB,
-    authController.isValidPassword,
-    authController.createToken,
-    (req, res) => {
-        res.status(req.body.res.status).json({
-            message: req.body.res.message,
-            content: {...req.body.res.content},
-            token: req.body.res.token
-        })
-    }
+    authController.isValidEmail, getValuesController.getValuesAuthFromDB, authController.isValidPassword,
+    authController.createToken, modelFncForSendResToClient
 )
 
+// for all routes below, the token must be present in the header
+routeAuth.use( modelObjectBodyForSessionForReq, authController.isValidToken, getValuesController.getValuesAuthFromDB )
 
+routeAuth.post('/verif-session', authController.createToken, modelFncForSendResToClient )
 
-routeAuth.post('/verif-session', 
-    (req, res, next) => {
-        // req.headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAyNCwiaWF0IjoxNzQwMzI3OTg2LCJleHAiOjE3NDA0MTQzODZ9.Ww9TP4X-lvzUVvjzSYk9pRiwc0A3M475slclrUI0bds"
-        req.body = {
-            auth: {
-                configDB: {
-                    tableName: "auth",
-                    colonneName: "_id",
-                    colonneValue: 0
-                }
-            },
-            res: {}
-        }
-        next()
-    },
+// routeAuth.post('/forgot-password', emailController.sendEmailForgotPassword, modelFncForSendResToClient )
+// routeAuth.get('/recover-password', emailController.recoverPassword, modelFncForSendResToClient )
+// routeAuth.get('/update-password', emailController.updatePassword, modelFncForSendResToClient )
+// routeAuth.get('/verify-email-forget-password', emailController.verifyEmailForgetPassword, modelFncForSendResToClient )
 
-    authController.isValidToken,
-    getValuesController.getValuesAuthFromDB,
-    authController.createToken,
+// routeAuth.get('/user-infos', getValuesController.getValuesUserInfosFromDB, modelFncForSendResToClient )
+// routeAuth.put('/user-infos', updateValuesController.updateValuesUserInfosFromDB, modelFncForSendResToClient )
+// routeAuth.post('/user-infos', insertValuesController.insertValuesUserInfosFromDB, modelFncForSendResToClient )
+// routeAuth.delete('/user-infos', deleteValuesController.deleteValuesUserInfosFromDB, modelFncForSendResToClient )
 
-    (req, res) => {
-        res.status(req.body.res.status).json({
-            message: req.body.res.message,
-            content: {...req.body.res.content},
-            token: req.body.res.token
-        })
-    }
-)
+// routeAuth.get('/menus-list', getValuesController.getValuesMenusListFromDB, modelFncForSendResToClient )
+// routeAuth.get('/menu/:params', getValuesController.getValuesMenuItemFromDB, modelFncForSendResToClient )
+// routeAuth.put('/menu/:params', updateValuesController.updateValuesMenuItemFromDB, modelFncForSendResToClient )
+// routeAuth.post('/menu/:params', insertValuesController.insertValuesMenuItemFromDB, modelFncForSendResToClient )
+// routeAuth.delete('/menu/:params', deleteValuesController.deleteValuesMenuItemFromDB, modelFncForSendResToClient )
 
-// routeAuth.get('/verif-session/:params', authController.verifSession, appController.getAuthInfos, appController.getUserInfos)
+// routeAuth.get('/products_list', getValuesController.getValuesProductsListFromDB, modelFncForSendResToClient )
+// routeAuth.get('/product/:params', getValuesController.getValuesProductFromDB, modelFncForSendResToClient )
+// routeAuth.put('/product/:params', updateValuesController.updateValuesProductFromDB, modelFncForSendResToClient )
+// routeAuth.post('/product/:params', insertValuesController.insertValuesProductFromDB, modelFncForSendResToClient )
+// routeAuth.delete('/product/:params', deleteValuesController.deleteValuesProductFromDB, modelFncForSendResToClient )
 
+// routeAuth.get('/time-table', getValuesController.getValuesTimeTableFromDB, modelFncForSendResToClient )
+// routeAuth.put('/time-table', updateValuesController.updateValuesTimeTableFromDB, modelFncForSendResToClient )
+// routeAuth.post('/time-table', insertValuesController.insertValuesTimeTableFromDB, modelFncForSendResToClient )
+// routeAuth.delete('/time-table', deleteValuesController.deleteValuesTimeTableFromDB, modelFncForSendResToClient )
 
 export default routeAuth

@@ -36,7 +36,7 @@ function NavbarComponent(props) {
         deleteCookie("auth")
         setCheckAuth(false)
         props.setLoading(true)
-        props.handleLoading()
+        props.handleLoading("close")
     }
 
     return (

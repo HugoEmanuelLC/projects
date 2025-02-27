@@ -25,16 +25,19 @@ function DashboardRoutes() {
 
     const [ loading, setLoading ] = useState(true)
 
-    const handleLoading = () => {
+    const handleLoading = (close=null) => {
+        // setLoading(true)
         let load = setTimeout(() => {
-            checkAuth == false ? navigate("/auth/login") : setLoading(false)
+            close == "close" ? navigate("/auth/login") : null
+            checkAuth == false ? 
+                loading == false && navigate("/auth/login") : null
+                setLoading(false)
         }, 1000)
         return () => clearTimeout(load)
     }
 
     useEffect(() => {
         loading == true && handleLoading()
-        console.log("loading : ", loading);
     }, [loading])
 
 

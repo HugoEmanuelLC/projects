@@ -1,6 +1,6 @@
 // Dependencies
-import { Route, Routes, Link, NavLink } from 'react-router-dom';
-import { useContext } from 'react';
+import { Route, Routes, useNavigate, NavLink } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 
 // Component
 import LoginPage from "./components/login-page";
@@ -12,7 +12,22 @@ import AppContext from '../hooks/app-context';
 
 
 function Authentication() {
-    const app = useContext(AppContext);
+    const { checkAuth } = useContext(AppContext);
+    const navigate = useNavigate();
+
+    const [ loading, setLoading ] = useState(true)
+    const handleLoading = () => {
+        setLoading(true)
+        let load = setTimeout(() => {
+            checkAuth !== false ? 
+            navigate("/dash") :
+            setLoading(false)
+        }, 500)
+        return () => clearTimeout(load)
+    }
+    useEffect(() => {
+        handleLoading()
+    }, [checkAuth])
 
     return (
         <Routes>
@@ -20,20 +35,17 @@ function Authentication() {
                 <h1>accueil auth</h1> 
                 <p>connecté vous pour accéder à votre espace personnel</p>
                 <br />
-                <NavLink to="/" >website</NavLink> | 
-                <NavLink to="login" >login</NavLink> | 
-                <NavLink to="register" >register</NavLink> |
-                <NavLink to="testerror" >testerror</NavLink>
+                <NavLink onClick={handleLoading} to="/" >website</NavLink> | 
+                <NavLink onClick={handleLoading} to="login" >login</NavLink> | 
+                <NavLink onClick={handleLoading} to="forgot-password" >forgot password</NavLink> |
+                <NavLink onClick={handleLoading} to="testerror" >testerror</NavLink>
             </>} />
 
-            <Route path="login" element={app.checkAuth ? <>
-                <h3>vous êtes déjà connecté</h3>
-                <NavLink to="/">website</NavLink> |
-                <NavLink to="/dash">dash</NavLink>
-            </> : <LoginPage />} />
+            <Route path="login" element={ loading ? <h1>loading...</h1> : <LoginPage />} />
 
-            <Route path="register" element={<RegisterPage />} />
-            <Route path="forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="find-psw" element={<RegisterPage />} />
+            <Route path="forgot-password" element={loading ? <h1>loading...</h1> : <ForgotPasswordPage />} />
+            <Route path="update-password" element={loading ? <h1>loading...</h1> : <h1>update password</h1>} />
             <Route path="*" element={<>
                 <h1>page auth error</h1> 
                 <NavLink to="../" >retour</NavLink> 

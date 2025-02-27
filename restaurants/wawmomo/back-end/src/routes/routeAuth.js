@@ -3,6 +3,7 @@ import { Router } from "express"
 // Controllers
 import * as authController from '../authentication/controllers/authController.js'
 import * as getValuesController from '../dbValues/controllers/getValuesController.js'
+import * as emailController from '../emails/controllers/emailController.js'
 // import * as emailController from '../emails/controllers/emailController.js'
 
 const routeAuth = Router()
@@ -32,7 +33,10 @@ let exempleModelReqForFnc = {
 
 function modelObjectBodyForSessionForReq(req, res, next){
     req.body = { 
-        auth: { configDB: { tableName: "auth", colonneName: "_id", colonneValue: null } },
+        auth: { 
+            configDB: { tableName: "auth", colonneName: "_id", colonneValue: null },
+            infosFromDB: {} 
+        },
         res: { status: 0, message: "", token: "", content: {
                 // auth: {}
                 // userInfos: {}
@@ -66,12 +70,29 @@ routeAuth.post('/login', (req, res, next) => {
     authController.createToken, modelFncForSendResToClient
 )
 
+routeAuth.post('/forgot-password', (req, res, next) => {
+    
+    // zonne de test--------------
+        // req.body = { auth: {}}
+        // req.body.auth.email = "helc85.info@gmail.com"
+        // req.body.auth.urlToVerify = "http://localhost:8080/auth/update-password"
+    // zonne de test--------------
+
+        req.body.auth.configDB = { tableName: "auth", colonneName: "email", colonneValue: null }
+        req.body.res = { status: 0, message: "", token: "", content: { auth: {} } }
+        next()
+    },
+    authController.isValidEmail, getValuesController.getValuesAuthFromDB, authController.createToken,
+    emailController.sendEmailForVerification, 
+    (req, res, next) => {req.body.res.token = null; req.body.res.content = null; next()},
+    modelFncForSendResToClient 
+)
+
 // for all routes below, the token must be present in the header
 routeAuth.use( modelObjectBodyForSessionForReq, authController.isValidToken, getValuesController.getValuesAuthFromDB )
 
 routeAuth.post('/verif-session', authController.createToken, modelFncForSendResToClient )
 
-// routeAuth.post('/forgot-password', emailController.sendEmailForgotPassword, modelFncForSendResToClient )
 // routeAuth.get('/recover-password', emailController.recoverPassword, modelFncForSendResToClient )
 // routeAuth.get('/update-password', emailController.updatePassword, modelFncForSendResToClient )
 // routeAuth.get('/verify-email-forget-password', emailController.verifyEmailForgetPassword, modelFncForSendResToClient )

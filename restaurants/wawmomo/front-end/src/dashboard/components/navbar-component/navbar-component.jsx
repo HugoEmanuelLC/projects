@@ -1,8 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { deleteCookie } from '../../../authentication/scripts/authentication-scripts';
+import AppContext from '../../../hooks/app-context';
 
-function NavbarComponent() {
+
+function NavbarComponent(props) {
     // START NAVBAR OPEN AND CLOSE
     const navBar = useRef()
     const btn_open = useRef()
@@ -27,6 +30,15 @@ function NavbarComponent() {
     }
     // END NAVBAR OPEN AND CLOSE
 
+    // CLOSE SESSION
+    const { setCheckAuth } = useContext(AppContext)
+    const handleCloseSession = () => {
+        deleteCookie("auth")
+        setCheckAuth(false)
+        props.setLoading(true)
+        props.handleLoading()
+    }
+
     return (
         <>
         <div className="box_btns_navbar displayNone" onClick={openAndCloseNavBar}>
@@ -45,6 +57,7 @@ function NavbarComponent() {
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/images")} to="/dash/images" end>images</NavLink></li>
                     <li><NavLink onClick={()=>handleVerifUrl("/")} to="/">website</NavLink></li>
                 </ul>
+                <button onClick={handleCloseSession}>logout</button>
             </div>
         </nav>
         </>

@@ -1,4 +1,4 @@
-import { sendEmailForVerification } from "../scripts/send-emails.js";
+import * as emailScript from "../scripts/send-emails.js";
 
 
 let contentEmailForRegisterUser = {
@@ -8,20 +8,21 @@ let contentEmailForRegisterUser = {
     subject: 'Welcome to our app',
     title: 'verify your email',
     message: 'Click on the link below to verify your email',
-    urlVerify: 'http://localhost:3001/auth/verify-email-register',
+    urlToVerify: 'http://localhost:3001/auth/verify-email-register',
     btnText: 'Verify email'
 }
 
 
-let contentEmailForForgetPassword = {
-    fromTitle: 'Helc85',
+const contentEmailForForgetPassword = {
+    fromTitle: 'Wowmomo',
     emailTo: '',
     idUser: null,
-    subject: 'Recover your password',
-    title: 'recover your password',
-    message: 'Click on the link below to recover your password',
-    urlVerify: 'http://localhost:3001/auth/recover-password',
-    btnText: 'Recover password'
+    subject: 'Update your password',
+    title: 'Update your password',
+    message: 'Click on the link below to update your password',
+    urlToVerify: 'http://localhost:3001/auth/recover-password',
+    btnText: 'Recover password',
+    secretKey: ''
 }
 
 
@@ -44,7 +45,7 @@ const valueToken = {
 
 const configSendLink = async (content) => {
     return await new Promise((resolve, reject) => {
-        sendEmailForVerification(content, configEmail, valueToken)
+        emailScript.sendEmailForVerification(content, configEmail, valueToken)
         .then(data => {
             resolve(data);
         })
@@ -56,25 +57,42 @@ const configSendLink = async (content) => {
 
 
 export const sendLinkVerifyEmail = async (req) => {
-    contentEmailForRegisterUser.emailTo = req.email;
-    contentEmailForRegisterUser.idUser = req.dataDB.id;
-    contentEmailForRegisterUser.urlVerify = req.urlToVerify;
+    contentEmailForRegisterUser.emailTo = req.body.auth.email;
+    contentEmailForRegisterUser.idUser = req.body.auth.infosFromDB._id;
+    contentEmailForRegisterUser.urlVerify = req.body.auth.urlToVerify;
+
+    console.log("----------------- sendLinkVerifyEmail ------------------");
+    console.log(req.body);
+    // return await new Promise((resolve, reject) => {
+    //     configSendLink(contentEmailForRegisterUser)
+    //     .then(data => {
+    //         resolve(data);
+    //     })
+    //     .catch(error => {
+    //         reject(error);
+    //     })
+    // });
+}
+
+
+export async function sendEmailForVerification (values) {
+    contentEmailForForgetPassword.emailTo = values.auth.email;
+    contentEmailForForgetPassword.idUser = values.auth.infosFromDB._id;
+    contentEmailForForgetPassword.urlToVerify = values.auth.urlToVerify;
+    contentEmailForForgetPassword.secretKey = values.res.token;
+    
     return await new Promise((resolve, reject) => {
-        configSendLink(contentEmailForRegisterUser)
+        emailScript.sendEmailForVerification(contentEmailForForgetPassword, configEmail)
         .then(data => {
             resolve(data);
         })
         .catch(error => {
+            console.log("sendEmailForVerification -> error");
+            console.log(error);
             reject(error);
+            // res.status(error.status).json(error);
         })
-    });
-}
-
-
-export const sendLinkForgotPassword = (req, res) => {
-    contentEmailForForgetPassword.emailTo = req.body.email;
-    contentEmailForForgetPassword.idUser = req.body.data.info.id;
-    configSendLink(contentEmailForForgetPassword, req, res);
+    })
 }
 
 

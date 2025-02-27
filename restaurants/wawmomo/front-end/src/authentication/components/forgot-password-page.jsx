@@ -5,15 +5,15 @@ import { forgotPassword } from "../scripts/authentication-scripts";
 
 
 function ForgotPasswordPage() {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
 
     const handleClick = (e) => {
         e.preventDefault();
-        forgotPassword({username})
+        forgotPassword({email})
         .then((res) => {
             console.log("res : ", res);
-            setUsername("");
-            alert("Recover Password Success ! " + res.message)
+            setEmail("");
+            alert(res.message)
         })
         .catch((err) => {
             console.error("err : ", err.message);
@@ -30,9 +30,9 @@ function ForgotPasswordPage() {
         <div id="forgotPasswordPage">
             <h1>Forgot password page</h1>
             <form>
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" name="username" 
-                    value={username} onChange={(e) => setUsername(e.target.value)} />
+                <label htmlFor="email">Email</label>
+                <input type="text" id="email" name="email" 
+                    value={email} onChange={(e) => setEmail(e.target.value)} />
 
                 <button type="submit" onClick={handleClick}>Recover Password</button>
             </form>

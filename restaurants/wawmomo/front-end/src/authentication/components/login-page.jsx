@@ -19,12 +19,14 @@ function LoginPage() {
         event.preventDefault();
         login({username, password})
         .then((res) => {
-            console.log("res : ", res);
-            setPassword("");
-            setUsername("");
         // context from App.jsx
             setCheckAuth(res);
             setLoading(true);
+
+            console.log("res : ", res);
+
+            // setPassword("");
+            // setUsername("");
         })
         .catch((err) => {
             setMsgErrorUsername(err.message)

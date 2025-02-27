@@ -14,12 +14,12 @@ function App() {
   const [ oneLoad, setOneLoad ] = useState(false)
 
   const fncCheckSession = async () => {
-    console.log("checkSession");
     await checkSession("auth")
     .then((res) => {
       setCheckAuth(res)
     })
     .catch((err) => {
+      console.log("Err : ", err);
       err != null && console.error("Err : ", err);
     });
   }
@@ -34,7 +34,7 @@ function App() {
     <AppContext.Provider value={{ checkAuth, setCheckAuth }}>
       <Routes>
           <Route path="/*" element={<WebsiteRoutes />} />
-          <Route path="/dash/*" element={checkAuth ? <DashboardRoutes /> : <Authentication />} />
+          <Route path="/dash/*" element={<DashboardRoutes />} />
           <Route path="/auth/*" element={<Authentication />} />
 
           <Route path="*" element={<>

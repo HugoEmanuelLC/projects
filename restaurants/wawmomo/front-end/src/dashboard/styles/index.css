@@ -142,14 +142,21 @@ img {
   font-size: 24px;
   font-weight: 400;
   text-align: center;
+  padding: 10px 0;
 }
 #dashboard nav .content {
   background-color: rgb(55, 55, 65);
   height: 100%;
   max-width: 300px;
   width: 300px;
+  display: flex;
+  flex-direction: column; /* 'row' par défaut */
+  justify-content: flex-start; /* 'center' par défaut */
+  align-items: center; /* 'stretch' par défaut */
 }
 #dashboard nav ul {
+  width: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -182,6 +189,19 @@ img {
   padding-left: calc(20% - 2px);
   border-left: solid 2px white;
   cursor: default;
+}
+#dashboard nav button {
+  width: 100%;
+  height: 40px;
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#dashboard nav button:hover {
+  background-color: #3f3f49;
 }
 @media (min-width: 769px) {
   #dashboard nav {

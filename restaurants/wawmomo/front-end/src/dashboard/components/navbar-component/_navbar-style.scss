@@ -78,17 +78,23 @@ nav{
         font-weight: $dash_txt_weight_md;
         // padding: 10px;
         text-align: center;
+        padding: 10px 0;
     }
 
     .content{
+        // border: solid 3px red;
         background-color: $dash_color_tertiary;
         height: 100%;
         max-width: 300px;
         width: 300px;
+        @include flex(column, flex-start, center);
     }
     
     ul{
-        // border: solid 3px red;
+        // border: solid 3px green;
+        // height: 100%;
+        width: 100%;
+        flex: 1;
         display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -127,6 +133,23 @@ nav{
                     cursor: default;
                 }
             }
+        }
+    }
+
+    button{
+        // border: solid 3px blue;
+        width: 100%;
+        height: 40px;
+        // background-color: $dash_color_secondary;
+        color: white;
+        font-size: $dash_txt_p_size_sm;
+        font-weight: $dash_txt_weight_md;
+        text-transform: capitalize;
+        cursor: pointer;
+        transition: 0.3s;
+
+        &:hover{
+            background-color: #3f3f49;
         }
     }
 

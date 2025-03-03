@@ -38,20 +38,18 @@ let exempleModelReqForFnc = {
 
 
 function modelObjectBodyForSessionForReq(req, res, next){
-    req.body = { 
-        auth: { 
-            configDB: { tableName: "auth", colonneName: "_id", colonneValue: null },
-            infosFromDB: {},
-            configToken: { secretKey: null, expiresIn: null }
-        },
-        res: { status: 0, message: "", token: "", content: {
-                // auth: {}
-                // userInfos: {}
-                // menusList: {}
-                // menuItem: {}
-                // productsList: {}
-                // timeTable: {}
-            }
+    req.body.auth = { 
+        configDB: { tableName: "auth", colonneName: "_id", colonneValue: null },
+        infosFromDB: {},
+        configToken: { secretKey: null, expiresIn: null }
+    }
+    req.body.res = { status: 0, message: "", token: "", content: {
+            // auth: {}
+            // userInfos: {}
+            // menusList: {}
+            // menuItem: {}
+            // productsList: {}
+            // timeTable: {}
         }
     }
     next()
@@ -131,7 +129,7 @@ routeAuth.post('/verif-session', authController.createToken, modelFncForSendResT
 routeAuth.get('/menus/select', 
     (req, res, next) => {
         req.body.auth.configDB = { tableName: "menus", colonneName: "fk_auth", colonneValue: req.body.auth.infosFromDB._id }
-        req.body.res = { status: 0, message: "", token: "", content: { menusList: {} } }
+        req.body.res = { status: 0, message: "", token: "", content: { menus: {} } }
         next()
     }, selectValuesController.selectValuesMenusListFromDB, modelFncForSendResToClient 
 )
@@ -139,21 +137,30 @@ routeAuth.get('/menus/select',
 
 routeAuth.get('/products/select/:params', 
     (req, res, next) => {
-        req.body.auth.configDB = { tableName: "products", colonneName: "fk_menu", colonneValue: req.params.params }
-        req.body.res = { status: 0, message: "", token: "", content: { menusList: {} } }
+        req.body.products ={ configDB: { tableName: "products", colonneName: "fk_menu", colonneValue: req.params.params } }
+        req.body.res = { status: 0, message: "", token: "", content: { products: {} } }
         next()
     }, selectValuesController.selectValuesProductsListFromMenuFromDB, modelFncForSendResToClient 
 )
 
 
-// routeAuth.put('/product/update/:params', 
-//     (req, res, next) => {
-//         req.body.auth.configDB = { tableName: "products", colonneName: "_id", colonneValue: req.params.params }
-//         req.body.res = { status: 0, message: "", token: "", content: { menuItem: {} } }
-//         next()
-//     },
-//     updateValuesController.updateValuesMenuItemFromDB, modelFncForSendResToClient
-// )
+routeAuth.put('/product/update/:params', 
+    (req, res, next) => {
+        req.body.products = {
+            configDB: {
+                tableName: "products", 
+                colonneName: { 
+                    product_id: "_id",
+                    product_name: "product_name", 
+                    product_price: "product_price",
+                    product_description: "product_description",
+                }
+            }
+        }
+        next()
+    },
+    updateValuesController.updateValuesProduitFromDB, modelFncForSendResToClient
+)
 
 // routeAuth.put('/menu/:params', updateValuesController.updateValuesMenuItemFromDB, modelFncForSendResToClient )
 // routeAuth.post('/menu/:params', insertValuesController.insertValuesMenuItemFromDB, modelFncForSendResToClient )

@@ -42,3 +42,57 @@ export async function updateValuesAuthFromDB(req, values){
         }
     });
 }
+
+
+
+
+export async function updateValuesProduitFromDB(req, values){
+    return new Promise((resolve, reject) => {
+        try {
+
+            console.log("updateValuesProduitFromDB");
+            console.log(req.body);
+
+            // resolve({
+            //     status: 200, 
+            //     message: "product updated",
+            //     produit: {}
+            // })
+
+            connection.query(
+                `UPDATE ${values.tableName} 
+                SET 
+                    ${values.colonneName.product_name} = "${req.body.product.product_name}" ,
+                    ${values.colonneName.product_price} = ${req.body.product.product_price} ,
+                    ${values.colonneName.product_description} = "${req.body.product.product_description}"
+                WHERE ${values.colonneName.product_id} = ${req.params.params}`,
+                (err, result) => {
+                    if (err) {
+                        console.log("updateValuesProduitFromDB error");
+                        console.log(err);
+                        return reject({
+                            status: 500, 
+                            message: "server problem, sql error"
+                        });
+                    }
+
+                    if (result.affectedRows > 0) {
+                        resolve({
+                            status: 200, 
+                            message: "product updated"
+                        })
+
+                    } else {
+                        reject({
+                            status: 400, 
+                            message: "impossible to update product"
+                        });
+                    }
+            });
+        } catch (error) {
+            console.log("updateValuesProduitFromDB error");
+            console.log(error);
+            reject({status: 500, message: "server problem, table sql error"});
+        }
+    });
+}

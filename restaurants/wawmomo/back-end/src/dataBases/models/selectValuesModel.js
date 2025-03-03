@@ -1,6 +1,5 @@
 import connection from "../dbConfigs/mysql.js";
-
-
+import model_infos from "./modelInfos.js";
 
 /**
  * @param {object} req req.body.auth.infosFromDB = result[0]
@@ -98,7 +97,10 @@ export async function selectValuesProductsListFromMenuFromDB(req, values){
     return new Promise((resolve, reject) => {
         try {
             connection.query(
-                `SELECT * FROM ${values.tableName} WHERE ${values.colonneName} = ?`, values.colonneValue,
+                `SELECT 
+                    ${[...model_infos.products.select.colonneName].join(", ")}
+                FROM ${values.tableName} 
+                WHERE ${values.colonneName} = ?`, values.colonneValue,
                 (err, result) => {
                     if (err) {
                         console.log("selectValuesProductsListFromMenuFromDB error");

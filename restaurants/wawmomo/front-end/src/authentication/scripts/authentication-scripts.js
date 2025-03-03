@@ -11,7 +11,9 @@ const urlForFetch = {
     menusCreate: urlApi+'/menus/create',
     menusUpdate: urlApi+'/menus/update',
     menusDelete: urlApi+'/menus/delete',
+
     productsSelect: urlApi+'/products/select',
+    produitUpdate: urlApi+'/product/update',
 }
 
 
@@ -222,44 +224,30 @@ export const productsSelect = (cookieName, id) => {
 }
 
 
+export const productUpdate = (cookieName, id, data) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
 
+    let body = {
+        product: data
+    }
 
+    return new Promise((resolve, reject) => {
 
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+            fetchApi(urlForFetch.produitUpdate+"/"+id, 'PUT', body, getCookie)
+            .then((res) => {
+                console.log("res : ", res);
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        } else {
+            reject(null);
+        }
+    })
+}

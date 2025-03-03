@@ -40,7 +40,7 @@ export const selectValuesMenusListFromDB = async (req, res, next) => {
 
 export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => {
     await selectValuesModel.selectValuesProductsListFromMenuFromDB(req, {
-        ...req.body.auth.configDB
+        ...req.body.products.configDB
     })
     .then(data => {
         req.body.res.status = data.status

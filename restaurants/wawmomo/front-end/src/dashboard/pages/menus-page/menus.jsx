@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { menusSelect, productsSelect } from "../../../authentication/scripts/authentication-scripts";
+import { menusSelect, productsSelect, productUpdate } from "../../../authentication/scripts/authentication-scripts";
 
 function MenusPage() {
     const [ listMenus, setListMenus ] = useState([])
@@ -122,7 +122,7 @@ function ProductsComponent(props) {
                                         <td>{product.product_description}</td>
                                         <td className="actions">
                                             <button><i className='bx bx-trash'></i></button>
-                                            <button onClick={()=>setPopup(product._id)}><i className='bx bx-edit-alt'></i></button>
+                                            <button onClick={()=>setPopup(product)}><i className='bx bx-edit-alt'></i></button>
                                         </td>
                                     </tr>
                                 )
@@ -137,11 +137,8 @@ function ProductsComponent(props) {
                 {
                 popup !== null && 
                 <Popup 
-                    product_id={popup}
-                    product={{
-                        product_name: "", 
-                        product_price: "", 
-                        product_description: ""}} 
+                    product={popup}
+                    selectProducts={selectProducts}
                     closePopup={()=>setPopup(null)}
                 />}
             </div>
@@ -154,8 +151,14 @@ function Popup(props) {
     // creation d'un popup avec un formulaire pour modifier un produit
     // props : product, closePopup
 
-    const [ product, setProduct ] = useState(props.product)
+    const productDefault={
+        product_name: "", 
+        product_price: "", 
+        product_description: ""
+    } 
+
     const [ loading, setLoading ] = useState(true)
+    const [ newProduct, setNewProduct ] = useState(productDefault)
     const [ error, setError ] = useState(null)
 
     const handleLoading = (close=null) => {
@@ -170,38 +173,62 @@ function Popup(props) {
     }, [loading])
 
     const handleChange = (e) => {
-        setProduct({...product, [e.target.name]: e.target.value})
+        setNewProduct({...newProduct, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        // console.log("newProduct : ");
+        // console.log(newProduct);
+        setError(null)
+    }, [newProduct])
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        // fetch pour modifier le produit
+
+        let productInfosToUpdate = {
+            product_name: "",
+            product_price: "",
+            product_description: ""
+        }
+
+        if (newProduct.product_name == "" && newProduct.product_price == "" && newProduct.product_description == "") {
+            return setError("Vous n'avez rien modifié")
+        }else {
+
+            const productFnc = async (place, newInfo, oldInfo) => {
+                if (newInfo !== "" && newInfo !== oldInfo ) {productInfosToUpdate[place] = newInfo} 
+                else {productInfosToUpdate[place] = oldInfo}
+            }
+
+            await productFnc("product_name", newProduct.product_name, props.product.product_name)
+            await productFnc("product_price", newProduct.product_price, props.product.product_price)
+            await productFnc("product_description", newProduct.product_description, props.product.product_description)
+    
+            await productUpdate("auth", props.product._id, productInfosToUpdate)
+            .then((res) => {
+                // console.log("res : ", res);
+                props.selectProducts()
+                props.closePopup()
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+            });
+        }
     }
 
     return (
         <div className="popup">
             <div className="popup_content">
-                <form onSubmit={handleSubmit}>
-                    <h2>Edition pour : {props.product_id}</h2>
-                    <input type="text" placeholder="product name" name="product_name" value={product.product_name} onChange={handleChange} />
-                    <input type="text" placeholder="price '2.50' €" name="product_price" value={product.product_price} onChange={handleChange} />
-                    <input type="text" placeholder="decription optionel" name="product_description" value={product.product_description} onChange={handleChange} />
+                <span>{error}</span>
+                <form >
+                    <h2>Edition pour : {props.product._id}</h2>
+                    <input type="text" placeholder="product name" name="product_name" value={newProduct.product_name} onChange={handleChange} />
+                    <input type="text" placeholder="price '2.50' €" name="product_price" value={newProduct.product_price} onChange={handleChange} />
+                    <input type="text" placeholder="decription optionel" name="product_description" value={newProduct.product_description} onChange={handleChange} />
                 </form>
-                <button className="button">Modifier</button>
+                <button className="button" onClick={handleSubmit}>Modifier</button>
                 <button className="close" onClick={props.closePopup}>Fermer</button>
             </div>
         </div>
-
-        // <tr>
-        //     <td colSpan="4">
-        //         <form onSubmit={handleSubmit}>
-        //             <input type="text" name="product_name" value={product.product_name} onChange={handleChange} />
-        //             <input type="number" name="product_price" value={product.product_price} onChange={handleChange} />
-        //             <input type="text" name="product_description" value={product.product_description} onChange={handleChange} />
-        //             <button>Modifier</button>
-        //         </form>
-        //         <button onClick={props.closePopup}>Fermer</button>
-        //     </td>
-        // </tr>
     )
 }

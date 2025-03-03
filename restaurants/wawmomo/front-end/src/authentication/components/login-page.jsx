@@ -6,27 +6,24 @@ import { login } from "../scripts/authentication-scripts";
 import AppContext from "../../hooks/app-context";
 
 
-function LoginPage() {
+function LoginPage(props) {
     const [username, setUsername] = useState("");
     const [msgErrorUsername, setMsgErrorUsername] = useState(false);
     const [password, setPassword] = useState("");
     // const [msgErrorPassword, setMsgErrorPassword] = useState(null);
 
     // context from App.jsx
-    const {setCheckAuth, setLoading} = useContext(AppContext);
+    const { setCheckAuth } = useContext(AppContext);
     
     const handleSubmit = (event) => {
         event.preventDefault();
         login({username, password})
         .then((res) => {
-        // context from App.jsx
+            setPassword("");
+            setUsername("");
+            // context from App.jsx
             setCheckAuth(res);
-            setLoading(true);
-
-            console.log("res : ", res);
-
-            // setPassword("");
-            // setUsername("");
+            props.setLoading(true)
         })
         .catch((err) => {
             setMsgErrorUsername(err.message)
@@ -38,7 +35,8 @@ function LoginPage() {
     }, [username])
 
     return (
-        <div id="loginPage">
+        <div id="authenticationPage">
+            <h2>Login</h2>
             <form >
                 <label htmlFor="username">Username</label>
                 <input type="text" id="username" name="username" 

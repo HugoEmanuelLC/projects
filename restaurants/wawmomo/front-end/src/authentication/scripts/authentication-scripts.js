@@ -1,28 +1,36 @@
 
+const urlApi = 'http://localhost:3001/auth';
+
 const urlForFetch = {
-    login: 'http://localhost:3001/auth/login',
-    register: 'http://localhost:3001/auth/register',
-    logout: 'http://localhost:3001/auth/logout',
-    forgotPassword: 'http://localhost:3001/auth/forgot-password',
-    verifyLink: 'http://localhost:3001/auth/verify-link',
-    verifSession: 'http://localhost:3001/auth/verif-session',
+    login: urlApi+'/login',
+    verifSession: urlApi+'/verif-session',
+    forgotPassword: urlApi+'/forgot-password',
+    updatePassword: urlApi+'/update-password',
+
+    menusSelect: urlApi+'/menus/select',
+    menusCreate: urlApi+'/menus/create',
+    menusUpdate: urlApi+'/menus/update',
+    menusDelete: urlApi+'/menus/delete',
+    productsSelect: urlApi+'/products/select',
 }
 
 
 const fetchApi = async (url, method, body = {}, token = null) => {
-    return new Promise((resolve, reject) => {
-        fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token ? token : null
-            },
-            body: JSON.stringify(body),
-        })
-        .then(response => {
-            console.log("response : ");
-            console.log(response);
+    let options = {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token ? token : null
+        }
+    };
 
+    if (method === "POST" || method === "PUT") {
+        options.body = JSON.stringify(body);
+    }
+    
+    return new Promise((resolve, reject) => {
+        fetch(url, options)
+        .then(response => {
             if (response.status === 200 || response.status === 201) {
                 response.json().then((data) => {
                     resolve(data);
@@ -82,9 +90,6 @@ export const login = (data) => {
 
 
 export const checkSession = (cookieName) => {
-    let body = {
-        auth: {}
-    }
     let getCookie = document.cookie;
     let cookieExistName = cookieName + "=";
 
@@ -94,8 +99,6 @@ export const checkSession = (cookieName) => {
 
             fetchApi(urlForFetch.verifSession, 'POST', {}, getCookie)
             .then((res) => {
-                console.log("res : ");
-                console.log(res);
                 resolve({
                     auth: res.content.auth
                 });
@@ -131,7 +134,6 @@ export const forgotPassword = (data) => {
     return new Promise((resolve, reject) => {
         fetchApi(urlForFetch.forgotPassword, 'POST', body)
         .then((res) => {
-            console.log("res : ", res);
             resolve(res);
         })
         .catch((err) => {
@@ -142,42 +144,15 @@ export const forgotPassword = (data) => {
 } 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const register = (data) => {
+export const updatePassword = (data) => {
     let body = {
-        email: data.username,
-        password: data.password,
-        urlToVerify: window.location.origin+"/verify-link"
+        auth: {
+            password: data.password,
+        }
     }
     return new Promise((resolve, reject) => {
-        fetchApi(urlForFetch.register, 'POST', body)
+        fetchApi(urlForFetch.updatePassword, 'POST', body, data.token)
         .then((res) => {
-            console.log("res : ", res);
             resolve(res);
         })
         .catch((err) => {
@@ -190,22 +165,82 @@ export const register = (data) => {
 
 
 
-// export const verifyLink = async (data) => {
-//     let body = {
-//         token: data,
-//     }
-//     return await new Promise((resolve, reject) => {
-//         fetchApi(urlForFetch.verifyLink, 'POST', body)
-//         .then((res) => {
-//             console.log("res : ", res);
-//             resolve(res);
-//         })
-//         .catch((err) => {
-//             console.error("Err : ", err);
-//             reject(err);
-//         });
-//     })
-// }
+
+
+
+
+
+// menus functions
+
+export const menusSelect = (cookieName) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    return new Promise((resolve, reject) => {
+
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+            fetchApi(urlForFetch.menusSelect, 'GET', {}, getCookie)
+            .then((res) => {
+                // console.log("res : ", res);
+                resolve(res.content.menus);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
+
+
+export const productsSelect = (cookieName, id) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    return new Promise((resolve, reject) => {
+
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+            fetchApi(urlForFetch.productsSelect+"/"+id, 'GET', {}, getCookie)
+            .then((res) => {
+                // console.log("res : ", res);
+                resolve(res.content.products);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -68,7 +68,7 @@ img {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #b3b3b3;
+  background-color: #fff;
   cursor: grab;
 }
 
@@ -225,6 +225,7 @@ img {
   background-color: white;
   display: flex;
   padding: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
 #dashboard header .content {
   display: flex;
@@ -272,6 +273,144 @@ img {
     align-items: center; /* 'stretch' par défaut */
   }
 }
+#dashboard .menus {
+  display: flex;
+  flex-direction: column; /* 'row' par défaut */
+  justify-content: flex-start; /* 'center' par défaut */
+  align-items: flex-start; /* 'stretch' par défaut */
+  gap: 10px;
+}
+#dashboard .menus .list_menus {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: row; /* 'row' par défaut */
+  justify-content: flex-start; /* 'center' par défaut */
+  align-items: center; /* 'stretch' par défaut */
+  border-radius: 5px;
+  height: 80px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+#dashboard .menus .list_menus ul {
+  display: flex;
+  flex-direction: row; /* 'row' par défaut */
+  justify-content: flex-start; /* 'center' par défaut */
+  align-items: center; /* 'stretch' par défaut */
+  gap: 10px;
+}
+#dashboard .menus .list_menus ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+#dashboard .menus .list_products {
+  background-color: white;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+#dashboard .menus .list_products table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#dashboard .menus .list_products table thead {
+  background-color: rgba(245, 244, 249, 0.5);
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  width: 100%;
+}
+#dashboard .menus .list_products table thead th {
+  padding: 10px;
+  border-bottom: solid 1px #afafaf;
+  text-align: left;
+}
+#dashboard .menus .list_products table tbody tr {
+  border-bottom: solid 1px #c6c6c6;
+}
+#dashboard .menus .list_products table tbody tr td {
+  padding: 10px;
+  font-size: 14px;
+}
+#dashboard .menus .list_products table tbody tr .actions {
+  display: flex;
+  flex-direction: row; /* 'row' par défaut */
+  justify-content: center; /* 'center' par défaut */
+  align-items: center; /* 'stretch' par défaut */
+  gap: 10px;
+}
+#dashboard .menus .list_products table tbody tr .actions i {
+  font-size: 16px;
+}
+#dashboard .menus .list_products table tbody tr:last-child {
+  border-bottom: none;
+}
+#dashboard .menus .popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(245, 244, 249, 0.5);
+  display: flex;
+  flex-direction: row; /* 'row' par défaut */
+  justify-content: center; /* 'center' par défaut */
+  align-items: center; /* 'stretch' par défaut */
+}
+#dashboard .menus .popup .popup_content {
+  background-color: white;
+  width: 50%;
+  height: 50%;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column; /* 'row' par défaut */
+  justify-content: center; /* 'center' par défaut */
+  align-items: center; /* 'stretch' par défaut */
+  gap: 10px;
+  position: relative;
+}
+#dashboard .menus .popup .popup_content .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #f9fafc;
+  border-radius: 5px;
+}
+#dashboard .menus .popup .popup_content .close:hover {
+  background-color: #c6c6c6;
+}
+#dashboard .menus .popup .popup_content form {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* 'row' par défaut */
+  justify-content: flex-start; /* 'center' par défaut */
+  align-items: center; /* 'stretch' par défaut */
+  gap: 10px;
+}
+#dashboard .menus .popup .popup_content form input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 1px #afafaf;
+}
+#dashboard .menus .popup .popup_content .button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #f5f4f9;
+  cursor: pointer;
+  width: 100%;
+}
+#dashboard .menus .popup .popup_content .button:hover {
+  background-color: #c6c6c6;
+}
 #dashboard #global_bloc {
   height: 100%;
   display: flex;
@@ -288,7 +427,6 @@ img {
   flex: 1;
 }
 #dashboard section {
-  display: flex;
   height: 100%;
   padding: 10px;
 }

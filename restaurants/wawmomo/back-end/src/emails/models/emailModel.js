@@ -1,18 +1,6 @@
 import * as emailScript from "../scripts/send-emails.js";
 
 
-let contentEmailForRegisterUser = {
-    fromTitle: 'Helc85',
-    emailTo: '',
-    idUser: null,
-    subject: 'Welcome to our app',
-    title: 'verify your email',
-    message: 'Click on the link below to verify your email',
-    urlToVerify: 'http://localhost:3001/auth/verify-email-register',
-    btnText: 'Verify email'
-}
-
-
 const contentEmailForForgetPassword = {
     fromTitle: 'Wowmomo',
     emailTo: '',
@@ -37,44 +25,26 @@ const configEmail = {
 }
 
 
-const valueToken = {
-    expiresIn: "1h",
-    secretKey: process.env.SECRET_KEY
-}
+// let contentEmailForRegisterUser = {
+//     fromTitle: 'Helc85',
+//     emailTo: '',
+//     idUser: null,
+//     subject: 'Welcome to our app',
+//     title: 'verify your email',
+//     message: 'Click on the link below to verify your email',
+//     urlToVerify: 'http://localhost:3001/auth/verify-email-register',
+//     btnText: 'Verify email'
+// }
 
 
-const configSendLink = async (content) => {
-    return await new Promise((resolve, reject) => {
-        emailScript.sendEmailForVerification(content, configEmail, valueToken)
-        .then(data => {
-            resolve(data);
-        })
-        .catch(error => {
-            reject(error);
-        })
-    });
-}
-
-
-export const sendLinkVerifyEmail = async (req) => {
-    contentEmailForRegisterUser.emailTo = req.body.auth.email;
-    contentEmailForRegisterUser.idUser = req.body.auth.infosFromDB._id;
-    contentEmailForRegisterUser.urlVerify = req.body.auth.urlToVerify;
-
-    console.log("----------------- sendLinkVerifyEmail ------------------");
-    console.log(req.body);
-    // return await new Promise((resolve, reject) => {
-    //     configSendLink(contentEmailForRegisterUser)
-    //     .then(data => {
-    //         resolve(data);
-    //     })
-    //     .catch(error => {
-    //         reject(error);
-    //     })
-    // });
-}
-
-
+/**
+ * Send email for verification
+ * @param {Object} values.auth.email
+ * @param {Object} values.auth.infosFromDB._id
+ * @param {Object} values.auth.urlToVerify
+ * @param {Object} values.res.token
+ * @returns {Promise} repsonse data
+*/ 
 export async function sendEmailForVerification (values) {
     contentEmailForForgetPassword.emailTo = values.auth.email;
     contentEmailForForgetPassword.idUser = values.auth.infosFromDB._id;

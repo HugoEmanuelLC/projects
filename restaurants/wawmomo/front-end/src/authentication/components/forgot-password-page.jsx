@@ -6,29 +6,30 @@ import { forgotPassword } from "../scripts/authentication-scripts";
 
 function ForgotPasswordPage() {
     const [email, setEmail] = useState("");
+    const [msgErrorUsername, setMsgErrorUsername] = useState(false);
 
     const handleClick = (e) => {
         e.preventDefault();
         forgotPassword({email})
         .then((res) => {
             console.log("res : ", res);
-            setEmail("");
-            alert(res.message)
+            // setEmail("");
+            setMsgErrorUsername(res.message)
         })
         .catch((err) => {
             console.error("err : ", err.message);
-            alert(err.message)
+            setMsgErrorUsername(err.message)
         });
     }
 
-    useEffect(() => {
-        // console.log(window.location.origin+"/recover-password");
-        console.log(window.location.href);
-    }, []);
+    useEffect(()=>{
+        msgErrorUsername != false && setMsgErrorUsername(false)
+    }, [email])
 
     return (
-        <div id="forgotPasswordPage">
-            <h1>Forgot password page</h1>
+        <div id="authenticationPage">
+            <h2>Forgot Password</h2>
+            {msgErrorUsername && <p className="msgErr">{msgErrorUsername}</p>}
             <form>
                 <label htmlFor="email">Email</label>
                 <input type="text" id="email" name="email" 

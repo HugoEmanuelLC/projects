@@ -6,10 +6,8 @@ import morgan from 'morgan';
 
 // Middlewares
 import { PORT, corsOptionsCheck } from './config.js';
-import { verifConnectionDb } from './dbConfigs/mysql.js';
+import { verifConnectionDb } from './dataBases/dbConfigs/mysql.js';
 import routeAuth from './routes/routeAuth.js';
-import { verifSession } from './middlewares/verifSession.js';
-import { verifDomain } from './middlewares/verifDomain.js';
 
 
 const app = express();
@@ -29,11 +27,7 @@ app.use(verifConnectionDb)
 
 app.use("/auth", routeAuth)
 
-app.get("/page", verifSession, (req, res) => {
-    res.status(200).json({ message: "auth ok", user: req.user });
-})
-app.get("/domain", verifSession, verifDomain)
 app.get('*', (req, res) => {
-    console.log('404');
+    console.log('Error 404, url not found');
     res.status(404).json({message: 'Page not found'})
 });

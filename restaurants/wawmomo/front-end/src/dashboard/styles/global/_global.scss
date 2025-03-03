@@ -3,9 +3,11 @@
     @import '../../components/navbar-component/navbar-style';
     @import '../../components/header-component/header-style';
 
+    @import '../../pages/menus-page/menus-style';
+
     // border: solid 3px blue;
     height: 100vh;
-    background-color: #f5f4f9;
+    background-color: $dash_color_primary;
 
     #global_bloc{
         // border: solid 3px red;
@@ -28,7 +30,7 @@
     
     section{
         // border: solid 3px green;
-        display: flex;
+        // display: flex;
         height: 100%;
         padding: $dash_padding_sm;
     }

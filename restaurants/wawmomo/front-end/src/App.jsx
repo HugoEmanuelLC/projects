@@ -10,7 +10,7 @@ import AppContext from './hooks/app-context'
 import { checkSession } from './authentication/scripts/authentication-scripts';
 
 function App() {
-  const [ checkAuth, setCheckAuth ] = useState(false)
+  const [ checkAuth, setCheckAuth ] = useState(null)
   const [ oneLoad, setOneLoad ] = useState(false)
 
   const fncCheckSession = async () => {
@@ -20,6 +20,7 @@ function App() {
     })
     .catch((err) => {
       console.log("Err : ", err);
+      setCheckAuth(false)
       err != null && console.error("Err : ", err);
     });
   }

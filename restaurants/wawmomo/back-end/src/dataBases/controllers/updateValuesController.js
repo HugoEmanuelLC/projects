@@ -1,9 +1,9 @@
-import * as getValuesModel from '../models/getValuesModel.js';
+import * as updateValuesModel from '../models/updateValuesModel.js';
 
 
 
-export const getValuesAuthFromDB = async (req, res, next) => {
-    await getValuesModel.getValuesAuthFromDB(req, {
+export const updateValuesAuthFromDB = async (req, res, next) => {
+    await updateValuesModel.updateValuesAuthFromDB(req, {
         ...req.body.auth.configDB
     })
     .then(data => {
@@ -13,7 +13,7 @@ export const getValuesAuthFromDB = async (req, res, next) => {
         next()
     })
     .catch(error => {
-        console.log("getValuesAuthFromDB -> error");
+        console.log("updateValuesAuthFromDB -> error");
         console.log(error);
         res.status(error.status).json(error)
     }) 

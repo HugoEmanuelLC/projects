@@ -1,0 +1,174 @@
+.menus{
+    @include flex(column, flex-start, flex-start);
+    gap: $dash_padding_sm;
+
+    .list_menus{
+        background-color: white;
+        width: 100%;
+        @include flex(row, flex-start, center);
+        border-radius: calc($dash_padding_sm / 2);
+        // padding: $dash_padding_sm;
+        height: 80px;
+
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+
+        ul{
+            // border: solid 3px red;
+            @include flex(row, flex-start, center);
+            gap: $dash_padding_sm;
+
+            li{
+                // border: solid 3px $dash_color_tertiary;
+                padding: $dash_padding_sm;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .list_products{
+        background-color: white;
+        width: 100%;
+        border-radius: calc($dash_padding_sm / 2);
+        // padding: $dash_padding_sm;
+        // height: 80px;
+        // @include flex(row, flex-start, center);
+        // gap: $dash_padding_sm;
+
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        overflow: hidden;
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            // border: solid 3px $dash_color_tertiary;
+            // border-radius: calc($dash_padding_sm / 2);
+            // padding: $dash_padding_sm;
+            // height: 80px;
+            // @include flex(row, flex-start, center);
+            // gap: $dash_padding_sm;
+
+            // display: flex;
+            // flex-direction: column;
+
+            thead{
+                background-color: $dash_color_primary_opo;
+                // color: white;
+                font-size: $dash_txt_p_size_sm;
+                font-weight: $dash_txt_weight_md;
+                text-transform: uppercase;
+                letter-spacing: 0px;
+                width: 100%;
+                // border: solid 3px $dash_color_tertiary;
+                // border-radius: calc($dash_padding_sm / 2);
+                // padding: $dash_padding_sm;
+                // height: 80px;
+                // @include flex(row, flex-start, center);
+                // gap: $dash_padding_sm;
+
+                th{
+                    // border: solid 3px $dash_color_tertiary;
+                    padding: $dash_padding_sm;
+                    border-bottom: solid 1px $dash_color_quitenary;
+                    text-align: left;
+                    // font-size: $dash_txt_p_size_sm;
+                }
+            }
+
+            tbody{
+                tr{
+                    // border-radius: calc($dash_padding_sm / 2);
+                    // padding: $dash_padding_sm;
+                    // height: 80px;
+                    // @include flex(row, flex-start, center);
+                    // gap: $dash_padding_sm;
+                    border-bottom: solid 1px $dash_color_senary;
+
+                    td{
+                        // border: solid 3px red;
+                        // border: solid 3px $dash_color_tertiary;
+                        padding: $dash_padding_sm;
+                        font-size: $dash_txt_p_size_sm;
+                    }
+
+                    .actions{
+                        // border: solid 3px $dash_color_tertiary;
+                        @include flex(row, center, center);
+                        gap: $dash_padding_sm;
+                        i{
+                            font-size: $dash_txt_h3_size_sm;
+                        }
+                    }
+                }
+
+                tr:last-child{
+                    border-bottom: none;
+                }   
+            }
+        }
+    }
+
+
+    .popup{
+        position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+        width: 100%;
+        height: 100%;
+        background-color: $dash_color_primary_opo;
+        @include flex(row, center, center);
+
+        .popup_content{
+            background-color: white;
+            width: 50%;
+            height: 50%;
+            border-radius: calc($dash_padding_sm / 2);
+            padding: $dash_padding_sm;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            @include flex(column, center, center);
+            gap: $dash_padding_sm;
+            position: relative;
+
+            .close{
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: $dash_padding_sm;
+                cursor: pointer;
+                background-color: $dash_color_quaternary;
+                border-radius: calc($dash_padding_sm / 2);
+
+                &:hover{
+                    background-color: $dash_color_senary;
+                }
+            }
+
+            form{
+                width: 100%;
+                @include flex(column, flex-start, center);
+                gap: $dash_padding_sm;
+
+                input{
+                    width: 100%;
+                    padding: $dash_padding_sm;
+                    border-radius: calc($dash_padding_sm / 2);
+                    border: solid 1px $dash_color_quitenary;
+                }
+            }
+            .button{
+                padding: $dash_padding_sm;
+                border-radius: calc($dash_padding_sm / 2);
+                border: none;
+                background-color: $dash_color_primary;
+                cursor: pointer;
+                width: 100%;
+
+                &:hover{
+                    background-color: $dash_color_senary;
+                }
+            }
+        }
+    }
+}
+

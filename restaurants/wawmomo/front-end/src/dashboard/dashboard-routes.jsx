@@ -28,10 +28,7 @@ function DashboardRoutes() {
     const handleLoading = (close=null) => {
         // setLoading(true)
         let load = setTimeout(() => {
-            close == "close" ? navigate("/auth/login") : null
-            checkAuth == false ? 
-                loading == false && navigate("/auth/login") : null
-                setLoading(false)
+            checkAuth == false ? navigate("/auth/login") : setLoading(false)
         }, 1000)
         return () => clearTimeout(load)
     }

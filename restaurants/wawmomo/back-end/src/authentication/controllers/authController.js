@@ -22,22 +22,32 @@ export const isValidEmail = async (req, res, next) => {
 
 
 export const isValidPassword = async (req, res, next) => {
-    let values = {
-        postPassword: req.body.auth.password,
-        dbPassword: req.body.auth.infosFromDB.password,
+    if (req.body.auth.password.length < 8) {
+        req.body.res.status = 400
+        req.body.res.message = "The password must be at least 8 characters"
+        res.status(400).json({
+            status: 400,
+            message: "The password must be at least 8 characters"
+        })
+        
+    } else {
+        let values = {
+            postPassword: req.body.auth.password,
+            dbPassword: req.body.auth.infosFromDB.password,
+        }
+    
+        await script.decryptPassword(values)
+        .then(data => {
+            req.body.res.status = data.status
+            req.body.res.message = data.message
+            next()
+        })
+        .catch(error => {
+            console.log("isValidPassword -> error");
+            console.log(error);
+            res.status(error.status).json(error)
+        }) 
     }
-
-    await script.decryptPassword(values)
-    .then(data => {
-        req.body.res.status = data.status
-        req.body.res.message = data.message
-        next()
-    })
-    .catch(error => {
-        console.log("isValidPassword -> error");
-        console.log(error);
-        res.status(error.status).json(error)
-    }) 
 }
 
 
@@ -45,8 +55,8 @@ export const isValidPassword = async (req, res, next) => {
 export const createToken = async (req, res, next) => {
     let values = {
         id: req.body.auth.infosFromDB._id,
-        secretKey: process.env.SECRET_TOKEN_KEY,
-        expiresIn: "24h"
+        secretKey: req.body.auth.configToken.secretKey !== null ? req.body.auth.configToken.secretKey : process.env.SECRET_TOKEN_KEY,
+        expiresIn: req.body.auth.configToken.expiresIn !== null ? req.body.auth.configToken.expiresIn : "24h"
     }
     let token = script.createToken(req, values)
     
@@ -60,7 +70,7 @@ export const isValidToken = async (req, res, next) => {
     return await script.isValidToken(
         req,
         req.headers.authorization,
-        process.env.SECRET_TOKEN_KEY,
+        req.body.auth.configToken.secretKey !== null ? req.body.auth.configToken.secretKey : process.env.SECRET_TOKEN_KEY,
         {
             correct: "the token is valid",
             notCorrect: "the token is invalid"
@@ -76,6 +86,30 @@ export const isValidToken = async (req, res, next) => {
         console.log(error);
         res.status(error.status).json(error)
     })
+}
+
+
+
+export const hashPassword = async (req, res, next) => {
+    if (req.body.auth.password.length < 8) {
+        // req.body.res.status = 400
+        // req.body.res.message = "The password must be at least 8 characters"
+        res.status(400).json({
+            status: 400,
+            message: "The password must be at least 8 characters"
+        })
+    } else {
+        await script.hashPassword(req, req.body.auth.password)
+        .then(data => {
+            req.body.auth.password = data.password
+            next()
+        })
+        .catch(error => {
+            console.log("hashPassword -> error");
+            console.log(error);
+            res.status(error.status).json(error)
+        }) 
+    }
 }
 
 

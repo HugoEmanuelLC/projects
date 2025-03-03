@@ -35,7 +35,7 @@ export function isValidEmail(req, email) {
 */ 
 export async function decryptPassword(values) {
     return new Promise((resolve, reject) => {
-        if (values.dbPassword == "admin" && values.postPassword == "admin") {
+        if (values.dbPassword == "admin2025" && values.postPassword == "admin2025") {
             resolve({status: 200, message: "possword decrypt" });
             
         } else {
@@ -76,11 +76,20 @@ export function createToken(req, params = { id, secretKey, expiresIn: '1h' }) {
     }
     req.body.res.status = 200;
     req.body.res.message = "authentification accepted";
+    console.log("createToken -> params -------------------");
+    console.log(params.secretKey);
     return jwt.sign({ id: params.id }, params.secretKey, { expiresIn: params.expiresIn });
 }
 
 
 
+/**
+* @param {Object} req req.body.auth.configDB.colonneValue
+* @param {String} token
+* @param {String} secretKey
+* @param {Object} message message.correct, message.notCorrect
+* @returns {Promise} status, message
+*/
 export async function isValidToken(req, token="", secretKey="", message = {
     correct: "the token is valid",
     notCorrect: "the token is invalid"
@@ -90,13 +99,27 @@ export async function isValidToken(req, token="", secretKey="", message = {
             reject({status: 400, message: "token is empty", infos: null }) 
         : jwt.verify(token, secretKey, (err, decoded) => {
             if (err) {
-                reject({status: 400, message: message.notCorrect, infos: err});
+                console.log("isValidToken -> err");
+                console.log(err);
+                reject({status: 400, message: message.notCorrect});
             } else {
                 req.body.auth.configDB.colonneValue = decoded.id;
-                console.log("isValidToken -> decoded");
-                console.log(req.body.auth.configDB);
                 resolve({status: 200, message: message.correct}) 
             }
+        });
+    });
+}
+
+
+export async function hashPassword(req, password) { 
+    return new Promise((resolve, reject) => {
+        bcrypt.hash(password, 10, (err, hash) => {
+            if (err) {
+                console.log("hashPassword -> err");
+                console.log(err);
+                reject({status: 500, message: "server problem" });
+            }
+            resolve({ password: hash });
         });
     });
 }

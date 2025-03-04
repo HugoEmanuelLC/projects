@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { menusSelect, productsSelect, productUpdate, productDelete, menuCreate, productCreate } from "../../../../authentication/scripts/authentication-scripts";
+import { productUpdate, productCreate } from "../../../../authentication/scripts/authentication-scripts";
 
 
 

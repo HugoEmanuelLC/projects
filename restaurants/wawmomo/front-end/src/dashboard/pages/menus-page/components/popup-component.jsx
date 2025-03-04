@@ -52,7 +52,7 @@ export function ConfimationDelete(props) {
     const [ msg, setMsg ] = useState(null)
 
     const handleDelete = async () => {
-        await productDelete("auth", props.data._id)
+        await props.fnc("auth", props.datas.id)
         .then((res) => {
             props.selectDatas()
             setMsg(props.msg)
@@ -71,7 +71,7 @@ export function ConfimationDelete(props) {
         <>
         {
             msg == null ? 
-            <h2>Confirmer la suppression de {props.product.product_name}</h2> : 
+            <h2>Confirmer la suppression de {props.datas.name.toUpperCase()}</h2> : 
             <h2>{msg}</h2>
         }
         {msg == null && <button className="button" onClick={handleDelete}>Supprimer</button>}

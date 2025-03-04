@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 
-import { menusSelect } from "../../../authentication/scripts/authentication-scripts";
+import { menusSelect, menuDelete } from "../../../authentication/scripts/authentication-scripts";
 
 import Popup, {
     CreateNewElement,
+    ConfimationDelete
 } from "./components/popup-component";
+
+import { UpdateMenu } from "./components/edite-menu-component";
 
 
 function MenusPage() {
@@ -26,6 +29,7 @@ function MenusPage() {
             setListMenus(res)
         })
         .catch((err) => {
+            setListMenus([])
             console.error("Err : ", err);
         });
     }
@@ -41,44 +45,6 @@ function MenusPage() {
     useEffect(() => {
         loading == true && handleLoading()
     }, [loading])
-
-    // return (
-    //     <section className="menus" >
-    //         <div className="btnPlus" onClick={()=>setCreateNewElementPopup("menu")}>+</div>
-    //         {
-    //             loading ? <h1>...</h1> : 
-    //             <div className="list_menus">
-    //                 <ul>
-    //                 {
-    //                     listMenus.map((menu, index) => {
-    //                         return (
-    //                             <li key={index} onClick={()=>setSelectedMenu(menu._id)}>
-    //                                 {menu.menu_name} 
-    //                                 {selectedMenu == menu._id && <hr />}
-    //                             </li>
-    //                         )
-    //                     })
-    //                 }
-    //                 </ul>
-    //             </div>
-    //         }
-
-    //         {/* <ProductsComponent menu_id={selectedMenu} />
-
-    //         {
-    //             createNewElementPopup !== null &&
-    //             <Popup
-    //                 closePopup={()=>setCreateNewElementPopup(null)}
-    //             >
-    //                 <CreateNewElement 
-    //                     createNewElementPopup={createNewElementPopup}
-    //                     selectListMenus={selectListMenus}
-    //                     closePopup={()=>setCreateNewElementPopup(null)}
-    //                 />
-    //             </Popup>
-    //         } */}
-    //     </section>
-    // )
 
 
     return (
@@ -105,8 +71,8 @@ function MenusPage() {
                                                 <td>{menu.menu_description}</td>
                                             }
                                             <td className="actions">
-                                                <button onClick={()=>setDelitedMenuPopup(product)}><i className='bx bx-trash'></i></button>
-                                                <button onClick={()=>setUpdateMenuPopup(product)}><i className='bx bx-edit-alt'></i></button>
+                                                <button onClick={()=>setDelitedMenuPopup(menu)}><i className='bx bx-trash'></i></button>
+                                                <button onClick={()=>setUpdateMenuPopup(menu)}><i className='bx bx-edit-alt'></i></button>
                                             </td>
                                         </tr>
                                     )
@@ -131,44 +97,38 @@ function MenusPage() {
                         </Popup>
                     }
     
-                    {/* {
+                    {
                         updateMenuPopup!== null && 
                         <Popup
                             closePopup={()=>setUpdateMenuPopup(null)}
                         >
-                            <UpdateProduct 
-                                product={updateMenuPopup}
-                                selectProducts={selectProducts}
+                            <UpdateMenu
+                                menu={updateMenuPopup}
+                                selectListMenus={selectListMenus}
                                 closePopup={()=>setUpdateMenuPopup(null)}
                             />
                         </Popup>
-                    } */}
+                    }
     
-                    {/* {
+                    {
                         delitedMenuPopup !== null &&
                         <Popup
                             closePopup={()=>setDelitedMenuPopup(null)} 
                         >
                             <ConfimationDelete 
-                                product={delitedMenuPopup}
-                                selectProducts={selectProducts} 
-                                closePopup={()=>setDelitedMenuPopup(null)} 
+                                datas={
+                                    {
+                                        id: delitedMenuPopup._id,
+                                        name: delitedMenuPopup.menu_name
+                                    }
+                                }
+                                selectDatas={selectListMenus}
+                                msg="Menu supprimé"
+                                closePopup={()=>setDelitedMenuPopup(null)}
+                                fnc={menuDelete}
                             />
                         </Popup>
-                    } */}
-    
-                    {/* {
-                        createNewElementPopup !== null &&
-                        <Popup
-                            closePopup={()=>setCreateNewElementPopup(null)}
-                        >
-                            <NewProduct 
-                                selectProducts={selectProducts}
-                                menu_id={props.menu_id}
-                                closePopup={()=>setCreateNewElementPopup(null)}
-                            />
-                        </Popup>
-                    } */}
+                    }
                 </div>
             }
         </section>

@@ -84,14 +84,16 @@ routeAuth.get('/menus/select',
     selectValuesController.selectValuesMenusListFromDB, modelFncForSendResToClient 
 )
 
-
 routeAuth.post('/menu/create',
     createValuesController.createValuesMenuInDB, modelFncForSendResToClient
 )
 
-
 routeAuth.put('/menu/update/:params',
     updateValuesController.updateValuesMenuFromDB, modelFncForSendResToClient
+)
+
+routeAuth.delete('/menu/delete/:params',
+    deleteValuesController.deleteValuesMenuFromDB, modelFncForSendResToClient
 )
 
 

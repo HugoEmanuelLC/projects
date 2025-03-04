@@ -46,11 +46,22 @@ export async function updateValuesAuthPasswordFromDB(req, values){
 
 
 export async function updateValuesMenuFromDB(req, values){
+    let colonneName = ""
+    values.colonneName.forEach((element, index) => {
+        element !== values.colonneName[0] ? 
+        colonneName += `${element} = "${req.body.menu[element]}"${index < values.colonneName.length - 1 ? "," : ""}` 
+        : null
+    })
+
+    console.log("updateValuesMenuFromDB");
+    console.log(colonneName);
+    console.log(req.body.menu['menu_name']);
+
     return new Promise((resolve, reject) => {
         try {
             connection.query(
                 `UPDATE ${values.tableName} 
-                SET ${values.colonneName[1]} = "${req.body.menu.menu_name}" 
+                SET ${colonneName} 
                 WHERE ${values.colonneName[0]} = ${values.colonneValue}`,
                 (err, result) => {
                     if (err) {
@@ -96,20 +107,9 @@ export async function updateValuesProduitFromDB(req, values){
 
     return new Promise((resolve, reject) => {
         try {
-
-            console.log("updateValuesProduitFromDB");
-            console.log(req.body);
-
-            // resolve({
-            //     status: 200, 
-            //     message: "product updated",
-            //     produit: {}
-            // })
-
             connection.query(
                 `UPDATE ${values.tableName} 
-                SET 
-                    ${colonneName}
+                SET ${colonneName}
                 WHERE ${values.colonneName[0]} = ${values.colonneValue}`,
                 (err, result) => {
                     if (err) {

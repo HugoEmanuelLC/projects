@@ -9,8 +9,8 @@ const urlForFetch = {
 
     menusSelect: urlApi+'/menus/select',
     menuCreate: urlApi+'/menu/create',
-    menusUpdate: urlApi+'/menus/update',
-    menusDelete: urlApi+'/menus/delete',
+    menuUpdate: urlApi+'/menu/update',
+    menuDelete: urlApi+'/menu/delete',
 
     productsSelect: urlApi+'/products/select',
     productCreate: urlApi+'/product/create',
@@ -294,6 +294,58 @@ export const menuCreate = (cookieName, data) => {
         if (getCookie.match(cookieExistName)) {
             getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
             fetchApi(urlForFetch.menuCreate, 'POST', body, getCookie)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
+
+
+export const menuUpdate = (cookieName, id, data) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    let body = {
+        menu: data
+    }
+
+    return new Promise((resolve, reject) => {
+
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+            fetchApi(urlForFetch.menuUpdate+"/"+id, 'PUT', body, getCookie)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
+
+
+export const menuDelete = (cookieName, id) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    return new Promise((resolve, reject) => {
+
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+            fetchApi(urlForFetch.menuDelete+"/"+id, 'DELETE', {}, getCookie)
             .then((res) => {
                 resolve(res);
             })

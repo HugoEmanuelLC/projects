@@ -20,3 +20,24 @@ export const deleteValuesProductFromDB = async (req, res, next) => {
         res.status(error.status).json(error)
     })
 }
+
+
+export const deleteValuesMenuFromDB = async (req, res, next) => {
+    req.body.configDB.tableName = "menus"
+    req.body.configDB.colonneName = "_id"
+    req.body.configDB.colonneValue = req.params.params
+
+    await deleteValuesModel.deleteValuesMenuFromDB(req, {
+        ...req.body.configDB
+    })
+    .then(data => {
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        next()
+    })
+    .catch(error => {
+        console.log("deleteValuesMenuFromDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    })
+}

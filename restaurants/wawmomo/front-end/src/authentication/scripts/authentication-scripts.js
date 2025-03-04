@@ -8,12 +8,14 @@ const urlForFetch = {
     updatePassword: urlApi+'/update-password',
 
     menusSelect: urlApi+'/menus/select',
-    menusCreate: urlApi+'/menus/create',
+    menuCreate: urlApi+'/menu/create',
     menusUpdate: urlApi+'/menus/update',
     menusDelete: urlApi+'/menus/delete',
 
     productsSelect: urlApi+'/products/select',
+    productCreate: urlApi+'/product/create',
     produitUpdate: urlApi+'/product/update',
+    productDelete: urlApi+'/product/delete',
 }
 
 
@@ -38,9 +40,11 @@ const fetchApi = async (url, method, body = {}, token = null) => {
                     resolve(data);
                 });
             } else {
-                response.json().then((data) => {
-                    reject(data);
-                });
+                response.status == 204 ? 
+                    reject({message: "no content"}) 
+                    : response.json().then((data) => {
+                        reject(data);
+                    });
             }
         })
         .catch((err) => {
@@ -77,7 +81,6 @@ export const login = (data) => {
     return new Promise((resolve, reject) => {
         fetchApi(urlForFetch.login, 'POST', body, null)
         .then((res) => {
-            console.log("res : ", res.content);
             createCookie("auth", res.token, 1);
             resolve({
                 auth: res.content.auth
@@ -184,7 +187,6 @@ export const menusSelect = (cookieName) => {
             getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
             fetchApi(urlForFetch.menusSelect, 'GET', {}, getCookie)
             .then((res) => {
-                // console.log("res : ", res);
                 resolve(res.content.menus);
             })
             .catch((err) => {
@@ -209,7 +211,6 @@ export const productsSelect = (cookieName, id) => {
             getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
             fetchApi(urlForFetch.productsSelect+"/"+id, 'GET', {}, getCookie)
             .then((res) => {
-                // console.log("res : ", res);
                 resolve(res.content.products);
             })
             .catch((err) => {
@@ -238,7 +239,90 @@ export const productUpdate = (cookieName, id, data) => {
             getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
             fetchApi(urlForFetch.produitUpdate+"/"+id, 'PUT', body, getCookie)
             .then((res) => {
-                console.log("res : ", res);
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
+
+
+
+
+
+
+export const productDelete = (cookieName, id) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    return new Promise((resolve, reject) => {
+
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+            fetchApi(urlForFetch.productDelete+"/"+id, 'DELETE', {}, getCookie)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
+
+
+export const menuCreate = (cookieName, data) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    let body = {
+        menu: data
+    }
+
+    return new Promise((resolve, reject) => {
+
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+            fetchApi(urlForFetch.menuCreate, 'POST', body, getCookie)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
+
+
+export const productCreate = (cookieName, id, data) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    let body = {
+        product: data
+    }
+
+    return new Promise((resolve, reject) => {
+
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+            fetchApi(urlForFetch.productCreate+"/"+id, 'POST', body, getCookie)
+            .then((res) => {
                 resolve(res);
             })
             .catch((err) => {

@@ -40,14 +40,14 @@ const configEmail = {
 /**
  * Send email for verification
  * @param {Object} values.auth.email
- * @param {Object} values.auth.infosFromDB._id
+ * @param {Object} values.configDB.infosFromDB._id
  * @param {Object} values.auth.urlToVerify
  * @param {Object} values.res.token
  * @returns {Promise} repsonse data
 */ 
 export async function sendEmailForVerification (values) {
     contentEmailForForgetPassword.emailTo = values.auth.email;
-    contentEmailForForgetPassword.idUser = values.auth.infosFromDB._id;
+    contentEmailForForgetPassword.idUser = values.configDB.infosFromDB._id;
     contentEmailForForgetPassword.urlToVerify = values.auth.urlToVerify;
     contentEmailForForgetPassword.secretKey = values.res.token;
     

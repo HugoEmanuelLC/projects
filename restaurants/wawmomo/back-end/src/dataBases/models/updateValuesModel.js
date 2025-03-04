@@ -2,18 +2,18 @@ import connection from "../dbConfigs/mysql.js";
 
 
 
-export async function updateValuesAuthFromDB(req, values){
+export async function updateValuesAuthPasswordFromDB(req, values){
     return new Promise((resolve, reject) => {
         try {
-            let id = Math.floor(Math.random() * 1000);
+            // let id = Math.floor(Math.random() * 1000);
 
             connection.query(
                 `UPDATE ${values.tableName} 
-                SET ${values.colonneName.id} = ${id}, ${values.colonneName.password} = "${req.body.auth.password}" 
-                WHERE ${values.colonneName.id} = ${req.body.auth.infosFromDB._id}`,
+                SET ${values.colonneName.password} = "${req.body.auth.password}" 
+                WHERE ${values.colonneName.id} = ${req.body.configDB.infosFromDB._id}`,
                 (err, result) => {
                     if (err) {
-                        console.log("updateValuesAuthFromDB error");
+                        console.log("updateValuesAuthPasswordFromDB error");
                         console.log(err);
                         return reject({
                             status: 500, 
@@ -24,8 +24,7 @@ export async function updateValuesAuthFromDB(req, values){
                     if (result.affectedRows > 0) {
                         resolve({
                             status: 200, 
-                            message: "password updated",
-                            auth: {}
+                            message: "password updated"
                         })
 
                     } else {
@@ -36,7 +35,48 @@ export async function updateValuesAuthFromDB(req, values){
                     }
             });
         } catch (error) {
-            console.log("updateValuesAuthFromDB error");
+            console.log("updateValuesAuthPasswordFromDB error");
+            console.log(error);
+            reject({status: 500, message: "server problem, table sql error"});
+        }
+    });
+}
+
+
+
+
+export async function updateValuesMenuFromDB(req, values){
+    return new Promise((resolve, reject) => {
+        try {
+            connection.query(
+                `UPDATE ${values.tableName} 
+                SET ${values.colonneName[1]} = "${req.body.menu.menu_name}" 
+                WHERE ${values.colonneName[0]} = ${values.colonneValue}`,
+                (err, result) => {
+                    if (err) {
+                        console.log("updateValuesMenuFromDB error");
+                        console.log(err);
+                        return reject({
+                            status: 500, 
+                            message: "server problem, sql error"
+                        });
+                    }
+
+                    if (result.affectedRows > 0) {
+                        resolve({
+                            status: 200, 
+                            message: "menu updated"
+                        })
+
+                    } else {
+                        reject({
+                            status: 400, 
+                            message: "impossible to update menu"
+                        });
+                    }
+            });
+        } catch (error) {
+            console.log("updateValuesMenuFromDB error");
             console.log(error);
             reject({status: 500, message: "server problem, table sql error"});
         }
@@ -47,6 +87,13 @@ export async function updateValuesAuthFromDB(req, values){
 
 
 export async function updateValuesProduitFromDB(req, values){
+    let colonneName = ""
+    values.colonneName.forEach((element, index) => {
+        element !== values.colonneName[0] ? 
+        colonneName += `${element} = "${req.body.product[element]}"${index < values.colonneName.length - 1 ? "," : ""}` 
+        : null
+    })
+
     return new Promise((resolve, reject) => {
         try {
 
@@ -62,10 +109,8 @@ export async function updateValuesProduitFromDB(req, values){
             connection.query(
                 `UPDATE ${values.tableName} 
                 SET 
-                    ${values.colonneName.product_name} = "${req.body.product.product_name}" ,
-                    ${values.colonneName.product_price} = ${req.body.product.product_price} ,
-                    ${values.colonneName.product_description} = "${req.body.product.product_description}"
-                WHERE ${values.colonneName.product_id} = ${req.params.params}`,
+                    ${colonneName}
+                WHERE ${values.colonneName[0]} = ${values.colonneValue}`,
                 (err, result) => {
                     if (err) {
                         console.log("updateValuesProduitFromDB error");

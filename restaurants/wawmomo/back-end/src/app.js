@@ -2,6 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import { EventEmitter } from 'events';
 
 
 // Middlewares
@@ -12,6 +13,8 @@ import routeAuth from './routes/routeAuth.js';
 
 const app = express();
 
+const bus = new EventEmitter();
+bus.setMaxListeners(20);
 
 app.use(cors(corsOptionsCheck));
 app.use(morgan('dev'));

@@ -280,6 +280,20 @@ img {
   align-items: flex-start; /* 'stretch' par défaut */
   gap: 10px;
 }
+#dashboard .menus .btnPlus {
+  position: absolute;
+  padding: 2px;
+  cursor: pointer;
+  background-color: #f5f4f9;
+  border-radius: 5px;
+}
+#dashboard .menus .btnPlus i {
+  font-size: 16px;
+  color: white;
+}
+#dashboard .menus .btnPlus:hover {
+  background-color: #c6c6c6;
+}
 #dashboard .menus .list_menus {
   background-color: white;
   width: 100%;
@@ -290,12 +304,18 @@ img {
   border-radius: 5px;
   height: 80px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+#dashboard .menus .list_menus > .btnPlus {
+  top: 0;
+  right: 0;
 }
 #dashboard .menus .list_menus ul {
   display: flex;
   flex-direction: row; /* 'row' par défaut */
   justify-content: flex-start; /* 'center' par défaut */
   align-items: center; /* 'stretch' par défaut */
+  flex-wrap: wrap;
   gap: 10px;
 }
 #dashboard .menus .list_menus ul li {
@@ -306,8 +326,13 @@ img {
   background-color: white;
   width: 100%;
   border-radius: 5px;
+  position: relative;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+}
+#dashboard .menus .list_products > .btnPlus {
+  top: 0;
+  right: 0;
 }
 #dashboard .menus .list_products table {
   width: 100%;

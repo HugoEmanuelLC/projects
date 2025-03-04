@@ -33,7 +33,7 @@ export const isValidPassword = async (req, res, next) => {
     } else {
         let values = {
             postPassword: req.body.auth.password,
-            dbPassword: req.body.auth.infosFromDB.password,
+            dbPassword: req.body.configDB.infosFromDB.password,
         }
     
         await script.decryptPassword(values)
@@ -54,9 +54,9 @@ export const isValidPassword = async (req, res, next) => {
 
 export const createToken = async (req, res, next) => {
     let values = {
-        id: req.body.auth.infosFromDB._id,
-        secretKey: req.body.auth.configToken.secretKey !== null ? req.body.auth.configToken.secretKey : process.env.SECRET_TOKEN_KEY,
-        expiresIn: req.body.auth.configToken.expiresIn !== null ? req.body.auth.configToken.expiresIn : "24h"
+        id: req.body.configDB.infosFromDB._id,
+        secretKey: req.body.configToken.secretKey !== null ? req.body.configToken.secretKey : process.env.SECRET_TOKEN_KEY,
+        expiresIn: req.body.configToken.expiresIn !== null ? req.body.configToken.expiresIn : "24h"
     }
     let token = script.createToken(req, values)
     
@@ -70,7 +70,7 @@ export const isValidToken = async (req, res, next) => {
     return await script.isValidToken(
         req,
         req.headers.authorization,
-        req.body.auth.configToken.secretKey !== null ? req.body.auth.configToken.secretKey : process.env.SECRET_TOKEN_KEY,
+        req.body.configToken.secretKey !== null ? req.body.configToken.secretKey : process.env.SECRET_TOKEN_KEY,
         {
             correct: "the token is valid",
             notCorrect: "the token is invalid"

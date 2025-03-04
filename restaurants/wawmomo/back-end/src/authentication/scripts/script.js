@@ -13,7 +13,7 @@ export function isValidEmail(req, email) {
     re.test(String(email).toLowerCase());
     return new Promise((resolve, reject) => {
         if (re.test(String(email).toLowerCase())) {
-            req.body.auth.configDB.colonneValue = req.body.auth.email
+            req.body.configDB.colonneValue = req.body.auth.email
             return resolve({ 
                 status: 200, 
                 message: "Adresse e-mail valide"
@@ -103,7 +103,7 @@ export async function isValidToken(req, token="", secretKey="", message = {
                 console.log(err);
                 reject({status: 400, message: message.notCorrect});
             } else {
-                req.body.auth.configDB.colonneValue = decoded.id;
+                req.body.configDB.colonneValue = decoded.id;
                 resolve({status: 200, message: message.correct}) 
             }
         });

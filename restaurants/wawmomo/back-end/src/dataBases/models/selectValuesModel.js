@@ -1,5 +1,6 @@
 import connection from "../dbConfigs/mysql.js";
-import model_infos from "./modelInfos.js";
+
+
 
 /**
  * @param {object} req req.body.auth.infosFromDB = result[0]
@@ -21,7 +22,7 @@ export async function selectValuesAuthFromDB(req, values){
                         });
                     }
 
-                    result.length > 0 ? req.body.auth.infosFromDB = result[0] : null;
+                    result.length > 0 ? req.body.configDB.infosFromDB = result[0] : null;
 
                     if (result.length > 0) {
                         resolve({
@@ -70,15 +71,23 @@ export async function selectValuesMenusListFromDB(req, values){
                     }
 
                     if (result.length > 0) {
+                        let menus = [];
+                        result.forEach(menu => {
+                            menus.push({
+                                _id: menu._id,
+                                menu_name: menu.menu_name,
+                                menu_image: menu.menu_image
+                            });
+                        });
                         resolve({
                             status: 200, 
                             message: "menus found",
-                            menus: result
+                            menus: menus
                         })
 
                     } else {
                         reject({
-                            status: 400, 
+                            status: 204, 
                             message: "list of menus is empty"
                         });
                     }
@@ -97,8 +106,7 @@ export async function selectValuesProductsListFromMenuFromDB(req, values){
     return new Promise((resolve, reject) => {
         try {
             connection.query(
-                `SELECT 
-                    ${[...model_infos.products.select.colonneName].join(", ")}
+                `SELECT *  
                 FROM ${values.tableName} 
                 WHERE ${values.colonneName} = ?`, values.colonneValue,
                 (err, result) => {
@@ -112,17 +120,24 @@ export async function selectValuesProductsListFromMenuFromDB(req, values){
                     }
 
                     if (result.length > 0) {
-                        console.log("selectValuesProductsListFromMenuFromDB -> result");
-                        console.log(result);
+                        let products = [];
+                        result.forEach(product => {
+                            products.push({
+                                _id: product._id,
+                                product_name: product.product_name,
+                                product_price: product.product_price,
+                                product_description: product.product_description,
+                            });
+                        });
                         resolve({
                             status: 200, 
                             message: "products found",
-                            products: result
+                            products: products
                         })
 
                     } else {
                         reject({
-                            status: 400, 
+                            status: 204, 
                             message: "list of products is empty"
                         });
                     }

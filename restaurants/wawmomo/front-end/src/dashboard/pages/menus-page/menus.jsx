@@ -51,8 +51,9 @@ function MenusPage() {
         <section className="menus">
             {
                 loading ? <h1>...</h1> : 
+                <>
+                <div className="btnPlus" onClick={()=>setCreateNewElementPopup("menu")}>Ajouter menu</div>
                 <div className="list_products">
-                    <div className="btnPlus" onClick={()=>setCreateNewElementPopup("menu")}>+</div>
                     <table>
                         <thead>
                             <tr>
@@ -130,6 +131,7 @@ function MenusPage() {
                         </Popup>
                     }
                 </div>
+                </>
             }
         </section>
     )

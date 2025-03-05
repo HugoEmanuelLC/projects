@@ -278,18 +278,15 @@ img {
   flex-direction: column; /* 'row' par défaut */
   justify-content: flex-start; /* 'center' par défaut */
   align-items: flex-start; /* 'stretch' par défaut */
-  gap: 10px;
 }
 #dashboard .menus .btnPlus {
-  position: absolute;
-  padding: 2px;
+  align-self: flex-end;
+  padding: 2px 4px;
   cursor: pointer;
-  background-color: #f5f4f9;
-  border-radius: 5px;
-}
-#dashboard .menus .btnPlus i {
-  font-size: 16px;
+  background-color: rgb(55, 55, 65);
   color: white;
+  border-radius: 5px 5px 0 0;
+  font-size: 11px;
 }
 #dashboard .menus .btnPlus:hover {
   background-color: #c6c6c6;
@@ -303,6 +300,7 @@ img {
   align-items: center; /* 'stretch' par défaut */
   border-radius: 5px;
   height: 80px;
+  margin-bottom: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   position: relative;
 }

@@ -6,13 +6,20 @@ export const selectValuesAuthFromDBbyEmail = async (req, res, next) => {
     req.body.configDB.tableName = "auth"
     req.body.configDB.colonneName = "email"
 
-    await selectValuesModel.selectValuesAuthFromDB(req, {
+    await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
     })
     .then(data => {
+        data.data.length > 0 ? req.body.configDB.infosFromDB = data.data[0] : null;
+
         req.body.res.status = data.status
         req.body.res.message = data.message
-        req.body.res.content.auth = data.auth
+        req.body.res.content = {
+            auth: {
+                username: data.data[0].username,
+                email: data.data[0].email
+            }
+        }
         next()
     })
     .catch(error => {
@@ -27,13 +34,26 @@ export const selectValuesAuthFromDBbyId = async (req, res, next) => {
     req.body.configDB.tableName = "auth"
     req.body.configDB.colonneName = "_id"
 
-    await selectValuesModel.selectValuesAuthFromDB(req, {
+    
+    console.log("selectValuesAuthFromDB -> data");
+    console.log(req.body.configDB);
+
+    await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
     })
     .then(data => {
+
+        data.data.length > 0 ? req.body.configDB.infosFromDB = data.data[0] : null;
+
         req.body.res.status = data.status
         req.body.res.message = data.message
-        req.body.res.content = { auth: data.auth }
+
+        req.body.res.content = { 
+            auth: {
+                username: data.data[0].username,
+                email: data.data[0].email
+            } 
+        }
         next()
     })
     .catch(error => {
@@ -49,13 +69,21 @@ export const selectValuesMenusListFromDB = async (req, res, next) => {
     req.body.configDB.colonneName = "fk_auth"
     req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
 
-    await selectValuesModel.selectValuesMenusListFromDB(req, {
+    await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
     })
     .then(data => {
+        let menus = [];
+        data.data.forEach(menu => {
+            menus.push({
+                _id: menu._id,
+                menu_name: menu.menu_name
+            })
+        })
+
         req.body.res.status = data.status
         req.body.res.message = data.message
-        req.body.res.content = { menus: data.menus }
+        req.body.res.content = { menus: menus }
         next()
     })
     .catch(error => {
@@ -71,13 +99,23 @@ export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => 
     req.body.configDB.colonneName = "fk_menu"
     req.body.configDB.colonneValue = req.params.params
 
-    await selectValuesModel.selectValuesProductsListFromMenuFromDB(req, {
+    await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
     })
     .then(data => {
+        let products = [];
+        data.data.forEach(product => {
+            products.push({
+                _id: product._id,
+                product_name: product.product_name,
+                product_price: product.product_price,
+                product_description: product.product_description
+            })
+        })
+
         req.body.res.status = data.status
         req.body.res.message = data.message
-        req.body.res.content = { products: data.products }
+        req.body.res.content = { products: products }
         next()
     })
     .catch(error => {

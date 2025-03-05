@@ -1,18 +1,25 @@
 .menus{
     @include flex(column, flex-start, flex-start);
-    gap: $dash_padding_sm;
+    // gap: $dash_padding_sm;
 
     .btnPlus{
-        position: absolute;
-        padding: 2px;
+        // border: solid 1px red;
+        // border-bottom: solid 3px $dash_color_tertiary;
+        align-self: flex-end;
+        // position: absolute;
+        padding: 2px 4px;
         cursor: pointer;
-        background-color: $dash_color_primary;
-        border-radius: calc($dash_padding_sm / 2);
+        background-color: $dash_color_tertiary;
+        color: white;
+        border-radius: calc($dash_padding_sm / 2) calc($dash_padding_sm / 2) 0 0;
+        // box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        // margin-bottom: 5px;
+        font-size: calc($dash_txt_h3_size_sm - 5px);
 
-        i{
-            font-size: $dash_txt_h3_size_sm;
-            color: white;
-        }
+        // i{
+        //     font-size: $dash_txt_h3_size_sm;
+        //     color: white;
+        // }
 
         &:hover{
             background-color: $dash_color_senary;
@@ -26,6 +33,7 @@
         border-radius: calc($dash_padding_sm / 2);
         // padding: $dash_padding_sm;
         height: 80px;
+        margin-bottom: $dash_padding_sm;
 
         box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
 

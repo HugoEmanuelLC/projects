@@ -3,16 +3,18 @@ import { Router } from "express"
 import {} from 'dotenv/config'
 // Controllers
 import * as authController from '../authentication/controllers/authController.js'
+import * as emailController from '../emails/controllers/emailController.js'
 import * as selectValuesController from '../dataBases/controllers/selectValuesController.js'
 import * as updateValuesController from '../dataBases/controllers/updateValuesController.js'
 import * as deleteValuesController from '../dataBases/controllers/deleteValuesController.js'
 import * as createValuesController from '../dataBases/controllers/createValuesController.js'
 // import * as insertValuesController from '../dataBases/controllers/insertValuesController.js'
 // import * as deleteValuesController from '../dataBases/controllers/deleteValuesController.js'
-import * as emailController from '../emails/controllers/emailController.js'
+
 
 
 const routeAuth = Router()
+
 
 
 const list = [
@@ -24,15 +26,12 @@ const list = [
     { url: "/auth/products/select/:params", method: "GET", description: "Select products" },
     { url: "/auth/product/update/:params", method: "PUT", description: "Update product" }
 ]
-
-
 function modelObjectBodyForSessionForReq(req, res, next){
     req.body.configDB = { tableName: null, colonneName: null, colonneValue: null, infosFromDB: {} } 
     req.body.configToken = { secretKey: null, expiresIn: null }
     req.body.res = { status: 0, message: "", token: "", content: { auth: {}, menus: {}, products: {} } }
     next()
 }
-
 function modelFncForSendResToClient(req, res) {
     res.status(req.body.res.status).json({
         status: req.body.res.status,
@@ -43,35 +42,31 @@ function modelFncForSendResToClient(req, res) {
 }
 
 
+
 routeAuth.use( modelObjectBodyForSessionForReq )
-
-
 routeAuth.get('/', (req, res) => res.status(200).json({ message: "List d'authentication:", list: list }) )
+
 
 
 routeAuth.post('/login', 
     authController.isValidEmail, selectValuesController.selectValuesAuthFromDBbyEmail, authController.isValidPassword,
     authController.createToken, modelFncForSendResToClient
 )
-
-
 routeAuth.post('/forgot-password', 
     authController.isValidEmail, selectValuesController.selectValuesAuthFromDBbyEmail, authController.createToken,
     emailController.sendEmailForVerification, modelFncForSendResToClient 
 )
-
-
 routeAuth.post('/update-password', 
 authController.isValidToken, selectValuesController.selectValuesAuthFromDBbyId, authController.hashPassword,
 updateValuesController.updateValuesAuthPasswordFromDB, modelFncForSendResToClient 
 )
 
 
+
 // for all routes below, the token must be present in the header
 routeAuth.use( authController.isValidToken, selectValuesController.selectValuesAuthFromDBbyId )
-
-
 routeAuth.post('/verif-session', authController.createToken, modelFncForSendResToClient )
+
 
 
 // routeAuth.get('/user-infos', selectValuesController.getValuesUserInfosFromDB, modelFncForSendResToClient )
@@ -80,41 +75,35 @@ routeAuth.post('/verif-session', authController.createToken, modelFncForSendResT
 // routeAuth.delete('/user-infos', deleteValuesController.deleteValuesUserInfosFromDB, modelFncForSendResToClient )
 
 
+
 routeAuth.get('/menus/select', 
     selectValuesController.selectValuesMenusListFromDB, modelFncForSendResToClient 
 )
-
 routeAuth.post('/menu/create',
     createValuesController.createValuesMenuInDB, modelFncForSendResToClient
 )
-
 routeAuth.put('/menu/update/:params',
     updateValuesController.updateValuesMenuFromDB, modelFncForSendResToClient
 )
-
 routeAuth.delete('/menu/delete/:params',
     deleteValuesController.deleteValuesMenuFromDB, modelFncForSendResToClient
 )
 
 
+
 routeAuth.get('/products/select/:params', 
     selectValuesController.selectValuesProductsListFromMenuFromDB, modelFncForSendResToClient 
 )
-
-
+routeAuth.post('/product/create/:params',
+    createValuesController.createValuesProductInDB, modelFncForSendResToClient
+)
 routeAuth.put('/product/update/:params', 
     updateValuesController.updateValuesProduitFromDB, modelFncForSendResToClient
 )
-
-
 routeAuth.delete('/product/delete/:params',
     deleteValuesController.deleteValuesProductFromDB, modelFncForSendResToClient
 )
 
-
-routeAuth.post('/product/create/:params',
-    createValuesController.createValuesProductInDB, modelFncForSendResToClient
-)
 
 
 // routeAuth.put('/menu/:params', updateValuesController.updateValuesMenuItemFromDB, modelFncForSendResToClient )

@@ -3,11 +3,20 @@ import * as updateValuesModel from '../models/updateValuesModel.js';
 
 
 export const updateValuesAuthPasswordFromDB = async (req, res, next) => {
+    let SETvalues = ""
     req.body.configDB.tableName = "auth"
-    req.body.configDB.colonneName = { id: "_id", password: "password" }
-    req.body.configDB.colonneValue = req.body.auth.password
+    req.body.configDB.colonneName = ["_id", "password"]
+    req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
 
-    await updateValuesModel.updateValuesAuthPasswordFromDB(req, {
+    req.body.configDB.colonneName.forEach((element, index) => {
+        element !== req.body.configDB.colonneName[0] ? 
+        SETvalues += `${element} = "${req.body.auth.password}"${index < req.body.configDB.colonneName.length - 1 ? "," : ""}` 
+        : req.body.configDB.WHEREvalues = `${element} = ${req.body.configDB.infosFromDB._id}`
+    })
+
+    req.body.configDB.SETvalues = SETvalues
+
+    await updateValuesModel.modelUpdateForDB({
         ...req.body.configDB
     })
     .then(data => {
@@ -24,12 +33,22 @@ export const updateValuesAuthPasswordFromDB = async (req, res, next) => {
 }
 
 
+
 export const updateValuesMenuFromDB = async (req, res, next) => {
+    let SETvalues = ""
     req.body.configDB.tableName = "menus"
     req.body.configDB.colonneName = ["_id", "menu_name"]
     req.body.configDB.colonneValue = req.params.params
+    
+    req.body.configDB.colonneName.forEach((element, index) => {
+        element !== req.body.configDB.colonneName[0] ? 
+        SETvalues += `${element} = "${req.body.menu[element]}"${index < req.body.configDB.colonneName.length - 1 ? "," : ""}` 
+        : req.body.configDB.WHEREvalues = `${element} = ${req.params.params}`
+    })
 
-    await updateValuesModel.updateValuesMenuFromDB(req, {
+    req.body.configDB.SETvalues = SETvalues
+
+    await updateValuesModel.modelUpdateForDB({
         ...req.body.configDB
     })
     .then(data => {
@@ -42,16 +61,26 @@ export const updateValuesMenuFromDB = async (req, res, next) => {
         console.log("updateValuesMenuFromDB -> error");
         console.log(error);
         res.status(error.status).json(error)
-    }) 
+    })
 }
 
 
+
 export const updateValuesProduitFromDB = async (req, res, next) => {
+    let SETvalues = ""
     req.body.configDB.tableName = "products"
     req.body.configDB.colonneName = ["_id", "product_name", "product_description", "product_price"]
     req.body.configDB.colonneValue = req.params.params
 
-    await updateValuesModel.updateValuesProduitFromDB(req, {
+    req.body.configDB.colonneName.forEach((element, index) => {
+        element !== req.body.configDB.colonneName[0] ? 
+        SETvalues += `${element} = "${req.body.product[element]}"${index < req.body.configDB.colonneName.length - 1 ? "," : ""}` 
+        : req.body.configDB.WHEREvalues = `${element} = ${req.params.params}`
+    })
+
+    req.body.configDB.SETvalues = SETvalues
+
+    await updateValuesModel.modelUpdateForDB({
         ...req.body.configDB
     })
     .then(data => {
@@ -66,3 +95,7 @@ export const updateValuesProduitFromDB = async (req, res, next) => {
         res.status(error.status).json(error)
     }) 
 }
+
+
+
+

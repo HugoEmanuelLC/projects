@@ -6,9 +6,9 @@ import { productUpdate, productCreate } from "../../../../authentication/scripts
 
 function NewProduct(props) {
     const [ newProduct, setNewProduct ] = useState({
-        name: "",
-        price: "",
-        description: ""
+        product_name: "",
+        product_price: "",
+        product_description: ""
     })
     const [ error, setError ] = useState(null)
 
@@ -19,10 +19,10 @@ function NewProduct(props) {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (newProduct.name == "" || newProduct.price == "") {
+        if (newProduct.product_name == "" || newProduct.product_price == "") {
             return setError("Vous devez remplir les champs obligatoires")
         }else{
-            await productCreate("auth", props.menu_id, [newProduct.name, newProduct.price, newProduct.description])
+            await productCreate("auth", props.menu_id, newProduct)
             .then((res) => {
                 console.log("res : ", res);
                 setError("Produit créé")
@@ -49,9 +49,9 @@ function NewProduct(props) {
         <span>{error}</span>
         <form >
             <h2>Création d'un nouveau produit</h2>
-            <input type="text" placeholder="product name" name="name" value={newProduct.name} onChange={handleChange} />
-            <input type="text" placeholder="price '2.50' €" name="price" value={newProduct.price} onChange={handleChange} />
-            <input type="text" placeholder="decription optionel" name="description" value={newProduct.description} onChange={handleChange} />
+            <input type="text" placeholder="product name" name="product_name" value={newProduct.product_name} onChange={handleChange} />
+            <input type="text" placeholder="price '2.50' €" name="product_price" value={newProduct.product_price} onChange={handleChange} />
+            <input type="text" placeholder="decription optionel" name="product_description" value={newProduct.product_description} onChange={handleChange} />
         </form>
         <button className="button" onClick={handleSubmit}>Créer</button>
         </>

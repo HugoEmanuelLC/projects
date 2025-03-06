@@ -1,6 +1,7 @@
 // Dependencies
 import { Router } from "express"
 import {} from 'dotenv/config'
+
 // Controllers
 import * as authController from '../authentication/controllers/authController.js'
 import * as emailController from '../emails/controllers/emailController.js'
@@ -26,6 +27,11 @@ const list = [
     { url: "/auth/products/select/:params", method: "GET", description: "Select products" },
     { url: "/auth/product/update/:params", method: "PUT", description: "Update product" }
 ]
+
+
+
+
+// Middlewares
 function modelObjectBodyForSessionForReq(req, res, next){
     req.body.configDB = { tableName: null, colonneName: null, colonneValue: null, infosFromDB: {} } 
     req.body.configToken = { secretKey: null, expiresIn: null }
@@ -48,6 +54,7 @@ routeAuth.get('/', (req, res) => res.status(200).json({ message: "List d'authent
 
 
 
+// Authentication
 routeAuth.post('/login', 
     authController.isValidEmail, selectValuesController.selectValuesAuthFromDBbyEmail, authController.isValidPassword,
     authController.createToken, modelFncForSendResToClient
@@ -60,8 +67,6 @@ routeAuth.post('/update-password',
 authController.isValidToken, selectValuesController.selectValuesAuthFromDBbyId, authController.hashPassword,
 updateValuesController.updateValuesAuthPasswordFromDB, modelFncForSendResToClient 
 )
-
-
 
 // for all routes below, the token must be present in the header
 routeAuth.use( authController.isValidToken, selectValuesController.selectValuesAuthFromDBbyId )
@@ -76,6 +81,7 @@ routeAuth.post('/verif-session', authController.createToken, modelFncForSendResT
 
 
 
+// Menus
 routeAuth.get('/menus/select', 
     selectValuesController.selectValuesMenusListFromDB, modelFncForSendResToClient 
 )
@@ -91,6 +97,7 @@ routeAuth.delete('/menu/delete/:params',
 
 
 
+// Products
 routeAuth.get('/products/select/:params', 
     selectValuesController.selectValuesProductsListFromMenuFromDB, modelFncForSendResToClient 
 )

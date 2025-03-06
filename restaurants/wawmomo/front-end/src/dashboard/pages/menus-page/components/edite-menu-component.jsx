@@ -5,20 +5,22 @@ import { menuCreate, menuUpdate } from "../../../../authentication/scripts/authe
 
 
 function NewMenu(props) {
-    const [ newMenu, setNewMenu ] = useState("")
+    const [ newMenu, setNewMenu ] = useState({
+        menu_name: "",
+    })
     const [ error, setError ] = useState(null)
 
     const handleChange = (e) => {
-        setNewMenu(e.target.value)
+        setNewMenu({...newMenu, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (newMenu == "") {
+        if (newMenu.menu_name == "") {
             return setError("Vous devez remplir les champs obligatoires")
         }else{
-            await menuCreate("auth", [newMenu])
+            await menuCreate("auth", newMenu)
             .then((res) => {
                 console.log("res : ", res);
                 setError("Menu créé")
@@ -45,7 +47,7 @@ function NewMenu(props) {
         <span>{error}</span>
         <form >
             <h2>Création d'un nouveau menu</h2>
-            <input type="text" placeholder="menu name" value={newMenu} onChange={handleChange} />
+            <input type="text" placeholder="menu name" name="menu_name" value={newMenu.menu_name} onChange={handleChange} />
         </form>
         <button className="button" onClick={handleSubmit}>Créer</button>
         </>

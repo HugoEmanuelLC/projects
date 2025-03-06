@@ -1,11 +1,22 @@
 import * as createValuesModel from '../models/createValuesModel.js';
 
+
+
 export const createValuesMenuInDB = async (req, res, next) => {
+    let SETvalues = ""
     req.body.configDB.tableName = "menus"
     req.body.configDB.colonneName = ["fk_auth", "menu_name"]
-    req.body.configDB.colonneValue = req.body.menu
+    req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
 
-    await createValuesModel.createValuesMenuInDB(req, {
+    req.body.configDB.colonneName.forEach((element, index) => {
+        element !== req.body.configDB.colonneName[0] ?
+        SETvalues += `"${req.body.menu[element]}"${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+        : SETvalues += `${req.body.configDB.infosFromDB._id}${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+    })
+
+    req.body.configDB.SETvalues = SETvalues
+
+    await createValuesModel.modelCreateFromDB({
         ...req.body.configDB
     })
     .then(data => {
@@ -24,11 +35,25 @@ export const createValuesMenuInDB = async (req, res, next) => {
 
 
 export const createValuesProductInDB = async (req, res, next) => {
+    let SETvalues = ""
     req.body.configDB.tableName = "products"
-    req.body.configDB.colonneName = ["fk_auth", "fk_menu", "product_name", "product_price", "product_description"]
+    req.body.configDB.colonneName = ["fk_menu", "fk_auth", "product_name", "product_price", "product_description"]
     req.body.configDB.colonneValue = req.body.product
 
-    await createValuesModel.createValuesProductInDB(req, {
+    req.body.configDB.colonneName.forEach((element, index) => {
+        element === req.body.configDB.colonneName[1] ? 
+            SETvalues += `${req.body.configDB.infosFromDB._id}${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+        : element !== req.body.configDB.colonneName[0] ?
+            SETvalues += `"${req.body.product[element]}"${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+        : SETvalues += `${req.params.params}${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+    })
+
+    req.body.configDB.SETvalues = SETvalues
+    
+    console.log("createValuesMenuInDB -> req.body.configDB");
+    console.log(req.body);
+
+    await createValuesModel.modelCreateFromDB({
         ...req.body.configDB
     })
     .then(data => {

@@ -2,6 +2,7 @@ import * as selectValuesModel from '../models/selectValuesModel.js';
 
 
 
+// AUTHENTIFICATION
 export const selectValuesAuthFromDBbyEmail = async (req, res, next) => {
     req.body.configDB.tableName = "auth"
     req.body.configDB.colonneName = "email"
@@ -34,10 +35,6 @@ export const selectValuesAuthFromDBbyId = async (req, res, next) => {
     req.body.configDB.tableName = "auth"
     req.body.configDB.colonneName = "_id"
 
-    
-    console.log("selectValuesAuthFromDB -> data");
-    console.log(req.body.configDB);
-
     await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
     })
@@ -64,6 +61,9 @@ export const selectValuesAuthFromDBbyId = async (req, res, next) => {
 }
 
 
+
+
+// MENUS
 export const selectValuesMenusListFromDB = async (req, res, next) => {
     req.body.configDB.tableName = "menus"
     req.body.configDB.colonneName = "fk_auth"
@@ -94,6 +94,7 @@ export const selectValuesMenusListFromDB = async (req, res, next) => {
 }
 
 
+// PRODUCTS
 export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => {
     req.body.configDB.tableName = "products"
     req.body.configDB.colonneName = "fk_menu"

@@ -369,6 +369,9 @@ export const productCreate = (cookieName, id, data) => {
         product: data
     }
 
+    console.log("body : ");
+    console.log(body);
+
     return new Promise((resolve, reject) => {
 
         if (getCookie.match(cookieExistName)) {

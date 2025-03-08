@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 
 import { menusSelect, productsSelect, productDelete } from "../../../authentication/scripts/authentication-scripts";
 
-import Popup, {
-    CreateNewElement,
-    ConfimationDelete
-} from "./components/popup-component";
+import { CreateNewElement } from "./components/content-popup-component";
+
+import Popup, { ConfimationDelete } from "../../components/popup-component/popup-component";
 
 import { UpdateProduct } from "./components/edite-product-component";
 
@@ -41,12 +40,12 @@ function ProductsPage() {
     }, [loading])
 
     return (
-        <section className="menus" >
+        <section className="box_content_settings" >
             {
                 loading ? <h1>...</h1> : 
                 <>
-                <div className="btnPlus" onClick={()=>setCreateNewElementPopup("menu")}>Ajouter menu</div>
-                <div className="list_menus">
+                <div className="btn_new_add" onClick={()=>setCreateNewElementPopup("menu")}>Ajouter menu</div>
+                <div className="list_head_links">
                     <ul>
                     {
                         listMenus.map((menu, index) => {
@@ -133,8 +132,8 @@ function ProductsComponent(props) {
     return (
         loading ? <h1></h1> : 
             <>
-            {props.menu_id && <div className="btnPlus" onClick={()=>setCreateNewElementPopup("product")}>Ajouter produit </div>}
-            <div className="list_products">
+            {props.menu_id && <div className="btn_new_add" onClick={()=>setCreateNewElementPopup("product")}>Ajouter produit </div>}
+            <div className="list_datas">
                 <table>
                     <thead>
                         <tr>

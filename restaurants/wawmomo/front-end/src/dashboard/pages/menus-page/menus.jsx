@@ -2,18 +2,16 @@ import { useState, useEffect } from "react";
 
 import { menusSelect, menuDelete } from "../../../authentication/scripts/authentication-scripts";
 
-import Popup, {
-    CreateNewElement,
-    ConfimationDelete
-} from "./components/popup-component";
+import { CreateNewElement } from "./components/content-popup-component";
+
+import Popup, { ConfimationDelete } from "../../components/popup-component/popup-component";
 
 import { UpdateMenu } from "./components/edite-menu-component";
 
 
 function MenusPage() {
-    const [ listMenus, setListMenus ] = useState([])
     const [ loading, setLoading ] = useState(true)
-    const [ selectedMenu, setSelectedMenu ] = useState(null)
+    const [ listMenus, setListMenus ] = useState([])
 
     const [ updateMenuPopup, setUpdateMenuPopup] = useState(null)
     const [ delitedMenuPopup, setDelitedMenuPopup ] = useState(null)
@@ -48,12 +46,12 @@ function MenusPage() {
 
 
     return (
-        <section className="menus">
+        <section className="box_content_settings">
             {
                 loading ? <h1>...</h1> : 
                 <>
-                <div className="btnPlus" onClick={()=>setCreateNewElementPopup("menu")}>Ajouter menu</div>
-                <div className="list_products">
+                <div className="btn_new_add" onClick={()=>setCreateNewElementPopup("menu")}>Ajouter menu</div>
+                <div className="list_datas">
                     <table>
                         <thead>
                             <tr>

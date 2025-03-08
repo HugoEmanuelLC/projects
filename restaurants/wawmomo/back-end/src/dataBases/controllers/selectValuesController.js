@@ -73,6 +73,7 @@ export const selectValuesMenusListFromDB = async (req, res, next) => {
         ...req.body.configDB
     })
     .then(data => {
+        console.log(data);
         let menus = [];
         data.data.forEach(menu => {
             menus.push({
@@ -121,6 +122,38 @@ export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => 
     })
     .catch(error => {
         console.log("selectValuesProductsListFromMenuFromDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    }) 
+}
+
+
+
+// TIMETABLE
+export const selectValuesTimeTableFromDB = async (req, res, next) => {
+    req.body.configDB.tableName = "timetable"
+    req.body.configDB.colonneName = "fk_auth"
+    req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
+
+    await selectValuesModel.modelSelectFromDB({
+        ...req.body.configDB
+    })
+    .then(data => {
+        let datasParces = JSON.parse(data.data[0].content)
+        let timetable = [];
+        timetable.push({
+            _id: data.data[0]._id,
+            comment: data.data[0].comment,
+            timetable: [datasParces]
+        })
+
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        req.body.res.content = { timetable: timetable }
+        next()
+    })
+    .catch(error => {
+        console.log("selectValuesTimeTableFromDB -> error");
         console.log(error);
         res.status(error.status).json(error)
     }) 

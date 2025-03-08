@@ -16,6 +16,8 @@ const urlForFetch = {
     productCreate: urlApi+'/product/create',
     produitUpdate: urlApi+'/product/update',
     productDelete: urlApi+'/product/delete',
+
+    selectTimetable: urlApi+'/time-table/select',
 }
 
 
@@ -379,6 +381,31 @@ export const productCreate = (cookieName, id, data) => {
             fetchApi(urlForFetch.productCreate+"/"+id, 'POST', body, getCookie)
             .then((res) => {
                 resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
+
+
+
+export const timetableSelect = (cookieName) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    return new Promise((resolve, reject) => {
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+
+            fetchApi(urlForFetch.selectTimetable, 'GET', {}, getCookie)
+            .then((res) => {
+                resolve(res.content.timetable);
             })
             .catch((err) => {
                 console.error("Err : ", err);

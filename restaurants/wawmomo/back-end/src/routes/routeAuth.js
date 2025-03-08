@@ -113,6 +113,13 @@ routeAuth.delete('/product/delete/:params',
 
 
 
+// TimeTable
+routeAuth.get('/time-table/select', 
+    selectValuesController.selectValuesTimeTableFromDB, modelFncForSendResToClient 
+)
+
+
+
 // routeAuth.put('/menu/:params', updateValuesController.updateValuesMenuItemFromDB, modelFncForSendResToClient )
 // routeAuth.post('/menu/:params', insertValuesController.insertValuesMenuItemFromDB, modelFncForSendResToClient )
 // routeAuth.delete('/menu/:params', deleteValuesController.deleteValuesMenuItemFromDB, modelFncForSendResToClient )

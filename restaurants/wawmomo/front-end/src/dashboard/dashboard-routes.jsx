@@ -17,6 +17,7 @@ import Home from './pages/home-page/home';
 import UserPage from './pages/user-page/user-page';
 import MenusPage from './pages/menus-page/menus';
 import ProductsPage from './pages/menus-page/products';
+import TimetablePage from './pages/timetable-page/timetable';
 import ErrorPage from './pages/error-page/error';
 
 
@@ -62,6 +63,7 @@ function DashboardRoutes() {
                             <Route path="menus" element={ <MenusPage /> } />
                             <Route path="produits" element={ <ProductsPage /> } />
                             <Route path="user-page" element={<UserPage />} />
+                            <Route path='Timetable' element={<TimetablePage />} />
                             <Route path="*" element={<ErrorPage />} />
                         </Routes>
                     </main>

@@ -1,4 +1,5 @@
 .menus{
+    border: solid 3px red;
     @include flex(column, flex-start, flex-start);
     // gap: $dash_padding_sm;
 
@@ -27,6 +28,7 @@
     }
 
     .list_menus{
+        border: solid 3px red;
         background-color: white;
         width: 100%;
         @include flex(row, flex-start, center);
@@ -58,6 +60,7 @@
     }
 
     .list_products{
+        border: solid 3px red;
         background-color: white;
         width: 100%;
         border-radius: calc($dash_padding_sm / 2);

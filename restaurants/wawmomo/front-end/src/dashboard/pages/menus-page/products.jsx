@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
-import { menusSelect, productsSelect, productDelete } from "../../../authentication/scripts/authentication-scripts";
-
-import { CreateNewElement } from "./components/content-popup-component";
+// CRUD
+import { menusSelect } from "./menus-script";
+import { productsSelect, productDelete } from "./products-script";
 
 import Popup, { ConfimationDelete } from "../../components/popup-component/popup-component";
-
-import { UpdateProduct } from "./components/edite-product-component";
+import { NewProduct, UpdateProduct } from "./components/edite-product-component";
+import { NewMenu } from "./components/edite-menu-component";
 
 function ProductsPage() {
     const [ listMenus, setListMenus ] = useState([])
@@ -17,7 +17,7 @@ function ProductsPage() {
 
 
     const selectListMenus = async () => {
-        await menusSelect("auth")
+        await menusSelect()
         .then((res) => {
             console.log("res : ", res);
             setListMenus(res)
@@ -44,7 +44,7 @@ function ProductsPage() {
             {
                 loading ? <h1>...</h1> : 
                 <>
-                <div className="btn_new_add" onClick={()=>setCreateNewElementPopup("menu")}>Ajouter menu</div>
+                <div className="btn_new_add" onClick={()=>setCreateNewElementPopup(true)}>Ajouter menu</div>
                 <div className="list_head_links">
                     <ul>
                     {
@@ -69,9 +69,8 @@ function ProductsPage() {
                 <Popup
                     closePopup={()=>setCreateNewElementPopup(null)}
                 >
-                    <CreateNewElement 
-                        createNewElementPopup={createNewElementPopup}
-                        selectListMenus={selectListMenus}
+                    <NewMenu 
+                        selectList={selectListMenus}
                         closePopup={()=>setCreateNewElementPopup(null)}
                     />
                 </Popup>
@@ -88,25 +87,22 @@ export default ProductsPage;
 
 
 function ProductsComponent(props) {
-    const [ products, setProducts ] = useState(null)
     const [ loading, setLoading ] = useState(true)
+    const [ products, setProducts ] = useState([])
 
     const [ updateProductPopup, setUpdateProductPopup] = useState(null)
     const [ delitedProductPopup, setDelitedProductPopup ] = useState(null)
     const [ createNewElementPopup, setCreateNewElementPopup ] = useState(null)
 
+    
     const selectProducts = async () => {
-        await productsSelect("auth", props.menu_id)
+        await productsSelect(props.menu_id)
         .then((res) => {
-            // console.log("res :  ------------------");
-            // console.log(res);
             setProducts(res)
         })
         .catch((err) => {
             setProducts([])
-            // console.error("Err : ", err);
         });
-        setUpdateProductPopup(null)
     }
 
     const handleLoading = (close=null) => {
@@ -124,10 +120,6 @@ function ProductsComponent(props) {
     useEffect(() => {
         props.menu_id !== null && selectProducts()
     }, [props.menu_id])
-
-    useEffect(() => {
-        console.log("updateProductPopup: ", updateProductPopup);
-    }, [updateProductPopup])
 
     return (
         loading ? <h1></h1> : 
@@ -204,10 +196,9 @@ function ProductsComponent(props) {
                     <Popup
                         closePopup={()=>setCreateNewElementPopup(null)}
                     >
-                        <CreateNewElement 
-                            createNewElementPopup={createNewElementPopup}
-                            selectProducts={selectProducts}
-                            menu_id={props.menu_id}
+                        <NewProduct 
+                            selectList={selectProducts}
+                            parent_id={props.menu_id}
                             closePopup={()=>setCreateNewElementPopup(null)}
                         />
                     </Popup>

@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 
+import {NewMenu} from '../../pages/menus-page/components/edite-menu-component';
+import {NewProduct} from '../../pages/menus-page/components/edite-product-component';
+import {NewTimetableDay} from '../../pages/timetable-page/components/edite-timetable-component';
+
 
 function Popup(props) {
 
@@ -33,7 +37,7 @@ export function ConfimationDelete(props) {
     const [ msg, setMsg ] = useState(null)
 
     const handleDelete = async () => {
-        await props.fnc("auth", props.datas.id)
+        await props.fnc(props.datas.id)
         .then((res) => {
             props.selectDatas()
             setMsg(props.msg)
@@ -59,3 +63,6 @@ export function ConfimationDelete(props) {
         </>
     )
 }
+
+
+

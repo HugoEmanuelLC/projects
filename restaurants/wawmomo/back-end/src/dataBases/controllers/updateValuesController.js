@@ -98,4 +98,32 @@ export const updateValuesProduitFromDB = async (req, res, next) => {
 
 
 
+export const updateValuesTimeTableDayFromDB = async (req, res, next) => {
+    let SETvalues = ""
+    req.body.configDB.tableName = "hours"
+    req.body.configDB.colonneName = ["_id", "day_name", "open", "close"]
+    req.body.configDB.colonneValue = req.params.params
 
+    req.body.configDB.colonneName.forEach((element, index) => {
+        element !== req.body.configDB.colonneName[0] ? 
+        SETvalues += `${element} = "${req.body.timetable[element]}"${index < req.body.configDB.colonneName.length - 1 ? "," : ""}` 
+        : req.body.configDB.WHEREvalues = `${element} = ${req.params.params}`
+    })
+
+    req.body.configDB.SETvalues = SETvalues
+
+    await updateValuesModel.modelUpdateForDB({
+        ...req.body.configDB
+    })
+    .then(data => {
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        req.body.res.content = { timetable: data.timetable }
+        next()
+    })
+    .catch(error => {
+        console.log("updateValuesTimeTableFromDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    }) 
+}

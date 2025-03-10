@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 
-import { menusSelect, menuDelete } from "../../../authentication/scripts/authentication-scripts";
-
-import { CreateNewElement } from "./components/content-popup-component";
+// CRUD
+import { menusSelect, menuDelete } from "./menus-script";
 
 import Popup, { ConfimationDelete } from "../../components/popup-component/popup-component";
-
-import { UpdateMenu } from "./components/edite-menu-component";
+import { NewMenu, UpdateMenu } from "./components/edite-menu-component";
 
 
 function MenusPage() {
@@ -15,13 +13,11 @@ function MenusPage() {
 
     const [ updateMenuPopup, setUpdateMenuPopup] = useState(null)
     const [ delitedMenuPopup, setDelitedMenuPopup ] = useState(null)
-
     const [ createNewElementPopup, setCreateNewElementPopup ] = useState(null)
-    
 
 
     const selectListMenus = async () => {
-        await menusSelect("auth")
+        await menusSelect()
         .then((res) => {
             console.log("res : ", res);
             setListMenus(res)
@@ -50,7 +46,7 @@ function MenusPage() {
             {
                 loading ? <h1>...</h1> : 
                 <>
-                <div className="btn_new_add" onClick={()=>setCreateNewElementPopup("menu")}>Ajouter menu</div>
+                <div className="btn_new_add" onClick={()=>setCreateNewElementPopup(true)}>Ajouter menu</div>
                 <div className="list_datas">
                     <table>
                         <thead>
@@ -66,9 +62,7 @@ function MenusPage() {
                                     return (
                                         <tr key={index}>
                                             <td>{menu.menu_name}</td>
-                                            {
-                                                <td>{menu.menu_description}</td>
-                                            }
+                                            <td>{menu.menu_image}</td>
                                             <td className="actions">
                                                 <button onClick={()=>setDelitedMenuPopup(menu)}><i className='bx bx-trash'></i></button>
                                                 <button onClick={()=>setUpdateMenuPopup(menu)}><i className='bx bx-edit-alt'></i></button>
@@ -88,9 +82,8 @@ function MenusPage() {
                         <Popup
                             closePopup={()=>setCreateNewElementPopup(null)}
                         >
-                            <CreateNewElement 
-                                createNewElementPopup={createNewElementPopup}
-                                selectListMenus={selectListMenus}
+                            <NewMenu 
+                                selectList={selectListMenus}
                                 closePopup={()=>setCreateNewElementPopup(null)}
                             />
                         </Popup>

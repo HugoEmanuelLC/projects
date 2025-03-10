@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 
-import { menuCreate, menuUpdate } from "../../../../authentication/scripts/authentication-scripts";
+// CRUD
+import { menuCreate, menuUpdate } from "../menus-script";
 
 
 
-function NewMenu(props) {
+export function NewMenu(props) {
     const [ newMenu, setNewMenu ] = useState({
         menu_name: "",
     })
@@ -20,11 +21,11 @@ function NewMenu(props) {
         if (newMenu.menu_name == "") {
             return setError("Vous devez remplir les champs obligatoires")
         }else{
-            await menuCreate("auth", newMenu)
+            await menuCreate(newMenu)
             .then((res) => {
                 console.log("res : ", res);
                 setError("Menu créé")
-                props.selectListMenus()
+                props.selectList()
                 let timer = setTimeout(() => {
                     setError(null)
                     props.closePopup()
@@ -55,8 +56,6 @@ function NewMenu(props) {
 }
 
 
-export default NewMenu;
-
 
 
 export function UpdateMenu(props) {
@@ -75,9 +74,8 @@ export function UpdateMenu(props) {
         if (updateMenu.menu_name == "") {
             return setError("Vous devez remplir les champs obligatoires")
         }else{
-            await menuUpdate("auth", props.menu._id, updateMenu)
+            await menuUpdate(props.menu._id, updateMenu)
             .then((res) => {
-                console.log("res : ", res);
                 setError("Menu modifié")
                 props.selectListMenus()
                 let timer = setTimeout(() => {
@@ -95,8 +93,6 @@ export function UpdateMenu(props) {
 
     useEffect(() => {
         setError(null)
-        console.log("props.data : ");
-        console.log(props.menu);
     }, [updateMenu])
 
     return (

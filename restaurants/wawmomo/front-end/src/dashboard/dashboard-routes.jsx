@@ -63,7 +63,7 @@ function DashboardRoutes() {
                             <Route path="menus" element={ <MenusPage /> } />
                             <Route path="produits" element={ <ProductsPage /> } />
                             <Route path="user-page" element={<UserPage />} />
-                            <Route path='Timetable' element={<TimetablePage />} />
+                            <Route path='horaires' element={<TimetablePage />} />
                             <Route path="*" element={<ErrorPage />} />
                         </Routes>
                     </main>

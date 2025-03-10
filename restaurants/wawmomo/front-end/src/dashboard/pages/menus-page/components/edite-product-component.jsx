@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 
-import { productUpdate, productCreate } from "../../../../authentication/scripts/authentication-scripts";
+// CRUD
+import { productCreate, productUpdate } from "../products-script";
 
 
 
-function NewProduct(props) {
+export function NewProduct(props) {
     const [ newProduct, setNewProduct ] = useState({
         product_name: "",
         product_price: "",
@@ -22,11 +23,11 @@ function NewProduct(props) {
         if (newProduct.product_name == "" || newProduct.product_price == "") {
             return setError("Vous devez remplir les champs obligatoires")
         }else{
-            await productCreate("auth", props.menu_id, newProduct)
+            await productCreate(props.parent_id, newProduct)
             .then((res) => {
                 console.log("res : ", res);
                 setError("Produit créé")
-                props.selectProducts()
+                props.selectList()
                 let timer = setTimeout(() => {
                     setError(null)
                     props.closePopup()
@@ -58,8 +59,6 @@ function NewProduct(props) {
     )
 }
 
-
-export default NewProduct;
 
 
 
@@ -105,11 +104,15 @@ export function UpdateProduct(props){
             await productFnc("product_price", newProduct.product_price, props.product.product_price)
             await productFnc("product_description", newProduct.product_description, props.product.product_description)
     
-            await productUpdate("auth", props.product._id, productInfosToUpdate)
+            await productUpdate( props.product._id, productInfosToUpdate)
             .then((res) => {
-                // console.log("res : ", res);
+                setError("Menu modifié")
                 props.selectProducts()
-                props.closePopup()
+                let timer = setTimeout(() => {
+                    setError(null)
+                    props.closePopup()
+                }, 1000)
+                return () => clearTimeout(timer)
             })
             .catch((err) => {
                 console.error("Err : ", err);

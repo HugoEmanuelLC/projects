@@ -117,6 +117,15 @@ routeAuth.delete('/product/delete/:params',
 routeAuth.get('/time-table/select', 
     selectValuesController.selectValuesTimeTableFromDB, modelFncForSendResToClient 
 )
+routeAuth.put('/time-table-day/update/:params',
+    updateValuesController.updateValuesTimeTableDayFromDB, modelFncForSendResToClient
+)
+routeAuth.post('/time-table-day/create/:params',
+    createValuesController.createValuesTimeTableDayInDB, modelFncForSendResToClient
+)
+routeAuth.delete('/time-table-day/delete/:params',
+    deleteValuesController.deleteValuesTimeTableDayFromDB, modelFncForSendResToClient
+)
 
 
 

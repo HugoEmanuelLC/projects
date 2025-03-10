@@ -131,25 +131,26 @@ export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => 
 
 // TIMETABLE
 export const selectValuesTimeTableFromDB = async (req, res, next) => {
+    req.body.configDB.select = `
+        timetable._id AS timetable_id, 
+        timetable.comment, 
+        hours._id AS hours_id, 
+        hours.day_name, 
+        hours.open, 
+        hours.close
+    `
     req.body.configDB.tableName = "timetable"
-    req.body.configDB.colonneName = "fk_auth"
-    req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
+    req.body.configDB.tableName2 = "hours"
+    req.body.configDB.colonneName = "timetable._id"
+    req.body.configDB.colonneName2 = "hours.fk_timetable"
 
-    await selectValuesModel.modelSelectFromDB({
+    await selectValuesModel.modelSelectInnerJoinFromDB({
         ...req.body.configDB
     })
     .then(data => {
-        let datasParces = JSON.parse(data.data[0].content)
-        let timetable = [];
-        timetable.push({
-            _id: data.data[0]._id,
-            comment: data.data[0].comment,
-            timetable: [datasParces]
-        })
-
         req.body.res.status = data.status
         req.body.res.message = data.message
-        req.body.res.content = { timetable: timetable }
+        req.body.res.content = { timetable: data.data }
         next()
     })
     .catch(error => {

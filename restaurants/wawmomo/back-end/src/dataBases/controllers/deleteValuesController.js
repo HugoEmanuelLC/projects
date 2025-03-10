@@ -51,3 +51,26 @@ export const deleteValuesProductFromDB = async (req, res, next) => {
 }
 
 
+
+export const deleteValuesTimeTableDayFromDB = async (req, res, next) => {
+    req.body.configDB.tableName = "hours"
+    req.body.configDB.colonneName = "_id"
+    req.body.configDB.colonneValue = req.params.params
+
+    console.log("deleteValuesTimeTableDayFromDB -> req.body.configDB");
+    console.log(req.body.configDB);
+
+    await deleteValuesModel.modelDeleteFromDB({
+        ...req.body.configDB
+    })
+    .then(data => {
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        next()
+    })
+    .catch(error => {
+        console.log("deleteValuesTimeTableDayFromDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    })
+}

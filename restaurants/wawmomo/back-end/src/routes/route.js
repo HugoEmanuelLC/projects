@@ -53,7 +53,7 @@ route.get('/products-from-menu/:params',
 
 
 // TimeTable
-route.get('/time-table/select', 
+route.get('/timetable-list', 
     selectValuesController.selectValuesTimeTableFromDB, modelFncForSendResToClient 
 )
 

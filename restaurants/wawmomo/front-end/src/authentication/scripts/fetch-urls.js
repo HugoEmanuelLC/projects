@@ -28,6 +28,7 @@ const urlForFetch = {
 
     menusList: urlApi+'/menus-list',
     productsListFromMenu: urlApi+'/products-from-menu',
+    timetableList: urlApi+'/timetable-list',
     
 }
 

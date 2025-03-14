@@ -386,6 +386,51 @@ img {
   background-color: rgb(255, 229, 159);
   color: black;
 }
+#website #timetable {
+  background-color: #ffffff;
+  position: relative;
+}
+#website #timetable h2 {
+  font-size: 24px;
+  font-weight: 900;
+  padding: 10px;
+  text-align: center;
+}
+#website #timetable .box {
+  padding: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+#website #timetable .box table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#website #timetable .box table thead {
+  background-color: #f5f5f5;
+}
+#website #timetable .box table thead tr th {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+#website #timetable .box table tbody tr td::first-letter {
+  text-transform: capitalize;
+}
+#website #timetable .box table tbody tr td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+@media (min-width: 769px) {
+  #website #timetable h2 {
+    font-size: 34px;
+    padding: 20px;
+  }
+  #website #timetable .box {
+    padding: 20px;
+  }
+}
 #website #global_bloc section {
   min-height: 25vh;
 }/*# sourceMappingURL=index.css.map */

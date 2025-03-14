@@ -67,6 +67,10 @@ export const timetableDayCreate = (id, data) => {
         timetable: data
     }
 
+    console.log("timetableDayCreate data : ------------ ");
+    console.log(data);
+    console.log("timetableDayCreate body : ------------ ");
+
     return new Promise((resolve, reject) => {
         if (getCookie.match(cookieExistName)) {
             getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
@@ -112,10 +116,57 @@ export const timetableDayDelete = (id) => {
 
 
 
-export const timetableCommentUpdate = (id, data) => {}
+export const timetableCommentUpdate = (id, data) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+    let body = {
+        timetable: data
+    }
+
+    return new Promise((resolve, reject) => {
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+
+            fetchApi(urlForFetch.updateTimetableComment+"/"+id, 'PUT', body, getCookie)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
 
 
-export const timetableCommentCreate = (data) => {}
+export const timetableCommentDelete = (id) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+    let body = {
+        timetable: {
+            comment: ""
+        }
+    }
 
+    return new Promise((resolve, reject) => {
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
 
-export const timetableCommentDelete = (id) => {}
+            fetchApi(urlForFetch.updateTimetableComment+"/"+id, 'PUT', body, getCookie)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}

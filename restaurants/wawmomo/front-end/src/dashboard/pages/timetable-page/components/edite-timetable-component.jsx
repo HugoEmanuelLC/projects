@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react' 
 
 // CRUD
-import { timetableDayUpdate, timetableCommentUpdate } from '../timetable-script'
+import { timetableDayUpdate, timetableCommentUpdate, timetableDayCreate } from '../timetable-script'
 
 
 export function NewTimetableDay(props){
-    const [ newTimetable, setNewTimetable ] = useState({
+    let modelTimetable = {
         day_name: "",
         open: "",
         close: ""
-    })
+    }
+    const [ newTimetable, setNewTimetable ] = useState(modelTimetable)
     const [ error, setError ] = useState(null)
 
     const handleChange = (e) => {
@@ -22,14 +23,15 @@ export function NewTimetableDay(props){
         if (newTimetable.day_name == "" || newTimetable.open == "" || newTimetable.close == "") {
             return setError("Vous devez remplir les champs obligatoires")
         }else{
-            await timetableDayUpdate(newTimetable)
+            await timetableDayCreate(props.parent_id, newTimetable)
             .then((res) => {
                 console.log("res : ", res);
                 setError("Horaire créé")
-                props.selectTimetables()
+                props.selectList()
                 let timer = setTimeout(() => {
                     setError(null)
-                    props.closePopup()
+                    // props.closePopup()
+                    setNewTimetable({day_name: "", open: newTimetable.open, close: newTimetable.close})
                 }, 1000)
                 return () => clearTimeout(timer)
             })
@@ -116,6 +118,10 @@ export function UpdateTimetableDay(props){
 }
 
 
+
+
+
+
 export function UpdateTimetableComment(props){
     const [ timetable, setTimetable ] = useState(props.timetable)
     const [ error, setError ] = useState(null)
@@ -135,6 +141,7 @@ export function UpdateTimetableComment(props){
                 return () => clearTimeout(timer)
             })
             .catch((err) => {
+                setError("Erreur lors de la modification")
                 console.error("Err : ", err);
             });
         }
@@ -142,14 +149,17 @@ export function UpdateTimetableComment(props){
 
     useEffect(() => {
         setError(null)
+        console.log("timetable : ");
+        console.log(timetable);
     }, [timetable])
 
     return (
         <>
         <span>{error}</span>
         <form >
-            <h2>Modification des horaires pour {props.timetable.day_name.toUpperCase()}</h2>
-            <input type="time" name="comment" value={timetable.comment} onChange={(e)=>setTimetable({...timetable, comment: e.target.value})} />
+            <h2>Modification des horaires pour: </h2>
+            <h2>Commentaire</h2>
+            <input type="text" placeholder="Commentaire" name="comment" value={timetable.comment} onChange={(e)=>setTimetable({...timetable, comment: e.target.value})} />
         </form>
         <button className="button" onClick={handleUpdate}>Modifier</button>
         </>

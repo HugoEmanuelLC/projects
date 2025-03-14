@@ -51,7 +51,7 @@
 nav{
     // border: solid 3px red;
     width: 100%;
-    height: 100%;
+    height: 100vh;
 
     background-color: $dash_color_tertiary_opo;
 
@@ -158,7 +158,8 @@ nav{
         // border: solid 3px red;
         width: inherit;
         background-color: $dash_color_tertiary;
-        position: relative;
+        position: sticky;
+        // height: 100vh;
 
         &.close_nav{
             width: inherit;

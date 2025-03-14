@@ -1,13 +1,19 @@
+// Dependencies
 import { useState, useEffect } from 'react'
 import { Routes, Route, NavLink } from 'react-router-dom';
 
+// Routes
 import DashboardRoutes from './dashboard/dashboard-routes'
 import WebsiteRoutes from './website/website-routes'
 import Authentication from './authentication/authentication'
 
+// Hooks
 import AppContext from './hooks/app-context'
 
+// Scripts
 import { checkSession } from './authentication/scripts/authentication-scripts';
+
+
 
 function App() {
   const [ checkAuth, setCheckAuth ] = useState(null)

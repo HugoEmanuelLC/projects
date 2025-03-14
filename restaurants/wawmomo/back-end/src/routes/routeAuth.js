@@ -126,6 +126,12 @@ routeAuth.post('/time-table-day/create/:params',
 routeAuth.delete('/time-table-day/delete/:params',
     deleteValuesController.deleteValuesTimeTableDayFromDB, modelFncForSendResToClient
 )
+routeAuth.put('/time-table-comment/update/:params',
+    updateValuesController.updateValuesTimeTableCommentFromDB, modelFncForSendResToClient
+)
+routeAuth.delete('/time-table-comment/delete/:params',
+    updateValuesController.updateValuesTimeTableCommentFromDB, modelFncForSendResToClient
+)
 
 
 

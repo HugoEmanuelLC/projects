@@ -1,0 +1,41 @@
+#popup_component{
+    position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.2);
+
+    @include flex(column, center, center);
+
+    .popup_content{
+        // border: solid 2px red;
+        position: relative;
+        
+        .btn_close{
+            background-color: $color_tertiary;
+            color: $color_secondary;
+            border-radius: 50% 0 50% 50%;
+            width: 30px;
+            height: 30px;
+            @include flex(column, center, center);
+            position: absolute;
+                top: $padding_sm;
+                right: $padding_sm;
+            padding: 10px;
+            z-index: 10;
+            cursor: pointer;
+
+            &:hover{
+                background-color: $color_secondary;
+                color: $color_tertiary;
+            }
+        }
+
+        // .popup_head{}
+
+        // .popup_body{}
+    }
+}

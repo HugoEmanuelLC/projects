@@ -62,7 +62,9 @@ function ProductsPage() {
                 </>
             }
 
-            <ProductsComponent menu_id={selectedMenu} />
+            <ProductsComponent menu_id={selectedMenu} menu_name={
+                listMenus.filter((menu) => menu._id == selectedMenu)[0]?.menu_name
+            } />
 
             {
                 createNewElementPopup !== null &&
@@ -199,6 +201,7 @@ function ProductsComponent(props) {
                         <NewProduct 
                             selectList={selectProducts}
                             parent_id={props.menu_id}
+                            menu_name={props.menu_name}
                             closePopup={()=>setCreateNewElementPopup(null)}
                         />
                     </Popup>

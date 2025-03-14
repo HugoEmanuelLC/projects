@@ -4,8 +4,13 @@ import * as selectValuesModel from '../models/selectValuesModel.js';
 
 // AUTHENTIFICATION
 export const selectValuesAuthFromDBbyEmail = async (req, res, next) => {
-    req.body.configDB.tableName = "auth"
-    req.body.configDB.colonneName = "email"
+    try {
+        req.body.configDB.tableName = "auth"
+        req.body.configDB.colonneName = "email"
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
 
     await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
@@ -32,8 +37,13 @@ export const selectValuesAuthFromDBbyEmail = async (req, res, next) => {
 
 
 export const selectValuesAuthFromDBbyId = async (req, res, next) => {
-    req.body.configDB.tableName = "auth"
-    req.body.configDB.colonneName = "_id"
+    try {
+        req.body.configDB.tableName = "auth"
+        req.body.configDB.colonneName = "_id"
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
 
     await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
@@ -65,9 +75,14 @@ export const selectValuesAuthFromDBbyId = async (req, res, next) => {
 
 // MENUS
 export const selectValuesMenusListFromDB = async (req, res, next) => {
-    req.body.configDB.tableName = "menus"
-    req.body.configDB.colonneName = "fk_auth"
-    req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
+    try {
+        req.body.configDB.tableName = "menus"
+        req.body.configDB.colonneName = "fk_auth"
+        req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
 
     await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
@@ -95,11 +110,50 @@ export const selectValuesMenusListFromDB = async (req, res, next) => {
 }
 
 
+
+export const selectValuesAllMenusListFromDB = async (req, res, next) => {
+    try {
+        req.body.configDB.tableName = "menus"
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
+
+    await selectValuesModel.modelSelectAllFromDB({
+        ...req.body.configDB
+    })
+    .then(data => {
+        let menus = [];
+        data.data.forEach(menu => {
+            menus.push({
+                _id: menu._id,
+                menu_name: menu.menu_name
+            })
+        })
+
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        req.body.res.content = { menus: menus }
+        next()
+    })
+    .catch(error => {
+        console.log("selectValuesAllMenusListFromDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    }) 
+}
+
+
 // PRODUCTS
 export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => {
-    req.body.configDB.tableName = "products"
-    req.body.configDB.colonneName = "fk_menu"
-    req.body.configDB.colonneValue = req.params.params
+    try {
+        req.body.configDB.tableName = "products"
+        req.body.configDB.colonneName = "fk_menu"
+        req.body.configDB.colonneValue = req.params.params
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
 
     await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
@@ -111,7 +165,8 @@ export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => 
                 _id: product._id,
                 product_name: product.product_name,
                 product_price: product.product_price,
-                product_description: product.product_description
+                product_description: product.product_description,
+                fk_menu: product.fk_menu
             })
         })
 
@@ -131,20 +186,25 @@ export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => 
 
 // TIMETABLE
 export const selectValuesTimeTableFromDB = async (req, res, next) => {
-    req.body.configDB.select = `
-        timetable._id AS timetable_id, 
-        timetable.comment, 
-        hours._id AS hours_id, 
-        hours.day_name, 
-        hours.open, 
-        hours.close
-    `
-    req.body.configDB.tableName = "timetable"
-    req.body.configDB.tableName2 = "hours"
-    req.body.configDB.colonneName = "timetable._id"
-    req.body.configDB.colonneName2 = "hours.fk_timetable"
+    try {
+        req.body.configDB.select = `
+            timetable._id AS timetable_id, 
+            timetable.comment, 
+            hours._id AS hours_id, 
+            hours.day_name, 
+            hours.open, 
+            hours.close
+        `
+        req.body.configDB.tableName = "timetable"
+        req.body.configDB.tableName2 = "hours"
+        req.body.configDB.colonneName = "timetable._id"
+        req.body.configDB.colonneName2 = "hours.fk_timetable"
 
-    await selectValuesModel.modelSelectInnerJoinFromDB({
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
+
+    await selectValuesModel.modelSelectLeftJoinFromDB({
         ...req.body.configDB
     })
     .then(data => {

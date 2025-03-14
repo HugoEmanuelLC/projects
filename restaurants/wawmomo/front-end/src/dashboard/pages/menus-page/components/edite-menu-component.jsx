@@ -6,9 +6,10 @@ import { menuCreate, menuUpdate } from "../menus-script";
 
 
 export function NewMenu(props) {
-    const [ newMenu, setNewMenu ] = useState({
+    let modelMenu = {
         menu_name: "",
-    })
+    }
+    const [ newMenu, setNewMenu ] = useState(modelMenu)
     const [ error, setError ] = useState(null)
 
     const handleChange = (e) => {
@@ -28,7 +29,8 @@ export function NewMenu(props) {
                 props.selectList()
                 let timer = setTimeout(() => {
                     setError(null)
-                    props.closePopup()
+                    // props.closePopup()
+                    setNewMenu(modelMenu)
                 }, 1000)
                 return () => clearTimeout(timer)
             })

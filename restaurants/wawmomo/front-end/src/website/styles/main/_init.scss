@@ -46,7 +46,7 @@ img{
 ::-webkit-scrollbar{
     // background-color: red;
     pointer-events: visible;
-    // width: 10px;
+    max-width: 5px;
     // height: 5px;
 }
 // ::-webkit-scrollbar-track {

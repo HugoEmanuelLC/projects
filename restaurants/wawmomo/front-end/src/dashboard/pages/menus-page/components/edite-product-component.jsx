@@ -6,11 +6,12 @@ import { productCreate, productUpdate } from "../products-script";
 
 
 export function NewProduct(props) {
-    const [ newProduct, setNewProduct ] = useState({
+    let modelProduct ={
         product_name: "",
         product_price: "",
         product_description: ""
-    })
+    }
+    const [ newProduct, setNewProduct ] = useState(modelProduct)
     const [ error, setError ] = useState(null)
 
     const handleChange = (e) => {
@@ -30,7 +31,8 @@ export function NewProduct(props) {
                 props.selectList()
                 let timer = setTimeout(() => {
                     setError(null)
-                    props.closePopup()
+                    setNewProduct(modelProduct)
+                    // props.closePopup()
                 }, 1000)
                 return () => clearTimeout(timer)
             })
@@ -49,7 +51,8 @@ export function NewProduct(props) {
         <>
         <span>{error}</span>
         <form >
-            <h2>Création d'un nouveau produit</h2>
+            <h2>Création d'un nouveau produit pour:</h2>
+            <h2>{props.menu_name}</h2>
             <input type="text" placeholder="product name" name="product_name" value={newProduct.product_name} onChange={handleChange} />
             <input type="text" placeholder="price '2.50' €" name="product_price" value={newProduct.product_price} onChange={handleChange} />
             <input type="text" placeholder="decription optionel" name="product_description" value={newProduct.product_description} onChange={handleChange} />

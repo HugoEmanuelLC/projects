@@ -1,0 +1,23 @@
+header{
+    // border: solid 3px red;
+    position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+
+    .header__container{
+        @include flex(row, space-between, center);
+        padding: $padding_sm;
+        // padding: 0;
+
+        span{
+            color: inherit;
+            padding: $padding_sm;
+            // border-radius: $border_radius_sm;
+            // background-color: rgb(255, 255, 255, 0.3);
+            color: white;
+            text-shadow: 2px 2px 2px black;
+        }
+    }
+}

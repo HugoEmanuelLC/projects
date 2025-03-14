@@ -1,0 +1,20 @@
+.btns_component{
+    button, a{
+        background-color: rgb(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border: solid 1px $color_primary;
+        border-radius: $border_radius_sm;
+
+        font-size: $txt_p_size_sm;
+
+        padding: $padding_sm;
+        color: white;
+
+        cursor: pointer;
+
+        &:hover{
+            background-color: $color_secondary;
+            color: black;
+        }
+    }
+}

@@ -12,7 +12,8 @@
     background-color: $dash_color_primary;
 
     #global_bloc{
-        height: 100%;
+        // border: solid 3px green;
+        min-height: 100%;
         display: flex;
         flex-direction: column;
         position: relative;

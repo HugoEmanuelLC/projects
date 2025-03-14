@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 
-import { timetableSelect, timetableDayDelete, timetableCommentDelete } from "./timetable-script";
+import { 
+    timetableSelect, 
+    timetableDayDelete, 
+    timetableCommentDelete, 
+    timetableDayCreate 
+} from "./timetable-script";
 
 import Popup, { ConfimationDelete } from "../../components/popup-component/popup-component";
-import { UpdateTimetableDay, UpdateTimetableComment } from "./components/edite-timetable-component";
+import { UpdateTimetableDay, UpdateTimetableComment, NewTimetableDay } from "./components/edite-timetable-component";
 
 function TimetablePage() {
     const [ loading, setLoading ] = useState(true)
@@ -12,7 +17,7 @@ function TimetablePage() {
     const [ createNewElementPopup, setCreateNewElementPopup ] = useState(null)
     const [ deliteElementFromDB, setDeliteElementFromDB ] = useState(null)
 
-    const [ updateTimetableDay, setUpdateTimetableDay ] = useState(null)
+    const [ updateTimetableElement, setUpdateTimetableElement ] = useState(null)
     const [ updateTimetableComment, setUpdateTimetableComment ] = useState(null)
     const [ boolean, setBoolean ] = useState(null)
 
@@ -63,13 +68,14 @@ function TimetablePage() {
                             {
                                 listTimetableUpdate.length > 0 ? listTimetableUpdate.map((day, index)=>{
                                     return (
+                                        day.day_name !== null &&
                                         <tr key={index}>
                                             <td>{day.day_name}</td>
                                             <td>{day.open}</td>
                                             <td>{day.close}</td>
                                             <td className="actions">
                                                 <button onClick={()=>{ setBoolean("day"); setDeliteElementFromDB(day) }}><i className='bx bx-trash'></i></button>
-                                                <button onClick={()=>{ setBoolean("day"); setUpdateTimetableDay(day) }}><i className='bx bx-edit-alt'></i></button>
+                                                <button onClick={()=>{ setBoolean("day"); setUpdateTimetableElement(day) }}><i className='bx bx-edit-alt'></i></button>
                                             </td>
                                         </tr>
                                     )
@@ -86,7 +92,7 @@ function TimetablePage() {
                                     <td colSpan="2">{listTimetableUpdate[0].comment}</td>
                                     <td className="actions">
                                         <button onClick={()=>{ setBoolean("comment"); setDeliteElementFromDB(listTimetableUpdate[0]) }}><i className='bx bx-trash'></i></button>
-                                        <button onClick={()=>{ setBoolean("comment"); setUpdateTimetableComment(listTimetableUpdate[0])}}><i className='bx bx-edit-alt'></i></button>
+                                        <button onClick={()=>{ setBoolean("comment"); setUpdateTimetableElement(listTimetableUpdate[0])}}><i className='bx bx-edit-alt'></i></button>
                                     </td>
                                 </tr> 
                             }                 
@@ -94,21 +100,21 @@ function TimetablePage() {
                     </table>
 
                     {
-                        updateTimetableDay !== null && 
+                        updateTimetableElement !== null && 
                         <Popup
-                            closePopup={()=>setUpdateTimetableDay(null)}
+                            closePopup={()=>setUpdateTimetableElement(null)}
                         >
                         {
                             boolean == "day" ?
                             <UpdateTimetableDay 
-                                timetable={updateTimetableDay} 
+                                timetable={updateTimetableElement} 
                                 selectTimetables={selectTimetables} 
-                                closePopup={()=>setUpdateTimetableDay(null)} /> :
+                                closePopup={()=>setUpdateTimetableElement(null)} /> :
                             boolean == "comment" &&
                             <UpdateTimetableComment 
-                                timetable={updateTimetableDay} 
+                                timetable={updateTimetableElement} 
                                 selectTimetables={selectTimetables} 
-                                closePopup={()=>setUpdateTimetableComment(null)} />
+                                closePopup={()=>setUpdateTimetableElement(null)} />
                         }
                         </Popup>
                     }
@@ -143,7 +149,22 @@ function TimetablePage() {
                                     selectDatas={selectTimetables}
                                     msg="Commentaire supprimé"
                                     closePopup={()=>setDeliteElementFromDB(null)}
+                                    fnc={timetableCommentDelete}
                                 />
+                            }
+                        </Popup>
+                    }
+
+                    {
+                        createNewElementPopup !== null &&
+                        <Popup
+                            closePopup={()=>setCreateNewElementPopup(null)}
+                        >
+                            {
+                                <NewTimetableDay 
+                                    selectList={selectTimetables} 
+                                    parent_id={listTimetableUpdate[0].timetable_id}
+                                    closePopup={()=>setCreateNewElementPopup(null)} />
                             }
                         </Popup>
                     }

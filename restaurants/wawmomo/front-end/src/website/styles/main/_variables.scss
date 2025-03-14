@@ -3,6 +3,11 @@ $txt_p_size_sm: 14px;
 $txt_p_size_md: 16px;
 
 
+$txt_h1_size_sm: 24px;
+$txt_h1_size_md: 34px;
+$txt_h1_size_lg: 44px;
+
+
 $txt_h3_size_sm: 16px;
 $txt_h3_size_md: 24px;
 $txt_h3_size_lg: 34px;
@@ -13,7 +18,7 @@ $txt_weight_md: 400;
 $txt_weight_lg: 900;
 
 
-$color_primary: #d7d7d7;
+$color_primary: #ffffff;
 $color_primary_opo: rgb(197, 197, 197, 0.5);
 
 $color_secondary: rgb(255, 229, 159);
@@ -33,3 +38,7 @@ $padding_md: 20px;
 .padding_md{
     padding: $padding_md;
 }
+
+$border_radius_sm: 5px;
+$border_radius_md: 10px;
+$border_radius_lg: 20px;

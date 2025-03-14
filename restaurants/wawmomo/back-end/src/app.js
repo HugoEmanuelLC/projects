@@ -9,6 +9,7 @@ import { EventEmitter } from 'events';
 import { PORT, corsOptionsCheck } from './config.js';
 import { verifConnectionDb } from './dataBases/dbConfigs/mysql.js';
 import routeAuth from './routes/routeAuth.js';
+import route from './routes/route.js';
 
 
 const app = express();
@@ -22,12 +23,13 @@ app.use(express.json());
 
 app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)});
 
-app.get("/", (req, res) => {
-    res.send("Hello world")
-})
+// app.get("/", (req, res) => {
+//     res.send("Hello world")
+// })
 
 app.use(verifConnectionDb)
 
+app.use("/", route)
 app.use("/auth", routeAuth)
 
 app.get('*', (req, res) => {

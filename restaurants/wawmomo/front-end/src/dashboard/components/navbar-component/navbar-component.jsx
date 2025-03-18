@@ -42,7 +42,6 @@ function NavbarComponent(props) {
     return (
         <>
         <div className="box_btns_navbar displayNone" onClick={openAndCloseNavBar}>
-            {/* <i ref={btn_open} className='btn_open bx bx-menu-alt-right'></i> */}
             <i ref={btn_open} className='btn_open bx bx-menu'></i>
             <i ref={btn_close} className='btn_close bx bx-x'></i>
         </div>
@@ -51,12 +50,12 @@ function NavbarComponent(props) {
             <div className="content">
                 <h3>Admin</h3>
                 <ul>
-                    <li><NavLink onClick={()=>handleVerifUrl("/dash")} to="/dash" end>home</NavLink></li>
+                    {/* <li><NavLink onClick={()=>handleVerifUrl("/dash")} to="/dash" end>home</NavLink></li> */}
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/menus")} to="/dash/menus" end>Menus</NavLink></li>
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/produits")} to="/dash/produits" end>Produits</NavLink></li>
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/horaires")} to="/dash/horaires" end>horaires</NavLink></li>
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/contacts")} to="/dash/contacts" end>contacts</NavLink></li>
-                    <li><NavLink onClick={()=>handleVerifUrl("/")} to="/">website</NavLink></li>
+                    {/* <li><NavLink onClick={()=>handleVerifUrl("/")} to="/">website</NavLink></li> */}
                 </ul>
                 <button onClick={handleCloseSession}>logout</button>
             </div>

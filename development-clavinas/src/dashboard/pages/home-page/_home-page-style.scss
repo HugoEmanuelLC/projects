@@ -1,0 +1,144 @@
+#home_page{
+    background-color: black;
+
+    .DFja{
+        display: flex;
+            justify-content: center;
+            align-items: flex-start;
+    }
+
+    .scene2_3d{
+        height: 50vh;
+        width: 100%;
+        transform-style: preserve-3d;
+        perspective-origin: 100% 100%;
+        backface-visibility: visible;
+        transform: perspective(1000px);
+        position: relative;
+    
+    
+        .bloc_objects{
+            transform-style: preserve-3d;
+            border: solid 3px white;
+            height: 100%;
+            width: 100%;
+    
+            @extend .DFja;
+            flex-wrap: wrap;
+            
+            .object{
+                display: flex;
+                justify-content: center;
+                
+                background-color: red;
+                border: solid 3px green;
+                transition: 1s;
+    
+                transform-style: preserve-3d;
+            }
+    
+            $taille: min(200px, 20vw);
+    
+            .active{
+                align-items: center;
+                border-radius: 50%;
+                height: 100px;
+                width: 100px;
+                cursor: pointer;
+                .titre{
+                    display: block;
+                    cursor: pointer;
+                }
+    
+                .content{
+                    display: none;
+                }
+            }
+    
+            .inactive{
+                align-items: flex-start;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+    
+                top: 0;
+                .titre{
+                    display: none;
+                }
+                .content{
+                    display: block;
+                }
+            }
+        }
+    
+    }
+
+
+
+
+
+
+
+
+    .testBox{
+        background-color: #F0F0F3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+
+        .testContent{
+            .bloc{
+                // height: 100px;
+                // width: 100px;
+                border-radius: 20px;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 20px;
+                cursor: pointer;
+                color: rgb(0, 0, 0, 0.4);
+                // border: solid 1px black;
+
+                // box-shadow: -5px -5px 5px #FFFFFFB3, 5px 5px 5px #AEAEC033;
+
+                // box-shadow: inset 18px 18px 30px #D1D9E6;
+
+                // box-shadow: -10px -10px 10px 0 rgba(255, 255, 255, 0.7), 
+                //     10px 10px 10px 0 rgba(174, 174, 192, 0.2);
+
+                // transition: box-shadow 1s ease;
+                // box-shadow: -5px -5px 5px 0 #FFFFFF, 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+                box-shadow: -5px -5px 5px 0 #FFFFFF, 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+
+                &.inactive{
+                    &:hover{
+                        // transition: 1s;
+                        // box-shadow: inset -5px -5px 5px 0 #FFFFFF, inset 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+                        animation: shadowChange 0.3s forwards;
+                    }
+                }
+
+                @keyframes shadowChange {
+                    0% {
+                        box-shadow: -5px -5px 5px 0 #FFFFFF, 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+                    }
+                    49% {
+                      box-shadow: 0 0 0px 0 rgba(174, 174, 192, 0.4); /* Transition intermédiaire */
+                    }
+                    50% {
+                        box-shadow: inset 0px 0px 0px 0 #FFFFFF, inset 0px 0px 0px 0 rgba(174, 174, 192, 0.4);
+                    }
+                    100% {
+                        box-shadow: inset -5px -5px 5px 0 #FFFFFF, inset 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+                    }
+                }
+
+                &.active{
+                    box-shadow: inset -5px -5px 5px 0 #FFFFFF, inset 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+                }
+            }
+        }
+    }
+}

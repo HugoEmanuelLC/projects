@@ -10,14 +10,6 @@ Version: 1.0.0
 */
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-.padding_sm {
-  padding: 10px;
-}
-
-.padding_md {
-  padding: 20px;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -64,11 +56,11 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(55, 55, 65);
+  background-color: darkgreen;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #fff;
+  background-color: orange;
   cursor: grab;
 }
 
@@ -76,11 +68,18 @@ img {
   cursor: grabbing;
 }
 
-#dashboard {
-  height: 100vh;
-  background-color: #f5f4f9;
+#dashboard_bloc {
+  color: darkgreen;
+  min-height: 100vh;
+  background-image: linear-gradient(135deg, #ececec, rgba(144, 238, 144, 0.3));
 }
-#dashboard .box_btns_navbar {
+#dashboard_bloc .glassmorphism, #dashboard_bloc .popup, #dashboard_bloc nav {
+  background: rgba(255, 255, 255, 0.2); /* Fond semi-transparent */
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px); /* Flou d'arrière-plan */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Bordure claire */
+}
+#dashboard_bloc .box_btns_navbar {
   display: flex;
   flex-direction: column; /* 'row' par défaut */
   justify-content: center; /* 'center' par défaut */
@@ -93,38 +92,40 @@ img {
   width: 50px;
   transition: 0.3s;
 }
-#dashboard .box_btns_navbar:hover {
+#dashboard_bloc .box_btns_navbar:hover {
   transition: 0.3s;
 }
-#dashboard .box_btns_navbar:hover i {
-  color: rgb(55, 55, 65);
+#dashboard_bloc .box_btns_navbar:hover i {
+  color: orange;
 }
-#dashboard .box_btns_navbar i {
+#dashboard_bloc .box_btns_navbar i {
+  color: darkgreen;
   position: absolute;
-  color: rgba(55, 55, 65, 0.5);
   font-size: 40px;
   border-radius: 50%;
   cursor: pointer;
 }
-#dashboard .box_btns_navbar i.btn_close {
+#dashboard_bloc .box_btns_navbar i.btn_close {
   display: none;
-  color: white;
+  color: darkgreen;
+}
+#dashboard_bloc .box_btns_navbar i.btn_close:hover {
+  color: orange;
 }
 @media (min-width: 769px) {
-  #dashboard .box_btns_navbar {
+  #dashboard_bloc .box_btns_navbar {
     display: none;
     height: 70px;
     width: 70px;
     cursor: pointer;
   }
-  #dashboard .box_btns_navbar i {
+  #dashboard_bloc .box_btns_navbar i {
     font-size: 50px;
   }
 }
-#dashboard nav {
+#dashboard_bloc nav {
   width: 100%;
   height: 100vh;
-  background-color: rgba(55, 55, 65, 0.5);
   position: fixed;
   top: 0;
   left: 0;
@@ -132,20 +133,19 @@ img {
   overflow: hidden;
   transition: ease-in-out 0.4s;
 }
-#dashboard nav.close_nav {
+#dashboard_bloc nav.close_nav {
   width: 0%;
   transition: ease-in-out 0.4s;
   background-color: transparent;
 }
-#dashboard nav h3 {
-  color: white;
+#dashboard_bloc nav h3 {
   font-size: 24px;
   font-weight: 400;
   text-align: center;
   padding: 10px 0;
 }
-#dashboard nav .content {
-  background-color: rgb(55, 55, 65);
+#dashboard_bloc nav .content {
+  background-color: white;
   height: 100%;
   max-width: 300px;
   width: 300px;
@@ -154,7 +154,7 @@ img {
   justify-content: flex-start; /* 'center' par défaut */
   align-items: center; /* 'stretch' par défaut */
 }
-#dashboard nav ul {
+#dashboard_bloc nav ul {
   width: 100%;
   flex: 1;
   display: flex;
@@ -162,17 +162,16 @@ img {
   justify-content: flex-start;
   align-items: center;
 }
-#dashboard nav ul li {
+#dashboard_bloc nav ul li {
   display: flex;
   width: 100%;
-  height: 50px;
 }
-#dashboard nav ul li a {
+#dashboard_bloc nav ul li a {
   display: flex;
   flex-direction: row; /* 'row' par défaut */
   justify-content: flex-start; /* 'center' par défaut */
   align-items: center; /* 'stretch' par défaut */
-  color: white;
+  color: darkgreen;
   height: 100%;
   width: 100%;
   padding: 10px;
@@ -181,53 +180,54 @@ img {
   font-weight: 400;
   text-transform: capitalize;
 }
-#dashboard nav ul li a:hover {
+#dashboard_bloc nav ul li a:hover {
   padding-left: 20%;
 }
-#dashboard nav ul li a.active {
-  background-color: #3f3f49;
+#dashboard_bloc nav ul li a.active {
+  color: orange;
+  background-color: rgba(144, 238, 144, 0.3);
   padding-left: calc(20% - 2px);
-  border-left: solid 2px white;
   cursor: default;
 }
-#dashboard nav button {
+#dashboard_bloc nav button {
   width: 100%;
   height: 40px;
-  color: white;
+  color: darkgreen;
   font-size: 14px;
   font-weight: 400;
   text-transform: capitalize;
   cursor: pointer;
   transition: 0.3s;
 }
-#dashboard nav button:hover {
-  background-color: #3f3f49;
+#dashboard_bloc nav button:hover {
+  background-color: rgba(144, 238, 144, 0.3);
+  color: orange;
 }
 @media (min-width: 769px) {
-  #dashboard nav {
+  #dashboard_bloc nav {
+    background-color: transparent;
     width: inherit;
-    background-color: rgb(55, 55, 65);
     position: sticky;
   }
-  #dashboard nav.close_nav {
+  #dashboard_bloc nav.close_nav {
     width: inherit;
   }
-  #dashboard nav h3 {
-    font-size: 34px;
-    font-weight: 400;
+  #dashboard_bloc nav h3 {
     padding: 20px 0;
   }
-  #dashboard nav .content {
+  #dashboard_bloc nav .content {
     width: 200px;
   }
 }
-#dashboard header {
+#dashboard_bloc header {
   background-color: white;
   display: flex;
   padding: 10px;
+  position: sticky;
+  top: 0;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
-#dashboard header .content {
+#dashboard_bloc header .content {
   display: flex;
   flex-direction: column; /* 'row' par défaut */
   justify-content: center; /* 'center' par défaut */
@@ -235,37 +235,37 @@ img {
   gap: 4px;
   height: 100%;
 }
-#dashboard header .content a {
+#dashboard_bloc header .content a {
   display: flex;
 }
-#dashboard header .content a .picture_user {
+#dashboard_bloc header .content a .picture_user {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: lightskyblue;
   cursor: default;
 }
-#dashboard header .content .nom_user {
+#dashboard_bloc header .content .nom_user {
   font-size: 14px;
   font-weight: 400;
-  color: rgb(55, 55, 65);
+  color: darkgreen;
   text-transform: capitalize;
   letter-spacing: 0px;
 }
 @media (min-width: 769px) {
-  #dashboard header {
+  #dashboard_bloc header {
     padding: 10px 20px;
     display: flex;
     flex-direction: row; /* 'row' par défaut */
     justify-content: flex-end; /* 'center' par défaut */
     align-items: center; /* 'stretch' par défaut */
   }
-  #dashboard header .content a .picture_user {
+  #dashboard_bloc header .content a .picture_user {
     width: 50px;
     height: 50px;
     cursor: pointer;
   }
-  #dashboard header .content {
+  #dashboard_bloc header .content {
     width: 100%;
     display: flex;
     flex-direction: row-reverse; /* 'row' par défaut */
@@ -273,20 +273,19 @@ img {
     align-items: center; /* 'stretch' par défaut */
   }
 }
-#dashboard .popup {
+#dashboard_bloc .popup {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 2000;
   width: 100%;
   height: 100%;
-  background-color: rgba(245, 244, 249, 0.5);
   display: flex;
   flex-direction: row; /* 'row' par défaut */
   justify-content: center; /* 'center' par défaut */
   align-items: center; /* 'stretch' par défaut */
 }
-#dashboard .popup .popup_content {
+#dashboard_bloc .popup .popup_content {
   background-color: white;
   width: 90%;
   min-height: 50%;
@@ -300,19 +299,19 @@ img {
   gap: 10px;
   position: relative;
 }
-#dashboard .popup .popup_content .close {
+#dashboard_bloc .popup .popup_content .close {
   position: absolute;
   top: 0;
   right: 0;
   padding: 10px;
   cursor: pointer;
-  background-color: #f9fafc;
+  color: darkgreen;
   border-radius: 5px;
 }
-#dashboard .popup .popup_content .close:hover {
-  background-color: #c6c6c6;
+#dashboard_bloc .popup .popup_content .close:hover {
+  color: orange;
 }
-#dashboard .popup .popup_content form {
+#dashboard_bloc .popup .popup_content form {
   width: 100%;
   display: flex;
   flex-direction: column; /* 'row' par défaut */
@@ -320,47 +319,50 @@ img {
   align-items: center; /* 'stretch' par défaut */
   gap: 10px;
 }
-#dashboard .popup .popup_content form input {
+#dashboard_bloc .popup .popup_content form input {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
-  border: solid 1px #afafaf;
+  border: solid 1px darkgreen;
 }
-#dashboard .popup .popup_content .button {
+#dashboard_bloc .popup .popup_content .button {
   padding: 10px;
   border-radius: 5px;
   border: none;
-  background-color: #f5f4f9;
+  background-color: darkgreen;
+  color: white;
   cursor: pointer;
   width: 100%;
 }
-#dashboard .popup .popup_content .button:hover {
-  background-color: #c6c6c6;
+#dashboard_bloc .popup .popup_content .button:hover {
+  background-color: orange;
+  color: darkgreen;
 }
 @media (min-width: 769px) {
-  #dashboard .popup .popup_content {
+  #dashboard_bloc .popup .popup_content {
     width: 50%;
   }
 }
-#dashboard .box_content_settings {
+#dashboard_bloc .box_content_settings {
   display: flex;
   flex-direction: column; /* 'row' par défaut */
   justify-content: flex-start; /* 'center' par défaut */
   align-items: flex-start; /* 'stretch' par défaut */
 }
-#dashboard .box_content_settings .btn_new_add {
+#dashboard_bloc .box_content_settings .btn_new_add {
   align-self: flex-end;
   padding: 2px 4px;
   cursor: pointer;
-  background-color: rgb(55, 55, 65);
+  background-color: darkgreen;
   color: white;
   border-radius: 5px 5px 0 0;
-  font-size: 11px;
+  font-size: 12px;
+  transition: 0.3s;
 }
-#dashboard .box_content_settings .btn_new_add:hover {
-  background-color: #c6c6c6;
+#dashboard_bloc .box_content_settings .btn_new_add:hover {
+  background-color: orange;
 }
-#dashboard .box_content_settings .list_head_links {
+#dashboard_bloc .box_content_settings .list_head_links {
   background-color: white;
   width: 100%;
   display: flex;
@@ -372,11 +374,11 @@ img {
   margin-bottom: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
-#dashboard .box_content_settings .list_head_links h3 {
+#dashboard_bloc .box_content_settings .list_head_links h3 {
   padding: 10px;
-  font-size: 16px;
+  font-size: 24px;
 }
-#dashboard .box_content_settings .list_head_links ul {
+#dashboard_bloc .box_content_settings .list_head_links ul {
   display: flex;
   flex-direction: row; /* 'row' par défaut */
   justify-content: flex-start; /* 'center' par défaut */
@@ -384,76 +386,83 @@ img {
   flex-wrap: wrap;
   gap: 10px;
 }
-#dashboard .box_content_settings .list_head_links ul li {
+#dashboard_bloc .box_content_settings .list_head_links ul li {
   padding: 10px;
   cursor: pointer;
+  color: darkgreen;
 }
-#dashboard .box_content_settings .list_datas {
+#dashboard_bloc .box_content_settings .list_datas {
   background-color: white;
   width: 100%;
   border-radius: 5px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
-#dashboard .box_content_settings .list_datas table {
+#dashboard_bloc .box_content_settings .list_datas table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
+  color: darkgreen;
 }
-#dashboard .box_content_settings .list_datas table thead {
-  background-color: rgba(245, 244, 249, 0.5);
+#dashboard_bloc .box_content_settings .list_datas table thead {
+  background-color: rgba(236, 236, 236, 0.3);
   font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0px;
   width: 100%;
 }
-#dashboard .box_content_settings .list_datas table thead th {
+#dashboard_bloc .box_content_settings .list_datas table thead th {
   padding: 10px;
-  border-bottom: solid 1px #afafaf;
+  border-bottom: solid 1px rgba(0, 100, 0, 0.3);
   text-align: left;
 }
-#dashboard .box_content_settings .list_datas table tbody tr {
-  border-bottom: solid 1px #c6c6c6;
+#dashboard_bloc .box_content_settings .list_datas table tbody tr {
+  border-bottom: solid 1px rgba(0, 100, 0, 0.3);
 }
-#dashboard .box_content_settings .list_datas table tbody tr td {
+#dashboard_bloc .box_content_settings .list_datas table tbody tr td {
   padding: 10px;
   font-size: 14px;
 }
-#dashboard .box_content_settings .list_datas table tbody tr .actions {
+#dashboard_bloc .box_content_settings .list_datas table tbody tr .actions {
   display: flex;
   flex-direction: row; /* 'row' par défaut */
   justify-content: center; /* 'center' par défaut */
   align-items: center; /* 'stretch' par défaut */
   gap: 10px;
 }
-#dashboard .box_content_settings .list_datas table tbody tr .actions i {
+#dashboard_bloc .box_content_settings .list_datas table tbody tr .actions i {
   font-size: 16px;
+  color: darkgreen;
+  transition: 0.3s;
 }
-#dashboard .box_content_settings .list_datas table tbody tr:last-child {
+#dashboard_bloc .box_content_settings .list_datas table tbody tr .actions i:hover {
+  color: orange;
+}
+#dashboard_bloc .box_content_settings .list_datas table tbody tr:last-child {
   border-bottom: none;
 }
-#dashboard #global_bloc {
+#dashboard_bloc #content_bloc {
   min-height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
 }
 @media (min-width: 769px) {
-  #dashboard #global_bloc {
+  #dashboard_bloc #content_bloc {
     display: flex;
     flex-direction: row;
   }
 }
-#dashboard #main_bloc {
+#dashboard_bloc #main_bloc {
   flex: 1;
 }
-#dashboard section {
+#dashboard_bloc section {
   height: 100%;
   padding: 10px;
 }
 @media (min-width: 769px) {
-  #dashboard section {
+  #dashboard_bloc section {
     padding: 20px;
   }
 }/*# sourceMappingURL=index.css.map */

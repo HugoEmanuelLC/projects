@@ -1,39 +1,26 @@
 
-$dash_txt_p_size_sm: 14px;
-$dash_txt_p_size_md: 16px;
+$bck_color: #ececec;
+$bck_color_op: rgba(236, 236, 236, 0.3);
+$bck_color_primary: rgb(144, 238, 144);
+$bck_color_primary_op: rgba(144, 238, 144, 0.3);
+$bck_color_secondary: orange;
+$bck_color_secondary_op: rgba(255, 166, 0, 0.3);
+$bck_color_tertiary: darkgreen;
+$bck_color_tertiary_op: rgba(0, 100, 0, 0.3);
 
+$txt_color_primary: darkgreen;
+$txt_color_secondary: orange;
+$txt_color_tertiary: white;
 
-$dash_txt_h3_size_sm: 16px;
-$dash_txt_h3_size_md: 24px;
-$dash_txt_h3_size_lg: 34px;
+$txt_size_mini: 12px;
+$txt_size_sm: 14px;
+$txt_size_md: 16px;
+$txt_size_lg: 24px;
 
+$txt_weight_sm: 100;
+$txt_weight_md: 400;
+$txt_weight_lg: 900;
 
-$dash_txt_weight_sm: 100;
-$dash_txt_weight_md: 400;
-$dash_txt_weight_lg: 900;
-
-
-$dash_color_primary: #f5f4f9;
-$dash_color_primary_opo: rgb(245, 244, 249, 0.5);
-
-$dash_color_secondary: #fff;
-$dash_color_secondary_opo: rgb(255, 255, 255, 0.5);
-
-$dash_color_tertiary: rgb(55, 55, 65);
-$dash_color_tertiary_opo: rgb(55, 55, 65, 0.5);
-
-$dash_color_quaternary: #f9fafc;
-$dash_color_quitenary: #afafaf;
-$dash_color_senary: #c6c6c6;
-
-// $dash_color_quaternary: darkred;
-
-
-$dash_padding_sm: 10px;
-$dash_padding_md: 20px;
-.padding_sm{
-    padding: $dash_padding_sm;
-}
-.padding_md{
-    padding: $dash_padding_md;
-}
+$padding_sm: 10px;
+$padding_md: 20px;
+$padding_lg: 30px;

@@ -1,0 +1,179 @@
+@charset "UTF-8";
+/*
+Theme Name: all-in-one-tools
+Theme URI: 
+Author: Hugo Clavinas
+Author URI: https://www.hugoclavinas.com
+Description: All in one tools for web development
+Requires "vite": "^6.0.5"
+Version: 1.0.0
+*/
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+.padding_sm {
+  padding: 10px;
+}
+
+.padding_md {
+  padding: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  font-family: "Roboto";
+}
+
+.container {
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+i {
+  font-size: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+::-webkit-scrollbar {
+  pointer-events: visible;
+  max-width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3a3a3a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(255, 229, 159);
+  cursor: grab;
+}
+
+::-webkit-scrollbar-thumb:active {
+  cursor: grabbing;
+}
+
+#dashboard_bloc #home_page {
+  background-color: black;
+}
+#dashboard_bloc #home_page .DFja, #dashboard_bloc #home_page .scene2_3d .bloc_objects {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+#dashboard_bloc #home_page .scene2_3d {
+  height: 50vh;
+  width: 100%;
+  transform-style: preserve-3d;
+  perspective-origin: 100% 100%;
+  backface-visibility: visible;
+  transform: perspective(1000px);
+  position: relative;
+}
+#dashboard_bloc #home_page .scene2_3d .bloc_objects {
+  transform-style: preserve-3d;
+  border: solid 3px white;
+  height: 100%;
+  width: 100%;
+  flex-wrap: wrap;
+}
+#dashboard_bloc #home_page .scene2_3d .bloc_objects .object {
+  display: flex;
+  justify-content: center;
+  background-color: red;
+  border: solid 3px green;
+  transition: 1s;
+  transform-style: preserve-3d;
+}
+#dashboard_bloc #home_page .scene2_3d .bloc_objects .active {
+  align-items: center;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+}
+#dashboard_bloc #home_page .scene2_3d .bloc_objects .active .titre {
+  display: block;
+  cursor: pointer;
+}
+#dashboard_bloc #home_page .scene2_3d .bloc_objects .active .content {
+  display: none;
+}
+#dashboard_bloc #home_page .scene2_3d .bloc_objects .inactive {
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  top: 0;
+}
+#dashboard_bloc #home_page .scene2_3d .bloc_objects .inactive .titre {
+  display: none;
+}
+#dashboard_bloc #home_page .scene2_3d .bloc_objects .inactive .content {
+  display: block;
+}
+#dashboard_bloc #home_page .testBox {
+  background-color: #F0F0F3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+#dashboard_bloc #home_page .testBox .testContent .bloc {
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.4);
+  box-shadow: -5px -5px 5px 0 #FFFFFF, 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+}
+#dashboard_bloc #home_page .testBox .testContent .bloc.inactive:hover {
+  animation: shadowChange 0.3s forwards;
+}
+@keyframes shadowChange {
+  0% {
+    box-shadow: -5px -5px 5px 0 #FFFFFF, 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+  }
+  49% {
+    box-shadow: 0 0 0px 0 rgba(174, 174, 192, 0.4); /* Transition intermédiaire */
+  }
+  50% {
+    box-shadow: inset 0px 0px 0px 0 #FFFFFF, inset 0px 0px 0px 0 rgba(174, 174, 192, 0.4);
+  }
+  100% {
+    box-shadow: inset -5px -5px 5px 0 #FFFFFF, inset 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+  }
+}
+#dashboard_bloc #home_page .testBox .testContent .bloc.active {
+  box-shadow: inset -5px -5px 5px 0 #FFFFFF, inset 5px 5px 5px 0 rgba(174, 174, 192, 0.4);
+}
+#dashboard_bloc #global_bloc section {
+  min-height: 25vh;
+}/*# sourceMappingURL=index.css.map */

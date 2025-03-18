@@ -1,7 +1,4 @@
 .box_btns_navbar{
-    // background-color: darkred;
-    // background-color: $dash_color_tertiary;
-    // border-radius: 50% 0 50% 50%;
     @include flex(column, center, center);
     position: fixed;
         right: 0;
@@ -13,17 +10,16 @@
     transition: 0.3s;
 
     &:hover{
-        // background-color: $dash_color_tertiary_opo;
         transition: 0.3s;
 
         i{
-            color: $dash_color_tertiary;
+            color: $bck_color_secondary;
         }
     }
     
     i{
+        color: $txt_color_primary;
         position: absolute;
-        color: $dash_color_tertiary_opo;
         font-size: 40px;
         border-radius: 50%;
         cursor: pointer;
@@ -31,7 +27,11 @@
 
     i.btn_close{
         display: none;
-        color: white;
+        color: $txt_color_primary;
+
+        &:hover{
+            color: $bck_color_secondary;
+        }
     }
 
     @include media-queries(md){
@@ -49,16 +49,13 @@
 
 
 nav{
-    // border: solid 3px red;
     width: 100%;
     height: 100vh;
-
-    background-color: $dash_color_tertiary_opo;
+    @extend .glassmorphism;
 
     position: fixed;
         top: 0;
         left: 0;
-        // right: 0;
         z-index: 1000;
     
     overflow: hidden;
@@ -66,24 +63,19 @@ nav{
 
     &.close_nav{
         width: 0%;
-        // height: 0;
         transition: ease-in-out 0.4s;
         background-color: transparent;
     }
     
     h3{
-        // border: solid 3px white;
-        color: white;
-        font-size: $dash_txt_h3_size_md;
-        font-weight: $dash_txt_weight_md;
-        // padding: 10px;
+        font-size: $txt_size_lg;
+        font-weight: $txt_weight_md;
         text-align: center;
         padding: 10px 0;
     }
 
     .content{
-        // border: solid 3px red;
-        background-color: $dash_color_tertiary;
+        background-color: white;
         height: 100%;
         max-width: 300px;
         width: 300px;
@@ -91,8 +83,6 @@ nav{
     }
     
     ul{
-        // border: solid 3px green;
-        // height: 100%;
         width: 100%;
         flex: 1;
         display: flex;
@@ -101,21 +91,17 @@ nav{
             align-items: center;
         li{
             display: flex;
-            // border: solid 3px black;
             width: 100%;
-            height: 50px;
-            // padding: 10px;
+            
             a{
                 @include flex(row, flex-start, center);
-                // text-align: left;
-                // border: solid 3px blue;
-                color: white;
+                color: $txt_color_primary;
                 height: 100%;
                 width: 100%;
                 padding: 10px;
                 transition: 0.3s;
-                font-size: $dash_txt_p_size_sm;
-                font-weight: $dash_txt_weight_md;
+                font-size: $txt_size_sm;
+                font-weight: $txt_weight_md;
 
                 text-transform: capitalize;
 
@@ -124,12 +110,9 @@ nav{
                 }
 
                 &.active{
-                    background-color: #3f3f49;
-                    // text-align: right;
-                    // justify-content: flex-end;
+                    color: $txt_color_secondary;
+                    background-color: $bck_color_primary_op;
                     padding-left: calc(20% - 2px);
-                    border-left: solid 2px white;
-                    // transition: 0.3s;
                     cursor: default;
                 }
             }
@@ -137,40 +120,32 @@ nav{
     }
 
     button{
-        // border: solid 3px blue;
         width: 100%;
         height: 40px;
-        // background-color: $dash_color_secondary;
-        color: white;
-        font-size: $dash_txt_p_size_sm;
-        font-weight: $dash_txt_weight_md;
+        color: $txt_color_primary;
+        font-size: $txt_size_sm;
+        font-weight: $txt_weight_md;
         text-transform: capitalize;
         cursor: pointer;
         transition: 0.3s;
 
         &:hover{
-            background-color: #3f3f49;
+            background-color: $bck_color_primary_op;
+            color: $txt_color_secondary;
         }
     }
 
 
     @include media-queries(md){
-        // border: solid 3px red;
+        background-color: transparent;
         width: inherit;
-        background-color: $dash_color_tertiary;
         position: sticky;
-        // height: 100vh;
 
         &.close_nav{
             width: inherit;
-            // height: 0;
-            // transition: ease-in-out 0.4s;
-            // background-color: transparent;
         }
         
         h3{
-            font-size: $dash_txt_h3_size_lg;
-            font-weight: $dash_txt_weight_md;
             padding: 20px 0; 
         }
         .content{

@@ -1,60 +1,62 @@
 .popup{
+    @extend .glassmorphism;
     position: fixed;
         top: 0;
         left: 0;
         z-index: 2000;
     width: 100%;
     height: 100%;
-    background-color: $dash_color_primary_opo;
     @include flex(row, center, center);
 
     .popup_content{
         background-color: white;
         width: 90%;
         min-height: 50%;
-        border-radius: calc($dash_padding_sm / 2);
-        padding: $dash_padding_sm;
+        border-radius: calc($padding_sm / 2);
+        padding: $padding_sm;
         box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         @include flex(column, center, center);
-        gap: $dash_padding_sm;
+        gap: $padding_sm;
         position: relative;
 
         .close{
             position: absolute;
             top: 0;
             right: 0;
-            padding: $dash_padding_sm;
+            padding: $padding_sm;
             cursor: pointer;
-            background-color: $dash_color_quaternary;
-            border-radius: calc($dash_padding_sm / 2);
+            color: $txt_color_primary;
+            border-radius: calc($padding_sm / 2);
 
             &:hover{
-                background-color: $dash_color_senary;
+                color: $bck_color_secondary;
             }
         }
 
         form{
             width: 100%;
             @include flex(column, flex-start, center);
-            gap: $dash_padding_sm;
+            gap: $padding_sm;
 
             input{
                 width: 100%;
-                padding: $dash_padding_sm;
-                border-radius: calc($dash_padding_sm / 2);
-                border: solid 1px $dash_color_quitenary;
+                padding: $padding_sm;
+                border-radius: calc($padding_sm / 2);
+                border: solid 1px $bck_color_tertiary;
             }
         }
         .button{
-            padding: $dash_padding_sm;
-            border-radius: calc($dash_padding_sm / 2);
+            padding: $padding_sm;
+            border-radius: calc($padding_sm / 2);
             border: none;
-            background-color: $dash_color_primary;
+            background-color: $bck_color_tertiary;
+            color: $txt_color_tertiary;
             cursor: pointer;
             width: 100%;
 
             &:hover{
-                background-color: $dash_color_senary;
+                background-color: $bck_color_secondary;
+                color: $txt_color_primary;
             }
         }
     }

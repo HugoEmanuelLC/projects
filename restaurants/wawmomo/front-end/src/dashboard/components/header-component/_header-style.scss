@@ -1,11 +1,12 @@
 header{
     background-color: white;
-    // height: 60px;
     display: flex;
-    padding: $dash_padding_sm;
-    // border: solid 3px $dash_color_tertiary;
+    padding: $padding_sm;
 
     $taillePicture: 40px;
+
+    position: sticky;
+        top: 0;
 
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
 
@@ -15,31 +16,28 @@ header{
         height: 100%;
 
         a{
-            // border: solid 3px $dash_color_tertiary;
             display: flex;
+
             .picture_user{
                 width: $taillePicture;
                 height: $taillePicture;
                 border-radius: 50%;
-                // margin-right: 10px;
-                // border: solid 3px $dash_color_tertiary;
                 background-color: lightskyblue;
                 cursor: default;
             }
         }
 
         .nom_user{
-            // border: solid 3px $dash_color_tertiary;
-            font-size: $dash_txt_p_size_sm;
-            font-weight: $dash_txt_weight_md;
-            color: $dash_color_tertiary;
+            font-size: $txt_size_sm;
+            font-weight: $txt_weight_md;
+            color: $txt_color_primary;
             text-transform: capitalize;
             letter-spacing: 0px;
         }
     }
 
     @include media-queries(md){
-        padding: $dash_padding_sm $dash_padding_md;
+        padding: $padding_sm $padding_md;
         @include flex(row, flex-end, center);
 
         $taillePicture: 50px;
@@ -55,7 +53,6 @@ header{
         }
 
         .content{
-            // border: solid 3px red;
             width: 100%;
             @include flex(row-reverse, space-between, center);
         }

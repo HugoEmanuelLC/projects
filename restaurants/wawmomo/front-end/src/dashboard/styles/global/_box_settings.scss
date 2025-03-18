@@ -1,53 +1,52 @@
 .box_content_settings{
-    // border: solid 3px red;
     @include flex(column, flex-start, flex-start);
 
     .btn_new_add{
         align-self: flex-end;
         padding: 2px 4px;
         cursor: pointer;
-        background-color: $dash_color_tertiary;
-        color: white;
-        border-radius: calc($dash_padding_sm / 2) calc($dash_padding_sm / 2) 0 0;
-        font-size: calc($dash_txt_h3_size_sm - 5px);
+        background-color: $txt_color_primary;
+        color: $txt_color_tertiary;
+        border-radius: calc($padding_sm / 2) calc($padding_sm / 2) 0 0;
+        font-size: $txt_size_mini;
+        transition: 0.3s;
 
         &:hover{
-            background-color: $dash_color_senary;
+            background-color: $bck_color_secondary;
         }
     }
 
     .list_head_links{
-        // border: solid 3px red;
         background-color: white;
         width: 100%;
         @include flex(row, flex-start, center);
-        border-radius: calc($dash_padding_sm / 2);
+        border-radius: calc($padding_sm / 2);
         height: 80px;
-        margin-bottom: $dash_padding_sm;
+        margin-bottom: $padding_sm;
         box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
 
         h3{
-            padding: $dash_padding_sm;
-            font-size: $dash_txt_h3_size_sm;
+            padding: $padding_sm;
+            font-size: $txt_size_lg;
         }
 
         ul{
             @include flex(row, flex-start, center);
             flex-wrap: wrap;
-            gap: $dash_padding_sm;
+            gap: $padding_sm;
 
             li{
-                padding: $dash_padding_sm;
+                padding: $padding_sm;
                 cursor: pointer;
+                color: $txt_color_primary;
             }
         }
     }
 
     .list_datas{
-        // border: solid 3px red;
         background-color: white;
         width: 100%;
-        border-radius: calc($dash_padding_sm / 2);
+        border-radius: calc($padding_sm / 2);
         box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         overflow: hidden;
 
@@ -55,36 +54,43 @@
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
+            color: $txt_color_primary;
 
             thead{
-                background-color: $dash_color_primary_opo;
-                font-size: $dash_txt_p_size_sm;
-                font-weight: $dash_txt_weight_md;
+                background-color: $bck_color_op;
+                font-size: $txt_size_sm;
+                font-weight: $txt_weight_md;
                 text-transform: uppercase;
                 letter-spacing: 0px;
                 width: 100%;
 
                 th{
-                    padding: $dash_padding_sm;
-                    border-bottom: solid 1px $dash_color_quitenary;
+                    padding: $padding_sm;
+                    border-bottom: solid 1px $bck_color_tertiary_op;
                     text-align: left;
                 }
             }
 
             tbody{
                 tr{
-                    border-bottom: solid 1px $dash_color_senary;
+                    border-bottom: solid 1px $bck_color_tertiary_op;
 
                     td{
-                        padding: $dash_padding_sm;
-                        font-size: $dash_txt_p_size_sm;
+                        padding: $padding_sm;
+                        font-size: $txt_size_sm;
                     }
 
                     .actions{
                         @include flex(row, center, center);
-                        gap: $dash_padding_sm;
+                        gap: $padding_sm;
                         i{
-                            font-size: $dash_txt_h3_size_sm;
+                            font-size: $txt_size_md;
+                            color: $txt_color_primary;
+                            transition: 0.3s;
+
+                            &:hover{
+                                color: $bck_color_secondary;
+                            }
                         }
                     }
                 }

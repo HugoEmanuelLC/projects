@@ -23,7 +23,6 @@ Version: 1.0.0
   padding: 0;
   box-sizing: border-box;
   letter-spacing: 1px;
-  font-family: "Roboto";
 }
 
 .container {
@@ -62,15 +61,16 @@ img {
 
 ::-webkit-scrollbar {
   pointer-events: visible;
-  max-width: 5px;
+  max-width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #3a3a3a;
+  background-color: black;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(255, 229, 159);
+  background-color: gray;
   cursor: grab;
 }
 
@@ -78,6 +78,9 @@ img {
   cursor: grabbing;
 }
 
+#website {
+  font-family: "Roboto";
+}
 #website header {
   position: fixed;
   top: 0;

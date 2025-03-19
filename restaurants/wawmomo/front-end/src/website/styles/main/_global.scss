@@ -1,4 +1,6 @@
 #website{
+    font-family: "Roboto" ;
+
     @import '../../components/header-component/header-component-style';
     @import '../../components/hero-component/hero-component-style';
     @import '../../components/about-component/about-component-style';
@@ -14,7 +16,6 @@
             min-height: 25vh;
         }
     }
-
 }
 
 

@@ -50,9 +50,9 @@ function ProductsPage() {
                     {
                         listMenus.map((menu, index) => {
                             return (
-                                <li key={index} onClick={()=>setSelectedMenu(menu._id)}>
+                                <li key={index} onClick={()=>setSelectedMenu(menu._id)} className={selectedMenu == menu._id ? "selected" : ""}>
                                     {menu.menu_name} 
-                                    {selectedMenu == menu._id && <hr />}
+                                    {/* {selectedMenu == menu._id && <hr />} */}
                                 </li>
                             )
                         })

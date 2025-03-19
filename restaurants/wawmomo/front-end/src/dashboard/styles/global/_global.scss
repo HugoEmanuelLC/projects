@@ -1,5 +1,8 @@
 
 #dashboard_bloc{
+    font-family: "Poppins", sans-serif;// /* SCROLLBAR */
+    // scroll-behavior: smooth;
+    // font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
     .glassmorphism {
         background: rgba(255, 255, 255, 0.2); /* Fond semi-transparent */
@@ -49,7 +52,6 @@
             padding: $padding_md;
         }
     }
-    
 }
 
 

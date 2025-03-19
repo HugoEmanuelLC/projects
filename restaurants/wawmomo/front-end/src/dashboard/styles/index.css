@@ -10,6 +10,7 @@ Version: 1.0.0
 */
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -29,7 +30,6 @@ li {
 
 a {
   text-decoration: none;
-  color: inherit;
 }
 
 i {
@@ -44,23 +44,18 @@ button {
   outline: none;
 }
 
-img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
 ::-webkit-scrollbar {
   pointer-events: visible;
+  max-width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: darkgreen;
+  background-color: black;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: orange;
+  background-color: gray;
   cursor: grab;
 }
 
@@ -69,6 +64,7 @@ img {
 }
 
 #dashboard_bloc {
+  font-family: "Poppins", sans-serif;
   color: darkgreen;
   min-height: 100vh;
   background-image: linear-gradient(135deg, #ececec, rgba(144, 238, 144, 0.3));
@@ -370,7 +366,8 @@ img {
   justify-content: flex-start; /* 'center' par défaut */
   align-items: center; /* 'stretch' par défaut */
   border-radius: 5px;
-  height: 80px;
+  min-height: 80px;
+  padding: 10px;
   margin-bottom: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
@@ -387,9 +384,37 @@ img {
   gap: 10px;
 }
 #dashboard_bloc .box_content_settings .list_head_links ul li {
-  padding: 10px;
   cursor: pointer;
   color: darkgreen;
+  position: relative;
+  transition: 0.3s;
+}
+#dashboard_bloc .box_content_settings .list_head_links ul li:hover {
+  color: orange;
+}
+#dashboard_bloc .box_content_settings .list_head_links ul li.selected {
+  color: orange;
+}
+#dashboard_bloc .box_content_settings .list_head_links ul li.selected::before {
+  content: "";
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 166, 0, 0.3);
+  border-radius: 2px;
+  width: 100%;
+  height: 2px;
+  animation: hr_anim 0.5s;
+}
+@keyframes hr_anim {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 #dashboard_bloc .box_content_settings .list_datas {
   background-color: white;

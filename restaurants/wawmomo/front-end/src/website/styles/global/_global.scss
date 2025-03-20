@@ -1,5 +1,11 @@
-#website{
+#website_bloc{
     font-family: "Roboto" ;
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
     @import '../../components/header-component/header-component-style';
     @import '../../components/hero-component/hero-component-style';
@@ -10,7 +16,7 @@
     @import '../../components/btns-component/btns-component-style';
     @import '../../components/timetable-component/timetable-component-style';
 
-    #global_bloc{
+    #content_bloc{
         section{
             // border: solid 3px green;
             min-height: 25vh;

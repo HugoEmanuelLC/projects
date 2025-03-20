@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 // CRUD
-import { menusSelect } from "./menus-script";
-import { productsSelect, productDelete } from "./products-script";
+import { menusSelect } from "./menus-page-script";
+import { productsSelect, productDelete } from "./products-page-script";
 
 import Popup, { ConfimationDelete } from "../../components/popup-component/popup-component";
 import { NewProduct, UpdateProduct } from "./components/edite-product-component";

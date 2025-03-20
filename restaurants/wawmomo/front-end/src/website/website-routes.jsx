@@ -21,8 +21,8 @@ function WebsiteRoutes() {
     
     
     return (
-        <div id="website">
-            <div id="global_bloc">
+        <div id="website_bloc">
+            <div id="content_bloc">
 
                 { <HeaderComponent handlePopupVisibility={handlePopupVisibility} /> }
 

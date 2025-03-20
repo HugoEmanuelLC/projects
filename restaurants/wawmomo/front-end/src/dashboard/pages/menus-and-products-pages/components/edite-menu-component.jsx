@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // CRUD
-import { menuCreate, menuUpdate } from "../menus-script";
+import { menuCreate, menuUpdate } from "../menus-page-script";
 
 
 

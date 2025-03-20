@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import AppContext from '../../../hooks/app-context';
+import DashContext from '../../hooks/dash-context';
 
 
 function HeaderComponent() {
-    const { checkAuth } = useContext(AppContext);
+    const { checkAuth } = useContext(DashContext);
 
     return (
         <header>

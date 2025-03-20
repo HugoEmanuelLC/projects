@@ -6,7 +6,7 @@ import { useEffect, useContext, useState, use } from 'react';
 import './styles/index.css'
 
 // Hooks
-import AppContext from '../hooks/app-context';
+import DashContext from './hooks/dash-context';
 
 // Components
 import HeaderComponent from './components/header-component/header-component';
@@ -14,14 +14,14 @@ import NavbarComponent from './components/navbar-component/navbar-component';
 
 // Pages
 import UserPage from './pages/user-page/user-page';
-import MenusPage from './pages/menus-page/menus';
-import ProductsPage from './pages/menus-page/products';
+import MenusPage from './pages/menus-and-products-pages/menus-page';
+import ProductsPage from './pages/menus-and-products-pages/products-page';
 import TimetablePage from './pages/timetable-page/timetable';
 import ErrorPage from './pages/error-page/error';
 
 
-function DashboardRoutes() {
-    const { checkAuth } = useContext(AppContext);
+function DashboardRoutes(props) {
+    // const { checkAuth } = useContext(DashContext);
     const navigate = useNavigate();
 
     const [ loading, setLoading ] = useState(true)
@@ -29,8 +29,9 @@ function DashboardRoutes() {
     const handleLoading = (close=null) => {
         // setLoading(true)
         let load = setTimeout(() => {
-            checkAuth == false ? navigate("/auth/login") : setLoading(false)
-            console.log("checkAuth : ", checkAuth);
+            setLoading(false)
+            // checkAuth == false ? navigate("/auth/login") : setLoading(false)
+            // console.log("checkAuth : ", checkAuth);
         }, 1000)
         return () => clearTimeout(load)
     }
@@ -40,35 +41,37 @@ function DashboardRoutes() {
     }, [loading])
 
 
-    useEffect(() => {
-        checkAuth == false && handleLoading()
-    }, [checkAuth])
+    // useEffect(() => {
+    //     checkAuth == false && handleLoading()
+    // }, [checkAuth])
 
 
     return (
-        loading ? <h1>loading...</h1> : checkAuth && 
-        <div id="dashboard_bloc">
-            <div id="content_bloc">
+        <DashContext.Provider value={props.valueCheckAuth}>
+            {loading ? <h1>loading...</h1> : 
+            <div id="dashboard_bloc">
+                <div id="content_bloc">
 
-                <NavbarComponent handleLoading={handleLoading} setLoading={setLoading} />
+                    <NavbarComponent handleLoading={handleLoading} setLoading={setLoading} />
 
-                <div id="main_bloc">
+                    <div id="main_bloc">
 
-                    <HeaderComponent />
+                        <HeaderComponent />
 
-                    <main>
-                        <Routes>
-                            <Route path="" element={<Navigate to="menus" replace />} />
-                            <Route path="menus" element={ <MenusPage /> } />
-                            <Route path="produits" element={ <ProductsPage /> } />
-                            <Route path="user-page" element={<UserPage />} />
-                            <Route path='horaires' element={<TimetablePage />} />
-                            <Route path="*" element={<ErrorPage />} />
-                        </Routes>
-                    </main>
+                        <main>
+                            <Routes>
+                                <Route path="" element={<Navigate to="menus" replace />} />
+                                <Route path="menus" element={ <MenusPage /> } />
+                                <Route path="produits" element={ <ProductsPage /> } />
+                                <Route path="user-page" element={<UserPage />} />
+                                <Route path='horaires' element={<TimetablePage />} />
+                                <Route path="*" element={<ErrorPage />} />
+                            </Routes>
+                        </main>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>}
+        </DashContext.Provider>
     );
 }
 

@@ -1,9 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import {NewMenu} from '../../pages/menus-page/components/edite-menu-component';
-import {NewProduct} from '../../pages/menus-page/components/edite-product-component';
-import {NewTimetableDay} from '../../pages/timetable-page/components/edite-timetable-component';
-
 
 function Popup(props) {
 

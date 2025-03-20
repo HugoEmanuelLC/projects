@@ -115,7 +115,7 @@ export const forgotPassword = (data) => {
     let body = {
         auth: {
             email: data.email,
-            urlToVerify: window.location.origin+"/auth/update-password"
+            urlToVerify: window.location.origin+"/dash/auth/update-password"
         }
     }
     return new Promise((resolve, reject) => {

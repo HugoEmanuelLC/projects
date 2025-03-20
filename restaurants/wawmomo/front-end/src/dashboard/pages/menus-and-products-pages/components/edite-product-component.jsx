@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // CRUD
-import { productCreate, productUpdate } from "../products-script";
+import { productCreate, productUpdate } from "../products-page-script";
 
 
 

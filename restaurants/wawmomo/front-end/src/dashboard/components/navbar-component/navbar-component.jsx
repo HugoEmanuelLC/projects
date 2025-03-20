@@ -1,8 +1,7 @@
 import React, { useRef, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { deleteCookie } from '../../../authentication/scripts/authentication-scripts';
-import AppContext from '../../../hooks/app-context';
+import DashContext from '../../hooks/dash-context';
 
 
 function NavbarComponent(props) {
@@ -31,13 +30,7 @@ function NavbarComponent(props) {
     // END NAVBAR OPEN AND CLOSE
 
     // CLOSE SESSION
-    const { setCheckAuth } = useContext(AppContext)
-    const handleCloseSession = () => {
-        deleteCookie("auth")
-        setCheckAuth(false)
-        props.setLoading(true)
-        props.handleLoading("close")
-    }
+    const { handleCloseSession } = useContext(DashContext)
 
     return (
         <>
@@ -55,7 +48,7 @@ function NavbarComponent(props) {
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/produits")} to="/dash/produits" end>Produits</NavLink></li>
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/horaires")} to="/dash/horaires" end>horaires</NavLink></li>
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/contacts")} to="/dash/contacts" end>contacts</NavLink></li>
-                    {/* <li><NavLink onClick={()=>handleVerifUrl("/")} to="/">website</NavLink></li> */}
+                    <li><NavLink onClick={()=>handleVerifUrl("/")} to="/">website</NavLink></li>
                 </ul>
                 <button onClick={handleCloseSession}>logout</button>
             </div>

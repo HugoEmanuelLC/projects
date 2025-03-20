@@ -1,37 +1,30 @@
 // Dependencies
 import { useEffect, useState, useContext } from "react";
+import { NavLink } from "react-router-dom";
+
 // Scrypts
 import { updatePassword } from "../scripts/authentication-scripts";
-// Hooks Parent from App.jsx
-import AppContext from "../../hooks/app-context";
 
 
 function UpdatePasswordPage(props) {
-    const [username, setUsername] = useState("");
     const [msgErrorUsername, setMsgErrorUsername] = useState(false);
     const [password, setPassword] = useState("");
     const [repassword, setRepassword] = useState("");
     // const [msgErrorPassword, setMsgErrorPassword] = useState(null);
-
-    // context from App.jsx
-    const { setCheckAuth } = useContext(AppContext);
     
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if(password !== repassword){
-            setMsgErrorUsername("passwords do not match")
+            console.log("passwords not match : ", password, password.length, " : "
+            , repassword, repassword.length);
+            setMsgErrorUsername("passwords not match")
             return
         }else{
             let urlParams = new URLSearchParams(window.location.search);
             let token = urlParams.get('secret');
             await updatePassword({password, token})
             .then((res) => {
-                // setPassword("");
-                // setRepassword("");
-                // context from App.jsx
-                // setCheckAuth(res);
-                // props.setLoading(true)
                 setMsgErrorUsername(res.message)
             })
             .catch((err) => {
@@ -46,20 +39,30 @@ function UpdatePasswordPage(props) {
     }, [password, repassword])
 
     return (
-        <div id="authenticationPage">
+        <div className="loginFormContainer">
             <h2>Update Password</h2>
-            {msgErrorUsername && <p className="msgErr">{msgErrorUsername}</p>}
-            <form >
-            <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" 
+            <form onSubmit={handleSubmit} className="form">
+                <div className="formGroup">
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" name="password" className="input"
                     value={password} onChange={(e) => setPassword(e.target.value)} />
+                </div>
 
-                <label htmlFor="repassword">Re-password</label>
-                <input type="password" id="repassword" name="repassword" 
+                <div className="formGroup">
+                    <label htmlFor="repassword">Re-password</label>
+                    <input type="password" id="repassword" name="repassword" className="input"
                     value={repassword} onChange={(e) => setRepassword(e.target.value)} />
+                </div>
 
-                <button type="submit" onClick={(e) => handleSubmit(e)}>Login</button>
+                <button type="submit" className="button">Modifier</button>
+                {msgErrorUsername && <p className="msgErr">{msgErrorUsername}</p>}
             </form>
+            <div>
+                <p className="smallTxt">
+                    {/* Mot de passe oublié ? <NavLink to="/dash/auth/forgot-password">Cliquez ici</NavLink> */}
+                    voulait vous connecter ? <NavLink to="/dash/auth/login">Cliquez ici</NavLink>
+                </p>
+            </div>
         </div>
     );
 }

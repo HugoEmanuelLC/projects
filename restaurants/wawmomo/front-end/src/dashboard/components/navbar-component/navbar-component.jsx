@@ -48,7 +48,7 @@ function NavbarComponent(props) {
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/produits")} to="/dash/produits" end>Produits</NavLink></li>
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/horaires")} to="/dash/horaires" end>horaires</NavLink></li>
                     <li><NavLink onClick={()=>handleVerifUrl("/dash/contacts")} to="/dash/contacts" end>contacts</NavLink></li>
-                    <li><NavLink onClick={()=>handleVerifUrl("/")} to="/">website</NavLink></li>
+                    <li><a onClick={()=>handleVerifUrl("/")} href="/" target='_blanc'>website</a></li>
                 </ul>
                 <button onClick={handleCloseSession}>logout</button>
             </div>

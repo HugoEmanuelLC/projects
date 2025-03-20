@@ -1,6 +1,12 @@
+const urlLocal = 'http://localhost:3001';
+const urlExterne = 'https://wawmomo-api-test.root.caprover.clavinas.com';
+const urlServer = urlLocal;
 
-const urlApiAuth = 'http://localhost:3001/auth';
-const urlApi = 'http://localhost:3001';
+const urlApiAuth = urlServer+'/auth';
+const urlApi = urlServer;
+
+// const urlApiAuth = 'http://localhost:3001/auth';
+// const urlApi = 'http://localhost:3001';
 
 const urlForFetch = {
     login: urlApiAuth+'/login',

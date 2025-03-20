@@ -31,9 +31,10 @@ connection.connect((err) => {
 
 export const verifConnectionDb = (req, res, next) => {
     if (connection._protocol._fatalError) {
-        // console.log('Error connecting to Db mysql');
+        console.error('Error connecting to Db mysql');
+        console.log(connection._protocol._fatalError);
         // console.log(connection._protocol._fatalError.sqlMessage);
-        return res.status(500).json({ status: 500, message: "Accès à la DB temporairement indisponible", infos: null });
+        return res.status(500).json({ status: 500, message: "Accès à la DB temporairement indisponible", infos: connection._protocol._fatalError });
     }else{
         next();
     }

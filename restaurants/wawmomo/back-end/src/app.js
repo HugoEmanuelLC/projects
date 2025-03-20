@@ -21,7 +21,6 @@ app.use(cors(corsOptionsCheck));
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)});
 
 // app.get("/", (req, res) => {
 //     res.send("Hello world")
@@ -36,3 +35,6 @@ app.get('*', (req, res) => {
     console.log('Error 404, url not found');
     res.status(404).json({message: 'Page not found'})
 });
+
+
+app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)});

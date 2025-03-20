@@ -58,10 +58,7 @@ function Authentication() {
         checkAuth == false ? 
             <div id='authentification_bloc'>
                 <Routes>
-                    <Route path="" element={<>
-                        <h1>accueil auth</h1> 
-                        <p>connecté vous pour accéder à votre espace personnel</p>
-                    </>} />
+                    {/* <Route path="" element={<Navigate to="/dash/auth/login" replace />} /> */}
                     <Route path="auth/login" element={<LoginPage valueCheckAuth={{ checkAuth, setCheckAuth }} />} />
                     <Route path="auth/forgot-password" element={<ForgotPasswordPage />} />
                     <Route path="auth/update-password" element={<UpdatePasswordPage />} />

@@ -49,7 +49,6 @@ export const selectValuesAuthFromDBbyId = async (req, res, next) => {
         ...req.body.configDB
     })
     .then(data => {
-
         data.data.length > 0 ? req.body.configDB.infosFromDB = data.data[0] : null;
 
         req.body.res.status = data.status
@@ -88,7 +87,6 @@ export const selectValuesMenusListFromDB = async (req, res, next) => {
         ...req.body.configDB
     })
     .then(data => {
-        console.log(data);
         let menus = [];
         data.data.forEach(menu => {
             menus.push({

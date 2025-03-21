@@ -7,7 +7,7 @@ import { EventEmitter } from 'events';
 
 // Middlewares
 import { PORT, corsOptionsCheck } from './config.js';
-import { verifConnectionDb } from './dataBases/dbConfigs/mysql.js';
+// import { verifConnectionDb } from './dataBases/dbConfigs/mysql.js';
 import routeAuth from './routes/routeAuth.js';
 import route from './routes/route.js';
 
@@ -21,12 +21,8 @@ app.use(cors(corsOptionsCheck));
 app.use(morgan('dev'));
 app.use(express.json());
 
-
-// app.get("/", (req, res) => {
-//     res.send("Hello world")
-// })
-
-app.use(verifConnectionDb)
+// app.use(verifConnectionDb)
+// verifConnectionDb()
 
 app.use("/", route)
 app.use("/auth", routeAuth)
@@ -35,6 +31,5 @@ app.get('*', (req, res) => {
     console.log('Error 404, url not found');
     res.status(404).json({message: 'Page not found'})
 });
-
 
 app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)});

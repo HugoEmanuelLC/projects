@@ -55,9 +55,6 @@ export const createValuesProductInDB = async (req, res, next) => {
         })
     
         req.body.configDB.SETvalues = SETvalues
-        
-        console.log("createValuesMenuInDB -> req.body.configDB");
-        console.log(req.body);
 
     } catch (error) {
         res.status(500).json({ status: 500, message: "server problem, impossible to create" })
@@ -97,9 +94,7 @@ export const createValuesTimeTableDayInDB = async (req, res, next) => {
         })
     
         req.body.configDB.SETvalues = SETvalues
-    
-        console.log("createValuesTimeTableDayInDB -> req.body.configDB");
-        console.log(req.body);
+        
     } catch (error) {
         res.status(500).json({ status: 500, message: "server problem, impossible to create" })
     }

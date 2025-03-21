@@ -10,17 +10,14 @@ const whitelist = [
     
 ];
 export const corsOptionsCheck = (req, callback) => {
-    console.log('corsOptionsCheck');
     let corsOptions;
 
     let isDomainAllowed = whitelist.indexOf(req.header('Origin')) !== -1;
 
     if (isDomainAllowed) {
-        console.log('Allowed');
         // Enable CORS for this request
         corsOptions = { origin: true }
     } else {
-        console.error('Not allowed');
         // Disable CORS for this request
         corsOptions = { origin: false }
     }

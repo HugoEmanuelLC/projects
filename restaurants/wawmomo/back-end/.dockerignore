@@ -6,3 +6,7 @@ node_modules/
 
 # Ignorer les fichiers journaux
 *.log
+
+.gitignore
+.git
+Dockerfile

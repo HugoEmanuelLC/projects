@@ -76,8 +76,6 @@ export function createToken(req, params = { id, secretKey, expiresIn: '1h' }) {
     }
     req.body.res.status = 200;
     req.body.res.message = "authentification accepted";
-    console.log("createToken -> params -------------------");
-    console.log(params.secretKey);
     return jwt.sign({ id: params.id }, params.secretKey, { expiresIn: params.expiresIn });
 }
 

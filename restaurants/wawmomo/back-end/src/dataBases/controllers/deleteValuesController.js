@@ -7,9 +7,6 @@ export const deleteValuesMenuFromDB = async (req, res, next) => {
         req.body.configDB.tableName = "menus"
         req.body.configDB.colonneName = "_id"
         req.body.configDB.colonneValue = req.params.params
-    
-        console.log("deleteValuesMenuFromDB -> req.body.configDB");
-        console.log(req.body.configDB);
         
     } catch (error) {
         res.status(500).json({ status: 500, message: "server problem, impossible to delete" })
@@ -37,9 +34,6 @@ export const deleteValuesProductFromDB = async (req, res, next) => {
         req.body.configDB.tableName = "products"
         req.body.configDB.colonneName = "_id"
         req.body.configDB.colonneValue = req.params.params
-    
-        console.log("deleteValuesProductFromDB -> req.body.configDB");
-        console.log(req.body.configDB);
 
     } catch (error) {
         res.status(500).json({ status: 500, message: "server problem, impossible to delete" })
@@ -67,9 +61,6 @@ export const deleteValuesTimeTableDayFromDB = async (req, res, next) => {
         req.body.configDB.tableName = "hours"
         req.body.configDB.colonneName = "_id"
         req.body.configDB.colonneValue = req.params.params
-    
-        console.log("deleteValuesTimeTableDayFromDB -> req.body.configDB");
-        console.log(req.body.configDB);
 
     } catch (error) {
         res.status(500).json({ status: 500, message: "server problem, impossible to delete" })

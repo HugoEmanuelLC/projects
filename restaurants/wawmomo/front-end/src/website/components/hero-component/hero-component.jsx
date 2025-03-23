@@ -30,11 +30,17 @@ function HeroComponent() {
                     
                     <div className="btn_ubereats">
                         <BtnsComponent>
-                            <a href="TEL:02.203.43.00"> <i className='bx bxs-phone-outgoing'></i> commender</a>
+                            <a title="Commander par telephone" href="TEL:02.203.43.00"> 
+                                <i class='bx bxs-phone'></i> 
+                                &nbsp;02.203.43.00
+                            </a>
                         </BtnsComponent>
                         
                         <BtnsComponent>
-                            <a href="https://www.ubereats.com/be/store/waw-momo/cSUvNUqGX5Kl3r0X5ZDNEg"> <i className='bx bx-shopping-bag'></i> uber eats</a>
+                            <a title="Faites vous livrer" href="https://www.ubereats.com/be/store/waw-momo/cSUvNUqGX5Kl3r0X5ZDNEg"> 
+                                <i class='bx bxs-package' ></i>
+                                &nbsp;uber eats
+                            </a>
                         </BtnsComponent>
                     </div>
                 </div>

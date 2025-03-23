@@ -67,6 +67,7 @@ button {
 
 #dashboard_bloc {
   font-family: "Poppins", sans-serif;
+  /* SCROLLBAR */
   color: darkgreen;
   min-height: 100vh;
   background-image: linear-gradient(135deg, #ececec, rgba(144, 238, 144, 0.3));

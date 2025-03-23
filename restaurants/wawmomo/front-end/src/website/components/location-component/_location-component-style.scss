@@ -1,0 +1,7 @@
+#location_component{
+    // border: solid 3px red;
+
+    .content{
+        @include flex(column, center, center);
+    }
+}

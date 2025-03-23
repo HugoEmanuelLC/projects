@@ -1,14 +1,16 @@
 .btns_component{
+    // border: solid 3px blue;
+    @include flex(column, center, center);
     button, a{
         background-color: rgb(0, 0, 0, 0.2);
         backdrop-filter: blur(10px);
-        border: solid 1px $color_primary;
+        border: solid 1px $color_secondary;
         border-radius: $border_radius_sm;
 
         font-size: $txt_p_size_sm;
 
         padding: $padding_sm;
-        color: white;
+        color: $color_primary;
 
         cursor: pointer;
 

@@ -1,6 +1,6 @@
 const urlLocal = 'http://localhost:3001';
 const urlExterne = 'https://wawmomo-api-test.root.caprover.clavinas.com';
-const urlServer = urlLocal;
+const urlServer = urlExterne;
 
 const urlApiAuth = urlServer+'/urlExterne';
 const urlApi = urlServer;

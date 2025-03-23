@@ -6,7 +6,7 @@
 
     padding: calc($padding_sm * 5) $padding_sm;
     background-color: $color_primary;
-    position: relative;
+    // position: relative;
 
     .titre{
         // border: solid 3px blue;
@@ -22,8 +22,8 @@
         
         p{
             margin-bottom: $padding_sm;
-            font-size: $txt_p_size_md;
-            font-weight: $txt_weight_lg;
+            font-size: $txt_p_size_sm;
+            font-weight: $txt_weight_md;
         }
     }
 
@@ -45,6 +45,7 @@
             
             p{
                 margin-bottom: $padding_sm;
+                font-size: $txt_p_size_md;
                 font-weight: $txt_weight_md;
             }
         }

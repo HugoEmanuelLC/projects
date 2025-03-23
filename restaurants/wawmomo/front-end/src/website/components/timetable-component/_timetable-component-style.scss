@@ -1,7 +1,10 @@
 #timetable{
     // border: solid 2px green;
-    background-color: $color_primary;
-    position: relative;
+    // background-color: $color_primary;
+    // background-color: #f2d47e;
+    background-color: $color_secondary;
+    padding: calc($padding_sm * 5) $padding_sm;
+    // position: relative;
     // @include flex(column, flex-start, center);
     h2{
         font-size: $txt_h3_size_md;
@@ -11,7 +14,7 @@
     }
     .box{
         // border: solid 2px red;
-        padding: $padding_sm;
+        // padding: $padding_sm;
         // display: flex;
         max-width: 800px;
         margin: 0 auto;
@@ -25,7 +28,7 @@
                     th{
                         padding: 10px;
                         text-align: left;
-                        border: 1px solid #ddd;
+                        // border: 1px solid #ddd;
                     }
                 }
             }
@@ -37,7 +40,11 @@
                     td{
                         padding: 10px;
                         text-align: left;
-                        border: 1px solid #ddd;
+                        border-bottom: 1px solid #000;
+                        // color: $color_primary;
+                    }
+                    .comment{
+                        border-bottom: 0px ;
                     }
                 }
             }
@@ -45,12 +52,13 @@
     }
 
     @include media-queries(md){
+        padding: calc($padding_md * 5) $padding_md;
         h2{
             font-size: $txt_h3_size_lg;
             padding: $padding_md;
         }
         .box{
-            padding: $padding_md;
+            // padding: $padding_md;
         }
     }
 }

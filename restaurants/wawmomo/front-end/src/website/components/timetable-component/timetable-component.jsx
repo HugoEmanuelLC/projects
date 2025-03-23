@@ -41,13 +41,13 @@ function TimetableComponent() {
                                     <tr key={index}>
                                         <td>{item.day_name}</td>
                                         <td>{item.open == '00:00' && item.close == '00:00' ? 'fermé' : item.open.replace(':', 'h')}</td>
-                                        <td>{item.open == '00:00' && item.close == '00:00' ? 'fermé' : item.close.replace(':', 'h')}</td>
+                                        <td>{item.open == '00:00' && item.close == '00:00' ? '' : item.close.replace(':', 'h')}</td>
                                     </tr>
                                 )
                             })
                         }
                         {
-                            timetable?.length > 0 && <tr><td colSpan="3">{
+                            timetable?.length > 0 && <tr><td className="comment" colSpan="3">{
                                 timetable[0].comment
                             }</td></tr>
                         }

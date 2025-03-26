@@ -2,8 +2,9 @@
     // border: solid 2px green;
     // background-color: $color_primary;
     // background-color: #f2d47e;
-    background-color: $color_secondary;
-    padding: calc($padding_sm * 5) $padding_sm;
+    background-color: $color_primary;
+    padding: $sectionsSpacing_sm $padding_sm;
+    
     // position: relative;
     // @include flex(column, flex-start, center);
     h2{
@@ -41,6 +42,7 @@
                         padding: 10px;
                         text-align: left;
                         border-bottom: 1px solid #000;
+                        font-size: $txt_p_size_sm;
                         // color: $color_primary;
                     }
                     .comment{
@@ -52,13 +54,21 @@
     }
 
     @include media-queries(md){
-        padding: calc($padding_md * 5) $padding_md;
+        padding: $sectionsSpacing_md $padding_md;
         h2{
             font-size: $txt_h3_size_lg;
             padding: $padding_md;
         }
         .box{
-            // padding: $padding_md;
+            table{
+                tbody{
+                    tr{
+                        td{
+                            font-size: $txt_p_size_md;
+                        }
+                    }
+                }
+            }
         }
     }
 }

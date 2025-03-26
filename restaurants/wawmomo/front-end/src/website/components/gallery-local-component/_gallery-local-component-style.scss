@@ -1,10 +1,25 @@
 #gallery_local_component{
     // border: solid 5px black;
+        // @include flex(column, center, center);
 
     .content{
         // border: solid 3px blue;
         background-color: $color-primary;
-        // height: 100vh;
+
+
+        // height: 45vh;
+        // width: 100%;
+        overflow: hidden;
+        padding: $padding_sm;
+        // position: relative;
+
+        .splide{
+            height: 100%;
+
+            .splide__track  {
+                height: 100%;
+            }
+        }
 
         .box_space_image{
             // border: solid 3px purple;
@@ -12,7 +27,8 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            height: 30vh;
+            height: 40vh;
+            width: 100%;
 
             .box_space_shadow_image{
                 background-color: rgb(0, 0, 0, 0.2);
@@ -24,8 +40,9 @@
 
     @include media-queries(md){
         .content{
+            padding: $padding_md;
             .box_space_image{
-                height: 50vh;
+                height: 67vh;
             }
         }
     }

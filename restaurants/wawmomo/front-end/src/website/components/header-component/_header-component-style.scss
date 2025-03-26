@@ -1,5 +1,6 @@
 header{
     // border: solid 3px red;
+    // padding-top: $padding_sm;
     position: fixed;
         top: 0;
         left: 0;
@@ -7,17 +8,195 @@ header{
         z-index: 1000;
 
     .header__container{
+        // border: solid 3px green;
         @include flex(row, space-between, center);
-        padding: $padding_sm;
+        padding: calc($padding_sm / 2) $padding_sm;
         // padding: 0;
 
-        span{
+        .muneScroll{
+            // border: solid 3px yellow;
+            flex: 1;
+            order: 0;
+            display: flex;
+
+            .btnOpen{
+                // background-color: rgb(0, 0, 0, 0.2);
+                // backdrop-filter: blur(10px);
+                // border: solid 1px $color_secondary;
+                border-radius: $border_radius_sm;
+
+                display: inline-block;
+                color: $color_primary;
+                cursor: pointer;
+
+                i{
+                    font-size: 30px;
+                    display: flex;
+                    text-shadow: 2px 2px 2px black;
+                }
+
+                &:hover{
+                    // background-color: $color_secondary;
+                    color: $color_secondary;
+                }
+            }
+
+            ul{
+                background-color: $color_secondary_opo;
+                color: black;
+                // border: solid 3px red;
+                // background-color: rgb(255, 255, 255, 0.5);
+                border-radius: $border_radius_sm;
+                backdrop-filter: blur(10px);
+
+                padding: calc($padding_sm * 2);
+                position: absolute;
+                // color: white;
+                transition: 0.3s;
+
+                .btnClose{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    color: $color_tertiary;
+                    cursor: pointer;
+
+                    &:hover{
+                        color: $color_primary;
+                    }
+                }
+                
+                li{
+                    // text-transform: uppercase;
+                    a{
+                        // font-family: "Sarpanch", sans-serif;
+                        // font-weight: 400;
+                        // font-style: normal;
+                        color: $color_tertiary;
+                        
+                        &:hover{
+                            color: $color_primary;
+                        }
+                    }
+                }
+
+                &.active{
+                    top: $padding_sm;
+                    left: $padding_sm;
+                }
+                &.inactive{
+                    top: $padding_sm;
+                    left: -100vw;
+                }
+            }
+        }
+
+        .logo{
+            // border: solid 3px red;
+            // flex: 1;
+            order: 1;
+            display: inline-flex;
+            // border: solid 3px blue;
             color: inherit;
-            padding: $padding_sm;
+            padding: 0 $padding_sm;
             // border-radius: $border_radius_sm;
             // background-color: rgb(255, 255, 255, 0.3);
             color: white;
             text-shadow: 2px 2px 2px black;
+            text-align: center;
+            a{
+                @include flex(row, center, center);
+                font-family: "Gugi", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                text-transform: uppercase;
+                font-size: $txt_p_size_sm;
+                padding: 0;
+                line-height: 0.8;
+                // border: solid 1px $color_primary;
+                // height: 60px;
+                // width: 60px;
+                // border-radius: 50%;
+
+                &:hover{
+                    color: $color_secondary;
+                }
+            }
+        }
+
+        nav{
+            // border: solid 3px blue;
+            flex: 1;
+            order: 2;
+            ul{
+                // border: solid 3px yellow;
+                @include flex(row, flex-end, center);
+                // button{
+                //     text-transform: uppercase;
+                // }
+            }
+        }
+    }
+
+    @include media-queries(md){
+        .header__container{
+            padding: calc($padding_md / 2) $padding_md;
+            .muneScroll{
+                order: 2;
+                // flex: 1;
+                padding: 0 $padding_md ;
+                // @include flex(row, center, center);
+                
+                .btnOpen{
+                    display: none;
+                }
+                
+                ul{
+                    // border: solid 3px red;
+                    position: relative;
+                    top: 0;
+                    @include flex(row, flex-start, center);
+                    gap: $padding_sm;
+                    background-color: transparent;
+                    backdrop-filter: none;
+                    padding: 0;
+                    
+                    li{
+                        a{
+                            color: $color_primary;
+                            text-shadow: 2px 2px 2px black;
+                            &:hover{
+                                color: $color_secondary;
+                            }
+                        }
+                    }
+
+                    .btnClose{
+                        display: none;
+                    }
+
+                    &.active{
+                        top: 0;
+                        left: 0;
+                    }
+                    &.inactive{
+                        top: 0;
+                        left: 0;
+                    }
+                }
+            }
+
+            .logo{
+                text-align: left;
+                padding: 0;
+                a{
+                    font-size: $txt_p_size_md;
+                }
+            }
+
+            nav{
+                flex: 1;
+            }
         }
     }
 }

@@ -2,10 +2,11 @@
 import { Route, Routes, useNavigate, NavLink, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-// Pages
+// Pages / Components
 import LoginPage from "./pages/login-page/login-page";
 import ForgotPasswordPage from "./pages/forgot-password-page/forgot-password-page";
 import UpdatePasswordPage from './pages/update-password-page';
+import LoadingComponent from './components/loading-component/loading-component';
 
 // Scripts
 import { checkSession, deleteCookie } from './scripts/authentication-scripts';
@@ -54,7 +55,10 @@ function Authentication() {
 
     return (
         checkAuth == null ? 
-            <h1>loading...</h1> : 
+            <div id="authentification_bloc">
+                <LoadingComponent /> 
+            </div>
+            : 
         checkAuth == false ? 
             <div id='authentification_bloc'>
                 <Routes>

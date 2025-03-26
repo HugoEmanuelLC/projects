@@ -1,10 +1,10 @@
 .about_component{
     // border: solid 3px red;
     // height: 60vh;
-    @include flex(column, none, none);
+    @include flex(column, center, none);
     gap: $padding_sm;
 
-    padding: calc($padding_sm * 5) $padding_sm;
+    padding: $sectionsSpacing_sm $padding_sm;
     background-color: $color_primary;
     // position: relative;
 
@@ -19,17 +19,22 @@
     .text{
         // border: solid 3px green;
         padding: 0;
+        text-align: center;
         
         p{
             margin-bottom: $padding_sm;
-            font-size: $txt_p_size_sm;
+            font-size: $txt_p_size_md;
             font-weight: $txt_weight_md;
+
+            strong{
+                font-weight: $txt_weight_lg;
+            }
         }
     }
 
     @include media-queries(md){
         gap: $padding_md;
-        padding: calc($padding_md * 5) $padding_md;
+        padding: $sectionsSpacing_md $padding_md;
 
         .titre{
             text-align: left;
@@ -45,7 +50,7 @@
             
             p{
                 margin-bottom: $padding_sm;
-                font-size: $txt_p_size_md;
+                font-size: $txt_h3_size_md;
                 font-weight: $txt_weight_md;
             }
         }

@@ -1,11 +1,16 @@
 #website_bloc{
     font-family: "Poppins", sans-serif;
+    // font-family: "Sarpanch", sans-serif;
 
     img{
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
+
+    $sectionsSpacing_sm: calc($padding_sm * 5);
+
+    $sectionsSpacing_md: calc($padding_md * 5);
 
     @import '../../components/header-component/header-component-style';
     @import '../../components/hero-component/hero-component-style';
@@ -17,6 +22,7 @@
     @import '../../components/timetable-component/timetable-component-style';
     @import '../../components/gallery-local-component/gallery-local-component-style';
     @import '../../components/location-component/location-component-style';
+    @import '../../components/loading-component/loading-component-style';
     @import '../../components/footer-component/footer-component-style';
 
     #content_bloc{

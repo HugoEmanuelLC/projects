@@ -1,0 +1,57 @@
+.loading_component{
+    @include flex(column, center, center);
+    height: 100vh;
+    width: 100vw;
+    background-color: $bck_color_tertiary;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    .loader {
+        $taille: 30vw;
+
+        width: $taille;
+        height: $taille;
+
+        border-radius: 50%;
+        position: relative;
+
+        .loader-outter,
+        .loader-inner {
+            position: absolute;
+            // border: 4px solid #fff;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            // box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .loader-outter {
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            border-left-color: transparent;
+            animation: rotate 1s cubic-bezier(0.15, 0.61, 0.58, 0.4) infinite;
+        }
+        .loader-inner {
+            width: $taille*0.8;
+            height: $taille*0.8;
+            border: 4px solid $bck_color_secondary;
+            border-top-color: transparent;
+            animation: rotate-reverse 1s cubic-bezier(0.15, 0.61, 0.58, 0.4) infinite;
+        }
+        
+        @keyframes rotate {
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        @keyframes rotate-reverse {
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg);
+            }
+        }
+    }
+
+}

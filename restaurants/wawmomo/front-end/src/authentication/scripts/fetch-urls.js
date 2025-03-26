@@ -1,8 +1,8 @@
 const urlLocal = 'http://localhost:3001';
 const urlExterne = 'https://wawmomo-api-test.root.caprover.clavinas.com';
-const urlServer = urlExterne;
+const urlServer = urlLocal;
 
-const urlApiAuth = urlServer+'/urlExterne';
+const urlApiAuth = urlServer+'/auth';
 const urlApi = urlServer;
 
 // const urlApiAuth = 'http://localhost:3001/auth';
@@ -31,6 +31,8 @@ const urlForFetch = {
     createTimetableComment: urlApiAuth+'/time-table-comment/create',
     updateTimetableComment: urlApiAuth+'/time-table-comment/update',
     deleteTimetableComment: urlApiAuth+'/time-table-comment/delete',
+
+    createImage: urlApiAuth+'/image/create',
 
     menusList: urlApi+'/menus-list',
     productsListFromMenu: urlApi+'/products-from-menu',

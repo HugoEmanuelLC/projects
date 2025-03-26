@@ -71,11 +71,15 @@ function TimetablePage() {
                                         day.day_name !== null &&
                                         <tr key={index}>
                                             <td>{day.day_name}</td>
-                                            <td>{day.open}</td>
-                                            <td>{day.close}</td>
+                                            <td>{day.open == "" || day.open == '00:00' ? "fermé" : day.open}</td>
+                                            <td>{day.close == "" || day.close == '00:00' ? "fermé" : day.close}</td>
                                             <td className="actions">
-                                                <button onClick={()=>{ setBoolean("day"); setDeliteElementFromDB(day) }}><i className='bx bx-trash'></i></button>
-                                                <button onClick={()=>{ setBoolean("day"); setUpdateTimetableElement(day) }}><i className='bx bx-edit-alt'></i></button>
+                                                <button onClick={()=>{ setBoolean("day"); setDeliteElementFromDB(day) }}>
+                                                    <i className='bx bx-trash'></i>
+                                                </button>
+                                                <button onClick={()=>{ setBoolean("day"); setUpdateTimetableElement(day) }}>
+                                                    <i className='bx bx-edit-alt'></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     )

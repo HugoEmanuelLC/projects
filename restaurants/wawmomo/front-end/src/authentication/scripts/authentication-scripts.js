@@ -2,16 +2,21 @@ import urlForFetch, {cookieName} from "./fetch-urls";
 
 
 export const fetchApi = async (url, method, body = {}, token = null) => {
+    let contentType = body.values == undefined ? 'application/json' : 'multipart/form-data';
     let options = {
         method: method,
         headers: {
-            'Content-Type': 'application/json',
+            contentType,
             'Authorization': token ? token : null
         }
     };
 
     if (method === "POST" || method === "PUT") {
-        options.body = JSON.stringify(body);
+        if (body.values == undefined) {
+            options.body = JSON.stringify(body);
+        }else{
+            options.body = body;
+        }
     }
     
     return new Promise((resolve, reject) => {

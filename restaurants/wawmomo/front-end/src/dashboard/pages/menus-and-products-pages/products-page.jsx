@@ -20,6 +20,7 @@ function ProductsPage() {
         await menusSelect()
         .then((res) => {
             console.log("res : ", res);
+            // setSelectedMenu(res[0]?._id)
             setListMenus(res)
         })
         .catch((err) => {

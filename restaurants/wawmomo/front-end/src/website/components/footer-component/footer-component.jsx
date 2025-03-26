@@ -15,35 +15,35 @@ function FooterComponent() {
                 <ul>
                     <li>
                         <a href="https://www.facebook.com/people/WAW-MOMO-Braine-LAlleud/100063606097301/" target="_blank">
-                        <i class='bx bxl-facebook-square'></i>
+                        <i className='bx bxl-facebook-square'></i>
                             &nbsp;Facebook
                         </a>
                     </li>
 
                     <li>
                         <a href="mailto:info@wawmomo.be">
-                            <i class='bx bxs-envelope' ></i>
+                            <i className='bx bxs-envelope' ></i>
                             &nbsp;info@wawmomo.be
                         </a>
                     </li>
 
                     <li>
                         <a href="tel:02.203.43.00">
-                            <i class='bx bxs-phone'></i>
+                            <i className='bx bxs-phone'></i>
                             &nbsp;02.203.43.00
                         </a>
                     </li>
 
                     <li>
                         <a href="https://www.ubereats.com/be/store/waw-momo/cSUvNUqGX5Kl3r0X5ZDNEg">
-                            <i class='bx bxs-package' ></i>
+                            <i className='bx bxs-package' ></i>
                             &nbsp;Livraison
                         </a>
                     </li>
                 </ul>
             </div>
             
-            <p className="copyright">2025 <span>©</span> Créer par <a href="https://www.development.clavinas.com" target="_blank" rel="noopener noreferrer">clavinas development</a></p>
+            <p className="copyright">2025 <span>©</span> Créer par <a href="https://www.clavinas.com" target="_blank" rel="noopener noreferrer">clavinas.com</a></p>
         </footer>
     )
 }

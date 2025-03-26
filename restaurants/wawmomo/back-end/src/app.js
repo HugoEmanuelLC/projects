@@ -1,7 +1,14 @@
 // Dependencies
 import express from 'express';
 import cors from 'cors';
+
+// le module morgan permet de logger les requêtes http
+// il est très utile pour le débogage
 import morgan from 'morgan';
+
+// le module events est un module natif de nodejs
+// il permet de créer des événements personnalisés
+// et de les écouter
 import { EventEmitter } from 'events';
 
 
@@ -14,6 +21,9 @@ import route from './routes/route.js';
 
 const app = express();
 
+// Création d'un bus d'événements
+// qui permettra de communiquer entre les différents modules
+// de l'application
 const bus = new EventEmitter();
 bus.setMaxListeners(20);
 

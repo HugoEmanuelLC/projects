@@ -40,8 +40,18 @@ function TimetableComponent() {
                                 return (
                                     <tr key={index}>
                                         <td>{item.day_name}</td>
-                                        <td>{item.open == '00:00' && item.close == '00:00' ? 'fermé' : item.open.replace(':', 'h')}</td>
-                                        <td>{item.open == '00:00' && item.close == '00:00' ? '' : item.close.replace(':', 'h')}</td>
+
+                                        <td>{
+                                            item.open == '00:00' || item.open == '' && 
+                                            item.close == '00:00' || item.close == '' ? 
+                                                'fermé' : item.open.replace(':', 'h')
+                                        }</td>
+
+                                        <td>{
+                                            item.open == '00:00' || item.open == '' && 
+                                            item.close == '00:00' || item.close == '' ? 
+                                            '' : item.close.replace(':', 'h')
+                                        }</td>
                                     </tr>
                                 )
                             })

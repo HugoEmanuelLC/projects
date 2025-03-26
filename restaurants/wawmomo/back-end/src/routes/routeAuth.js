@@ -11,7 +11,7 @@ import * as deleteValuesController from '../dataBases/controllers/deleteValuesCo
 import * as createValuesController from '../dataBases/controllers/createValuesController.js'
 // import * as insertValuesController from '../dataBases/controllers/insertValuesController.js'
 // import * as deleteValuesController from '../dataBases/controllers/deleteValuesController.js'
-
+import upload from '../imagesConfig/multerConfig.js'
 
 
 const routeAuth = Router()
@@ -131,6 +131,27 @@ routeAuth.put('/time-table-comment/update/:params',
 )
 routeAuth.delete('/time-table-comment/delete/:params',
     updateValuesController.updateValuesTimeTableCommentFromDB, modelFncForSendResToClient
+)
+
+
+
+
+// Images
+routeAuth.post('/image/create', upload.single('file'), 
+    async (req, res, next) => {
+        console.log('req.file:', req.file);
+
+        // req.body.res.status = 200
+        // req.body.res.message = "Image created"
+
+        res.status(200).json({
+            status: 200,
+            message: "Image created",
+            content: { file: req.file }
+        })
+        // next()
+    }, 
+    // modelFncForSendResToClient 
 )
 
 

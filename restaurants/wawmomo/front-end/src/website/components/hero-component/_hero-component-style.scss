@@ -22,7 +22,8 @@
             width: 100%;
             height: 100%;
             // flex: 1;
-            @include flex(column, space-evenly, center);
+            @include flex(column, center, center);
+            gap: $padding_sm;
             padding: 0 $padding_sm;
             line-height: 1.5;
 
@@ -32,9 +33,11 @@
                 text-transform: uppercase;
                 // height: 100%;
                 h1{
-                    // border: solid 3px blue;
-                    text-align: center;
+                    // font-family: "Sarpanch", sans-serif;
+                    font-weight: $txt_weight_md;
+                    // font-style: normal;
                     font-size: min(80px,7vw);
+                    text-align: center;
                     color: $color_primary;
                 }
             }
@@ -71,18 +74,19 @@
     
 
     @include media-queries(md){
-        height: 70vh;
+        height: 90vh;
 
         .block_shadow{
             .container{
-                @include flex(column, space-evenly, flex-start);
+                @include flex(column, center, flex-start);
+                gap: $padding_md;
                 padding: 0 $padding_md;
 
                 .text{
                     line-height: 1;
                     h1{
                         text-align: left;
-                        font-size: min(80px, 8vw);
+                        font-size: min(90px, 8vw);
                     }
                 }
             }

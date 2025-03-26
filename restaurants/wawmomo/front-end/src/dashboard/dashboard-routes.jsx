@@ -11,12 +11,14 @@ import DashContext from './hooks/dash-context';
 // Components
 import HeaderComponent from './components/header-component/header-component';
 import NavbarComponent from './components/navbar-component/navbar-component';
+import LoadingComponent from './components/loading-component/loading-component';
 
 // Pages
 import UserPage from './pages/user-page/user-page';
 import MenusPage from './pages/menus-and-products-pages/menus-page';
 import ProductsPage from './pages/menus-and-products-pages/products-page';
 import TimetablePage from './pages/timetable-page/timetable';
+import ImagesPage from './pages/images-page/images-page';
 import ErrorPage from './pages/error-page/error';
 
 
@@ -32,7 +34,7 @@ function DashboardRoutes(props) {
             setLoading(false)
             // checkAuth == false ? navigate("/auth/login") : setLoading(false)
             // console.log("checkAuth : ", checkAuth);
-        }, 1000)
+        }, 500)
         return () => clearTimeout(load)
     }
 
@@ -48,7 +50,11 @@ function DashboardRoutes(props) {
 
     return (
         <DashContext.Provider value={props.valueCheckAuth}>
-            {loading ? <h1>loading...</h1> : 
+            {loading ? 
+            <div id="dashboard_bloc">
+                <LoadingComponent />
+            </div>
+            : 
             <div id="dashboard_bloc">
                 <div id="content_bloc">
 
@@ -65,6 +71,7 @@ function DashboardRoutes(props) {
                                 <Route path="produits" element={ <ProductsPage /> } />
                                 <Route path="user-page" element={<UserPage />} />
                                 <Route path='horaires' element={<TimetablePage />} />
+                                <Route path='images' element={<ImagesPage />} />
                                 <Route path="*" element={<ErrorPage />} />
                             </Routes>
                         </main>

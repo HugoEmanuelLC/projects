@@ -22,7 +22,7 @@
 
         ul{
             // border: solid 5px green;
-            @include flex(row, flex-start, center);
+            @include flex(row, center, center);
             flex-wrap: wrap;
             padding: $padding_md $padding_sm;
             // border-bottom: solid 3px $color_secondary;
@@ -72,39 +72,71 @@
 
         .box{
             // border: solid 3px blue;
-            @include flex(row, flex-start, flex-start);
-            // justify-content: space-around;
+            @include flex(row, space-evenly, flex-start);
+            // justify-content: space-evenly;
             flex-wrap: wrap;
             gap: $padding_sm;
             padding: $padding_sm;
             width: auto;
 
             .product_item{
-                // border: solid 3px red;
+                // border: solid 1px red;
+                padding: 0;
                 // display: inline-flex;
                 //     flex-direction: column;
                 //     justify-content: center;
                 //     align-items: center;
                 // margin: 20px;
-                width: 200px;
+                width: 150px;
+                margin: 0 0 calc($padding_md * 2);
     
                 @include flex(column, center, center);
                 h3{
-                    font-size: $txt_h3_size_sm;
-                    font-weight: $txt_weight_lg;
-                    padding: $padding_sm;
+                    // border: solid 3px green;
+                    // @include flex(row, flex-start, center);
+                    // width: 100%;
+                    font-size: $txt_p_size_sm;
+                    // font-weight: $txt_weight_lg;
+                    // padding: $padding_sm;
                     text-align: center;
                 }
     
                 span{
-                    font-size: $txt_p_size_md;
-                    font-weight: $txt_weight_md;
-                    padding: $padding_sm;
+                    // border: solid 3px blue;
+                    // @include flex(row, flex-start, center);
+                    // width: 100%;
+                    // text-align: left;
+                    font-size: $txt_p_size_sm;
+                    // font-weight: $txt_weight_md;
                     text-align: center;
                     // color: red;
                 }
     
-                // p{}
+                p{
+                    font-size: $txt_p_size_sm;
+                    font-weight: $txt_weight_sm;
+                }
+            }
+        }
+    }
+
+    @include media-queries(md){
+        // .menus_list{
+        //     h2{
+        //         font-size: $txt_h3_size_sm;
+        //     }
+        // }
+
+        .products_list{
+            .box{
+                .product_item{
+                    h3{
+                        font-size: $txt_h3_size_sm;
+                    }
+                    span{
+                        font-size: $txt_p_size_sm;
+                    }
+                }
             }
         }
     }

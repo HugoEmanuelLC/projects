@@ -12,6 +12,8 @@ import * as createValuesController from '../dataBases/controllers/createValuesCo
 // import * as insertValuesController from '../dataBases/controllers/insertValuesController.js'
 // import * as deleteValuesController from '../dataBases/controllers/deleteValuesController.js'
 import upload from '../imagesConfig/multerConfig.js'
+import sharpConfig from "../imagesConfig/sharpConfig.js"
+import { fsDeleteImage } from "../imagesConfig/fsConfig.js" 
 
 
 const routeAuth = Router()
@@ -46,7 +48,16 @@ function modelFncForSendResToClient(req, res) {
         token: req.body.res.token
     })
 }
-
+function treatmentInfosFromDB(req, res, next){
+    if (req.body.configDB.infosFromDB?.password == undefined) {
+        req.body.configDB.infosFromDB = req.infosFromDB
+    } else {
+        const { password, ...infosFromDB } = req.body.configDB.infosFromDB
+        req.infosFromDB = infosFromDB
+        req.body.configDB.infosFromDB = infosFromDB
+    }
+    next()
+}
 
 
 routeAuth.use( modelObjectBodyForSessionForReq )
@@ -57,10 +68,10 @@ routeAuth.get('/', (req, res) => res.status(200).json({ message: "List d'authent
 // Authentication
 routeAuth.post('/login', 
     authController.isValidEmail, selectValuesController.selectValuesAuthFromDBbyEmail, authController.isValidPassword,
-    authController.createToken, modelFncForSendResToClient
+    treatmentInfosFromDB, authController.createToken, modelFncForSendResToClient
 )
 routeAuth.post('/forgot-password', 
-    authController.isValidEmail, selectValuesController.selectValuesAuthFromDBbyEmail, authController.createToken,
+    authController.isValidEmail, selectValuesController.selectValuesAuthFromDBbyEmail, treatmentInfosFromDB, authController.createToken,
     emailController.sendEmailForVerification, modelFncForSendResToClient 
 )
 routeAuth.post('/update-password', 
@@ -69,7 +80,7 @@ updateValuesController.updateValuesAuthPasswordFromDB, modelFncForSendResToClien
 )
 
 // for all routes below, the token must be present in the header
-routeAuth.use( authController.isValidToken, selectValuesController.selectValuesAuthFromDBbyId )
+routeAuth.use( authController.isValidToken, selectValuesController.selectValuesAuthFromDBbyId, treatmentInfosFromDB )
 routeAuth.post('/verif-session', authController.createToken, modelFncForSendResToClient )
 
 
@@ -137,21 +148,27 @@ routeAuth.delete('/time-table-comment/delete/:params',
 
 
 // Images
-routeAuth.post('/image/create', upload.single('file'), 
+routeAuth.post('/image/create', 
+    upload.single('file'), 
+    (err, req, res, next) => {
+        if (err) { return res.status(400).json({ error: err.message }); }
+        next() },
+    modelObjectBodyForSessionForReq, treatmentInfosFromDB, sharpConfig, fsDeleteImage,
     async (req, res, next) => {
-        console.log('req.file:', req.file);
-
-        // req.body.res.status = 200
-        // req.body.res.message = "Image created"
-
-        res.status(200).json({
-            status: 200,
-            message: "Image created",
-            content: { file: req.file }
-        })
-        // next()
+        // je doit enregistrer l'image dans la base de donnée
+        
+        next()
     }, 
-    // modelFncForSendResToClient 
+    (req, res) => {
+        // console.log('req.body:');
+        // console.log(req.body);
+        res.status(200).json({ message: "Image created", content: null })
+    },
+    modelFncForSendResToClient 
+)
+
+routeAuth.get('/images/select',
+    selectValuesController.selectValuesImagesListFromDB, modelFncForSendResToClient
 )
 
 

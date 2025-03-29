@@ -1,31 +1,45 @@
 import multer from "multer";
+import path from "path";
 
 const MIME_TYPES = {
-    'jpg': 'jpg',
-    'jpeg': 'jpg',
-    'png': 'png'
+    'image/jpg': 'jpg',
+    'image/jpeg': 'jpg',
+    'image/png': 'png'
 };
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        return cb(null, './src/uploads')
+        return cb(null, './public/images/uploads/tampon')
     },
     filename: function (req, file, cb) {
-        // const name = file.originalname.split(' ').join('_');
-        // const extension = MIME_TYPES[file.mimetype];
-        // return cb(null, name + Date.now() + '.' + extension)
-        return cb(null, `${Date.now()}_${file.originalname}`)
+        // exemple de nom de fichier qui arrive : 'nom du fichier 123456789.jpg'
+        // on veut remplacer les espaces par des underscores et ajouter un timestamp
+
+        if (MIME_TYPES[file.mimetype]) {
+            const name = file.originalname.split(' ').join('_');
+            // const extension = MIME_TYPES[file.mimetype];
+            const timestamp = Date.now();
+            return cb(null, timestamp + '_' + name )
+        }else{
+            return cb(new Error('Seuls les fichiers JPG, JPEG et PNG sont autorisés.'), false);
+        }
     }
-})
+});
 
-const upload = multer({ storage })
+const fileFilter = (req, file, cb) => {
+    const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (allowedExtensions.includes(ext) ) {
+        cb(null, true);
+    } else {
+        cb(new Error('Seuls les fichiers JPG, JPEG et PNG sont autorisés.'), false);
+    }
+};
 
-// export let valueTest = {
-//     storage
-// }
-
-
-// const upload = multer({ dest: './src/uploads/' })
+const upload = multer({ storage, fileFilter });
 
 export default upload;
-// Compare this snippet from src/routes/routeAuth.js:
+// D'ici vers le sharpConfig pour redimensionner l'image et l'enregistrer dans un autre dossier (resized)
+// puis vers fsDeleteImage pour supprimer l'image d'origine (tampon)
+// puis vers la base de données pour enregistrer l'image dans la base de données
+// puis vers la route pour envoyer la réponse au client

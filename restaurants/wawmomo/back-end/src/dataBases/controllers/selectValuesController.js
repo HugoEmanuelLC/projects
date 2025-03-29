@@ -217,3 +217,39 @@ export const selectValuesTimeTableFromDB = async (req, res, next) => {
         res.status(error.status).json(error)
     }) 
 }
+
+
+
+// IMAGES
+export const selectValuesImagesListFromDB = async (req, res, next) => {
+    try {
+        req.body.configDB.tableName = "images"
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
+
+    await selectValuesModel.modelSelectAllFromDB({
+        ...req.body.configDB
+    })
+    .then(data => {
+        let images = [];
+        data.data.forEach(image => {
+            images.push({
+                _id: image._id,
+                image_name: image.image_name,
+                image_path: image.image_path
+            })
+        })
+
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        req.body.res.content = { images: images }
+        next()
+    })
+    .catch(error => {
+        console.log("selectValuesImagesListFromDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    }) 
+}

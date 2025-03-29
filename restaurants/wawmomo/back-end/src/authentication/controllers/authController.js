@@ -6,6 +6,7 @@ import * as script from "../scripts/script.js";
 
 
 export const isValidEmail = async (req, res, next) => {
+    // console.log("isValidEmail -> req.body.auth.email", req.body);
     await script.isValidEmail(req, req.body.auth.email)
     .then(data => {
         req.body.res.status = data.status

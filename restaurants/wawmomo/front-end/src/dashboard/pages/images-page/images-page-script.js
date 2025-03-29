@@ -3,19 +3,23 @@ import {fetchApi} from "../../../authentication/scripts/authentication-scripts";
 
 
 
-export const imageCreate = (data) => {
+export const imageCreate = async (data) => {
     let getCookie = document.cookie;
     let cookieExistName = cookieName + "=";
 
     const formData = new FormData();
     formData.append('file', data);
+    formData.append('section', 's1');
 
-    let body = {
-        formData: formData
-    }
+    // let body = {
+    //     formData: formData,
+    //     section: "s1"
+    // }
     
     console.log("imageCreate data : ------------ ");
     console.log(data);
+    console.log("imageCreate data : ------------ ");
+    // console.log(formData);
 
     return new Promise((resolve, reject) => {
 
@@ -36,9 +40,10 @@ export const imageCreate = (data) => {
             // fetch(urlForFetch.createImage, {
             //     method: 'POST',
             //     headers: {
+            //         // 'Content-Type': 'multipart/form-data',
             //         'Authorization': getCookie
             //     },
-            //     body: formData
+            //     body: body.formData
             // })
             // .then((res) => {
             //     res.json().then((res) => {

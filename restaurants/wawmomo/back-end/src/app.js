@@ -30,12 +30,15 @@ bus.setMaxListeners(20);
 app.use(cors(corsOptionsCheck));
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.static('public'))
 
 // app.use(verifConnectionDb)
 // verifConnectionDb()
 
-app.use("/", route)
+
 app.use("/auth", routeAuth)
+
+app.use("/", route)
 
 app.get('*', (req, res) => {
     console.log('Error 404, url not found');

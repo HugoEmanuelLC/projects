@@ -2,7 +2,7 @@ import urlForFetch, {cookieName} from "./fetch-urls";
 
 
 export const fetchApi = async (url, method, body = {}, token = null) => {
-    let contentType = body.values == undefined ? 'application/json' : 'multipart/form-data';
+    let contentType = body.values == undefined ? {'Content-Type':'application/json'} : null;
     let options = {
         method: method,
         headers: {
@@ -13,11 +13,19 @@ export const fetchApi = async (url, method, body = {}, token = null) => {
 
     if (method === "POST" || method === "PUT") {
         if (body.values == undefined) {
+            console.log("body : IF ");
+            console.log(body);
             options.body = JSON.stringify(body);
         }else{
+            console.log("body : ELSE ");
+            console.log(body);
             options.body = body;
+            // options.body += {test : body.test};
         }
     }
+
+    console.log("fetchApi options : ");
+    console.log(options);
     
     return new Promise((resolve, reject) => {
         fetch(url, options)

@@ -19,13 +19,9 @@ const sharpConfig = async (req, res, next) => {
         .resize(1000)
         .toFile(resizeFilePath)
 
-        console.log("---------------sharpConfig -> filePath");
-        console.log(filePath);
-        console.log("---------------sharpConfig -> filePath");
-
         req.body.res.status = 200
-        req.body.res.message = "Image resized"
-        // req.body.res.content = { file: { filename: newFileName } }
+        req.body.res.message = "Image resized and saved"
+        req.body.res.content = { file: { filename: newFileName } }
         next()
 
         

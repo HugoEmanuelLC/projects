@@ -154,16 +154,11 @@ routeAuth.post('/image/create',
         if (err) { return res.status(400).json({ error: err.message }); }
         next() },
     modelObjectBodyForSessionForReq, treatmentInfosFromDB, sharpConfig, fsDeleteImage,
-    async (req, res, next) => {
-        // je doit enregistrer l'image dans la base de donnée
-        
-        next()
-    }, 
-    (req, res) => {
-        // console.log('req.body:');
-        // console.log(req.body);
-        res.status(200).json({ message: "Image created", content: null })
-    },
+    // (req, res) => {
+    //     // console.log('req.body:');
+    //     // console.log(req.body);
+    //     res.status(200).json({ message: "Image created", content: null })
+    // },
     modelFncForSendResToClient 
 )
 

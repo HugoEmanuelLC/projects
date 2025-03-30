@@ -113,3 +113,47 @@ export const createValuesTimeTableDayInDB = async (req, res, next) => {
         res.status(error.status).json(error)
     })
 }
+
+
+
+
+export const createValuesImageInDB = async (req, res, next) => {
+    console.log("createValuesImageInDB -> req.body.configDB");
+    try {
+        let SETvalues = ""
+        req.body.configDB.tableName = "images"
+        req.body.configDB.colonneName = ["fk_auth", "fk_product", "image_name"]
+        // req.body.configDB.colonneValue = req.body.image
+    
+        req.body.configDB.colonneName.forEach((element, index) => {
+            element === req.body.configDB.colonneName[1] ? 
+                SETvalues += `${req.params.params}${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+            : element === req.body.configDB.colonneName[0] ?
+                SETvalues += `${req.body.configDB.infosFromDB._id}${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+            : SETvalues += `"${req.body.image[element]}"${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+        })
+    
+        req.body.configDB.SETvalues = SETvalues
+
+        console.log("req.body.configDB.SETvalues:");
+        console.log(req.body.configDB);
+
+    } catch (error) {
+        console.log("createValuesImageInDB -> error");
+        res.status(500).json({ status: 500, message: "server problem, impossible to create" })
+    }
+
+    await createValuesModel.modelCreateFromDB({
+        ...req.body.configDB
+    })
+    .then(data => {
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        next()
+    })
+    .catch(error => {
+        console.log("createValuesImagesIndDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    })
+}

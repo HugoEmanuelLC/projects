@@ -36,9 +36,9 @@ app.use(express.static('public'))
 // verifConnectionDb()
 
 
+app.use("/", route)
 app.use("/auth", routeAuth)
 
-app.use("/", route)
 
 app.get('*', (req, res) => {
     console.log('Error 404, url not found');

@@ -7,17 +7,23 @@ import * as script from "../scripts/script.js";
 
 export const isValidEmail = async (req, res, next) => {
     // console.log("isValidEmail -> req.body.auth.email", req.body);
-    await script.isValidEmail(req, req.body.auth.email)
-    .then(data => {
-        req.body.res.status = data.status
-        req.body.res.message = data.message
-        next()
-    })
-    .catch(error => {
+    try {
+        await script.isValidEmail(req, req.body.auth.email)
+        .then(data => {
+            req.body.res.status = data.status
+            req.body.res.message = data.message
+            next()
+        })
+        .catch(error => {
+            console.log("isValidEmail -> error");
+            console.log(error);
+            res.status(error.status).json(error)
+        }) 
+    } catch (error) {
         console.log("isValidEmail -> error");
         console.log(error);
-        res.status(error.status).json(error)
-    }) 
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
 };
 
 

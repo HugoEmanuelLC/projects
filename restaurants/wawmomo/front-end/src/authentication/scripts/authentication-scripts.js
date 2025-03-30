@@ -3,19 +3,23 @@ import urlForFetch, {cookieName} from "./fetch-urls";
 
 export const fetchApi = async (url, method, body = {}, token = null) => {
     let contentType = body.values == undefined ? {'Content-Type':'application/json'} : null;
+
     let options = {
         method: method,
         headers: {
-            contentType,
+            ...contentType,
             'Authorization': token ? token : null
         }
     };
+
+    // options.body = JSON.stringify(body);
 
     if (method === "POST" || method === "PUT") {
         if (body.values == undefined) {
             console.log("body : IF ");
             console.log(body);
             options.body = JSON.stringify(body);
+            // options.body = body;
         }else{
             console.log("body : ELSE ");
             console.log(body);

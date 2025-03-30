@@ -57,4 +57,10 @@ route.get('/timetable-list',
     selectValuesController.selectValuesTimeTableFromDB, modelFncForSendResToClient 
 )
 
+
+// Images
+route.get('/images/select',
+    selectValuesController.selectValuesImagesListFromDB, modelFncForSendResToClient
+)
+
 export default route

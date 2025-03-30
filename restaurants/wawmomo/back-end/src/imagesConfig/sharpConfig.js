@@ -13,16 +13,29 @@ const sharpConfig = async (req, res, next) => {
         // Dossier pour les images redimensionnées
         const resizeFilePath = path.join('./public/images/uploads/resized', newFileName);
 
+        sharp.cache(false); // Désactiver le cache de Sharp
         // Redimensionnement avec Sharp
-        const sharpInstance = sharp(filePath);
-        await sharpInstance
-        .resize(1000)
-        .toFile(resizeFilePath)
+        const sharpInstance = await sharp(filePath)
+        .resize(1000)// Format de sortie
+        .toFile(resizeFilePath, (err => {
+            if (err) {
+                // Gérer l'erreur de redimensionnement
+                console.error(err);
+                return res.status(500).json({ status: 500, message: "Error resizing file" });
+            }
+            console.log("---------------------- File resized successfully ----------------------");
+            // Supprimer le fichier d'origine après redimensionnement
+        }))
+
+        req.body.configDB.colonneValue = newFileName
 
         req.body.res.status = 200
         req.body.res.message = "Image resized and saved"
         req.body.res.content = { file: { filename: newFileName } }
-        next()
+        
+        setTimeout(() => {
+            next()
+        }, 2000); // Attendre 2 seconde avant de supprimer le fichier d'origine
 
         
     } catch (error) {

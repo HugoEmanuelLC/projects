@@ -16,7 +16,7 @@ const sharpConfig = async (req, res, next) => {
         sharp.cache(false); // Désactiver le cache de Sharp
         // Redimensionnement avec Sharp
         const sharpInstance = await sharp(filePath)
-        .resize(1000, 1000)// Format de sortie
+        .resize(1000)// Format de sortie
         .toFile(resizeFilePath, (err => {
             if (err) {
                 // Gérer l'erreur de redimensionnement

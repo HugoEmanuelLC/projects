@@ -3,6 +3,7 @@ import { useState, useEffect} from 'react';
 
 // Script
 import { imageCreate, imageSelect } from './images-page-script';
+import { urlServer } from '../../../authentication/scripts/fetch-urls';
 
 
 function ImagesPage() {
@@ -72,7 +73,7 @@ function ImagesPage() {
                 images.length > 0 ? images.map((image, index) => {
                     return (
                         <div key={index}>
-                            <img src={"http://localhost:3001/images/uploads/resized/"+image.image_name} alt="image" />
+                            <img src={urlServer+"/images/uploads/resized/"+image.image_name} alt="image" />
                         </div>
                     )
                 }) : null

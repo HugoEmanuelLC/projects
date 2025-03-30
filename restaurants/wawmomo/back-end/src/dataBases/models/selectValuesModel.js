@@ -133,9 +133,8 @@ export async function selectJointures(values){
         try {
             connection.query(
                 `SELECT * 
-                FROM 'jointure_image_sections'
-                LEFT JOIN images i, sections_images s
-                ON fk_section = si.section_id`,
+                FROM jointure_image_sections
+                INNER JOIN images i, sections_images s;`,
                 (err, result) => {
                     if (err) {
                         console.log("modelSelectFromDB error");

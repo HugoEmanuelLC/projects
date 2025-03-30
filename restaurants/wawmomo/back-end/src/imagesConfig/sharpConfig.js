@@ -16,7 +16,7 @@ const sharpConfig = async (req, res, next) => {
         sharp.cache(false); // Désactiver le cache de Sharp
         // Redimensionnement avec Sharp
         const sharpInstance = await sharp(filePath)
-        .resize(1000)// Format de sortie
+        .resize(1000, 1000)// Format de sortie
         .toFile(resizeFilePath, (err => {
             if (err) {
                 // Gérer l'erreur de redimensionnement
@@ -27,7 +27,21 @@ const sharpConfig = async (req, res, next) => {
             // Supprimer le fichier d'origine après redimensionnement
         }))
 
-        req.body.configDB.colonneValue = newFileName
+        // date de creation de l'image
+        const timestamp = Date.now();
+        const date = new Date(timestamp);
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() renvoie un index de 0 à 11
+        const day = String(date.getDate()).padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${day}`;
+
+        // Enregistrement de l'image dans la base de données
+        req.body.image = {
+            image_name: newFileName,
+            image_date: formattedDate,
+        } 
 
         req.body.res.status = 200
         req.body.res.message = "Image resized and saved"

@@ -118,24 +118,22 @@ export const createValuesTimeTableDayInDB = async (req, res, next) => {
 
 
 export const createValuesImageInDB = async (req, res, next) => {
-    console.log("createValuesImageInDB -> req.body.configDB");
     try {
         let SETvalues = ""
         req.body.configDB.tableName = "images"
-        req.body.configDB.colonneName = ["fk_auth", "fk_product", "image_name"]
+        req.body.configDB.colonneName = ["fk_auth", "image_name", "image_date"]
         // req.body.configDB.colonneValue = req.body.image
     
         req.body.configDB.colonneName.forEach((element, index) => {
-            element === req.body.configDB.colonneName[1] ? 
-                SETvalues += `${req.params.params}${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
-            : element === req.body.configDB.colonneName[0] ?
-                SETvalues += `${req.body.configDB.infosFromDB._id}${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
-            : SETvalues += `"${req.body.image[element]}"${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+            console.log("createValuesImageInDB -> element", element);
+            element !== req.body.configDB.colonneName[0] ?
+                SETvalues += `"${ req.body.image[element]}"${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+            : SETvalues += `${req.body.configDB.infosFromDB._id}${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
         })
     
         req.body.configDB.SETvalues = SETvalues
-
-        console.log("req.body.configDB.SETvalues:");
+        
+        console.log("createValuesImageInDB -> req.body.configDB");
         console.log(req.body.configDB);
 
     } catch (error) {

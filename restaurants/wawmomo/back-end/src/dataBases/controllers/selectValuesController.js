@@ -222,23 +222,26 @@ export const selectValuesTimeTableFromDB = async (req, res, next) => {
 
 // IMAGES
 export const selectValuesImagesListFromDB = async (req, res, next) => {
-    // try {
-    //     req.body.configDB.tableName = "images"
+    try {
+        req.body.configDB.tableName = "images"
+        req.body.configDB.colonneName = "fk_auth"
+        req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
 
-    // } catch (error) {
-    //     res.status(500).json({ status: 500, message: "server problem, impossible to select" })
-    // }
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
 
-    await selectValuesModel.selectJointures({
+    await selectValuesModel.modelSelectFromDB({
         ...req.body.configDB
     })
     .then(data => {
         let images = [];
         data.data.forEach(image => {
             images.push({
-                _id: image.mage_id,
+                _id: image._id,
                 image_name: image.image_name,
-                // image_path: image.image_path
+                image_path: image.image_path,
+                fk_auth: image.fk_auth
             })
         })
 
@@ -251,5 +254,5 @@ export const selectValuesImagesListFromDB = async (req, res, next) => {
         console.log("selectValuesImagesListFromDB -> error");
         console.log(error);
         res.status(error.status).json(error)
-    }) 
+    })
 }

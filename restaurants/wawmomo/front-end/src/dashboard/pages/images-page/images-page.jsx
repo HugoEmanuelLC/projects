@@ -2,13 +2,24 @@
 import { useState, useEffect} from 'react';
 
 // Script
-import { imageCreate } from './images-page-script';
+import { imageCreate, imageSelect } from './images-page-script';
 
 
 function ImagesPage() {
     const [ createNewElementPopup, setCreateNewElementPopup ] = useState(null)
     const [ file, setFile ] = useState()
-    // const [ images, setImages ] = useState([])
+    const [ images, setImages ] = useState([])
+
+    const handleImageSelect = async () => {
+        await imageSelect()
+        .then((res) => {
+            console.log("Image select res : ", res);
+            setImages(res);
+        })
+        .catch((err) => {
+            console.error("Image select err : ", err );
+        });
+    }
 
     const handleImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -35,6 +46,10 @@ function ImagesPage() {
     }
 
     useEffect(() => {
+        images.length == 0 && handleImageSelect()
+    }, []);
+
+    useEffect(() => {
         return () => {
             console.log("Images page unmount")
             console.log(file);
@@ -52,15 +67,15 @@ function ImagesPage() {
 
             {/* <img src={file && file} alt="" /> */}
 
-            {/* {
+            {
                 images.length > 0 ? images.map((image, index) => {
                     return (
                         <div key={index}>
-                            <img src={image} alt="image" />
+                            <img src={"http://localhost:3001/images/uploads/resized/"+image.image_name} alt="image" />
                         </div>
                     )
                 }) : null
-            } */}
+            }
         </section>
     );
 }

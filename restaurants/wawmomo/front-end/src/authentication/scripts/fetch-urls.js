@@ -32,6 +32,7 @@ const urlForFetch = {
     updateTimetableComment: urlApiAuth+'/time-table-comment/update',
     deleteTimetableComment: urlApiAuth+'/time-table-comment/delete',
 
+    createSelect: urlApiAuth+'/images/select',
     createImage: urlApiAuth+'/image/create',
 
     menusList: urlApi+'/menus-list',

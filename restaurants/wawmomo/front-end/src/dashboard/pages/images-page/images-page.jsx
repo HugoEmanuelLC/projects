@@ -39,6 +39,7 @@ function ImagesPage() {
         .then((res) => {
             console.log("Image create res : ", res);
             // setImages([...images, res.path])
+            handleImageSelect()
         })
         .catch((err) => {
             console.error("Image create err : ", err );

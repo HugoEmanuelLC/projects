@@ -155,3 +155,39 @@ export const createValuesImageInDB = async (req, res, next) => {
         res.status(error.status).json(error)
     })
 }
+
+
+
+export const createValuesSectionsForImagesInDB = async (req, res, next) => {
+    try {
+        let SETvalues = ""
+        req.body.configDB.tableName = "sections_images"
+        req.body.configDB.colonneName = ["section_id", "section_name", "section_position", "fk_image", "fk_auth"]
+        // req.body.configDB.colonneValue = req.body.image
+    
+        req.body.configDB.colonneName.forEach((element, index) => {
+            element !== req.body.configDB.colonneName[0] ?
+                SETvalues += `"${req.body.image[element]}"${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+            : SETvalues += `${req.params.params}${index < req.body.configDB.colonneName.length - 1 ? ", " : ""}`
+        })
+    
+        req.body.configDB.SETvalues = SETvalues
+        
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to create" })
+    }
+
+    await createValuesModel.modelCreateSectionsImagesFromDB({
+        ...req.body.configDB
+    })
+    .then(data => {
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        next()
+    })
+    .catch(error => {
+        console.log("createValuesSectionsImagesInDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    })
+}

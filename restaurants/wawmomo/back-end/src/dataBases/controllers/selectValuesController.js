@@ -157,6 +157,8 @@ export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => 
         ...req.body.configDB
     })
     .then(data => {
+        console.log("selectValuesProductsListFromMenuFromDB -> data");
+        console.log(data);
         let products = [];
         data.data.forEach(product => {
             products.push({
@@ -238,10 +240,17 @@ export const selectValuesImagesListFromDB = async (req, res, next) => {
         let images = [];
         data.data.forEach(image => {
             images.push({
-                _id: image._id,
+                image_id: image.image_id,
                 image_name: image.image_name,
-                image_path: image.image_path,
-                fk_auth: image.fk_auth
+                image_date: image.image_date,
+                sectionHero: image.sectionHero,
+                section4images_1: image.section4images_1,
+                section4images_2: image.section4images_2,
+                section4images_3: image.section4images_3,
+                section4images_4: image.section4images_4,
+                sectionGalleryLocation_1: image.sectionGalleryLocation_1,
+                sectionGalleryLocation_2: image.sectionGalleryLocation_2,
+                sectionGalleryLocation_3: image.sectionGalleryLocation_3
             })
         })
 
@@ -252,6 +261,45 @@ export const selectValuesImagesListFromDB = async (req, res, next) => {
     })
     .catch(error => {
         console.log("selectValuesImagesListFromDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    })
+}
+
+
+
+
+export const selectValuesImagesListWithSectionsFromDB = async (req, res, next) => {
+    // try {
+    //     req.body.configDB.select = `
+    //         images._id AS image_id, 
+    //         images.image_name, 
+    //         sections._id AS section_id, 
+    //         sections.section_name
+    //     `
+    //     req.body.configDB.tableName = "images"
+    //     req.body.configDB.tableName2 = "sections"
+    //     req.body.configDB.colonneName = "images.fk_auth"
+    //     req.body.configDB.colonneName2 = "sections.fk_auth"
+    //     req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
+
+    // } catch (error) {
+    //     res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    // }
+
+    await selectValuesModel.selectImagesWithSections(
+    //     {
+    //     ...req.body.configDB
+    // }
+    )
+    .then(data => {
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        req.body.res.content = { images: data.data }
+        next()
+    })
+    .catch(error => {
+        console.log("selectJointuresImagesSectionsFromDB -> error");
         console.log(error);
         res.status(error.status).json(error)
     })

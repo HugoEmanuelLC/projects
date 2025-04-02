@@ -184,3 +184,47 @@ export const updateValuesTimeTableCommentFromDB = async (req, res, next) => {
         res.status(error.status).json(error)
     }) 
 }
+
+
+
+
+
+
+
+export const updateValuesImageFromDB = async (req, res, next) => {
+    try {
+        let SETvalues = ""
+        req.body.configDB.tableName = "images"
+        req.body.configDB.colonneName = ["image_id", ...req.body.image.tableName]
+        req.body.configDB.colonneValue = req.params.params
+
+        req.body.configDB.colonneName.forEach((element, index) => {
+            element !== req.body.configDB.colonneName[0] ? 
+            SETvalues += `${element} = "${req.body.image.value[index-1]}"${index < req.body.configDB.colonneName.length - 1 ? "," : ""}` 
+            : req.body.configDB.WHEREvalues = `${element} = ${req.params.params}`
+        })
+
+        req.body.configDB.SETvalues = SETvalues
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to update" })
+    }
+
+    await updateValuesModel.modelUpdateForDB({
+        ...req.body.configDB
+    })
+    .then(data => {
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        req.body.res.content = { produit: data.produit }
+        next()
+    })
+    .catch(error => {
+        console.log("updateValuesImageFromDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    })
+}
+
+
+

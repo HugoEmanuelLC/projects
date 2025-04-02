@@ -80,3 +80,32 @@ export const deleteValuesTimeTableDayFromDB = async (req, res, next) => {
         res.status(error.status).json(error)
     })
 }
+
+
+
+
+export const deleteValuesImageFromDB = async (req, res, next) => {
+    try {
+        req.file = { path: "./public/images/uploads/resized/"+req.body.image }
+        req.body.configDB.tableName = "images"
+        req.body.configDB.colonneName = "image_id"
+        req.body.configDB.colonneValue = req.params.params
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to delete" })
+    }
+
+    await deleteValuesModel.modelDeleteFromDB({
+        ...req.body.configDB
+    })
+    .then(data => {
+        req.body.res.status = data.status
+        req.body.res.message = data.message
+        next()
+    })
+    .catch(error => {
+        console.log("deleteValuesImageFromDB -> error");
+        console.log(error);
+        res.status(error.status).json(error)
+    })
+}

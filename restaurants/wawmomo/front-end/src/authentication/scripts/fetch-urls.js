@@ -32,8 +32,13 @@ const urlForFetch = {
     updateTimetableComment: urlApiAuth+'/time-table-comment/update',
     deleteTimetableComment: urlApiAuth+'/time-table-comment/delete',
 
-    createSelect: urlApiAuth+'/images/select',
+    selectImage: urlApiAuth+'/images/select',
     createImage: urlApiAuth+'/image/create',
+    imageUpdate: urlApiAuth+'/image/update',
+    imageDelete: urlApiAuth+'/image/delete',
+
+    jointureImagesSections: urlApiAuth+'/jointure-images-sections/select',
+    createSectionImage: urlApiAuth+'/sections-images/create',
 
     menusList: urlApi+'/menus-list',
     productsListFromMenu: urlApi+'/products-from-menu',

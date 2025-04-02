@@ -156,10 +156,27 @@ routeAuth.post('/image/create',
     modelObjectBodyForSessionForReq, treatmentInfosFromDB, sharpConfig, fsDeleteImage,
     createValuesController.createValuesImageInDB, modelFncForSendResToClient 
 )
-
+// Sections jointure images
 routeAuth.get('/images/select',
     selectValuesController.selectValuesImagesListFromDB, modelFncForSendResToClient
 )
+routeAuth.put('/image/update/:params',
+    updateValuesController.updateValuesImageFromDB, modelFncForSendResToClient
+)
+routeAuth.delete('/image/delete/:params',
+    deleteValuesController.deleteValuesImageFromDB, fsDeleteImage, modelFncForSendResToClient
+)
+
+
+// routeAuth.post('/sections-images/create/:params',
+//     createValuesController.createValuesSectionsForImagesInDB, modelFncForSendResToClient
+// )
+// routeAuth.post('/sections-images/delete/:params',
+//     // deleteValuesController.deleteValuesSectionsImagesFromDB, modelFncForSendResToClient
+// )
+// routeAuth.get('/jointure-images-sections/select', 
+//     selectValuesController.selectJointuresImagesSectionsFromDB, modelFncForSendResToClient
+// )
 
 
 

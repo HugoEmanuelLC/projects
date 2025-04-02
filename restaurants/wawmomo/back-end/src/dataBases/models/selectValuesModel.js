@@ -124,17 +124,34 @@ export async function modelSelectAllFromDB(values){
 
 
 
-// tritement d'images
-export async function selectJointures(values){
+// traitement d'images
+export async function selectImagesWithSections(values){
     // tables : jointure_image_sections, images, sections_images
     // jointure_image_sections : fk_image, fk_section
     
     return new Promise((resolve, reject) => {
         try {
             connection.query(
-                `SELECT * 
-                FROM jointure_image_sections
-                INNER JOIN images i, sections_images s;`,
+                // `SELECT
+                //     i.image_id,
+                //     i.image_name,
+                //     i.image_date,
+                //     GROUP_CONCAT(si.section_name SEPARATOR ', ') AS sections_associees
+                // FROM
+                //     images i
+                // LEFT JOIN
+                //     jointure_image_sections jis ON i.image_id = jis.fk_image
+                // LEFT JOIN
+                //     sections_images si ON jis.fk_section = si.section_id
+                // GROUP BY
+                //     i.image_id, i.image_name, i.image_date;`,
+                `SELECT 
+                    i.image_id,
+                    i.image_name,
+                    i.image_date,
+                    GROUP_CONCAT(si.section_name SEPARATOR ', ') AS sections_associees
+                FROM images i
+                LEFT JOIN sections_images si ON si.fk_image = i.image_id;`,
                 (err, result) => {
                     if (err) {
                         console.log("modelSelectFromDB error");

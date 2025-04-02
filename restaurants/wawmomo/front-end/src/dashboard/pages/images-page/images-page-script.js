@@ -3,7 +3,7 @@ import {fetchApi} from "../../../authentication/scripts/authentication-scripts";
 
 
 
-export const imageSelect = async () => {
+export const selectListImages = async () => {
     let getCookie = document.cookie;
     let cookieExistName = cookieName + "=";
 
@@ -11,7 +11,7 @@ export const imageSelect = async () => {
         if (getCookie.match(cookieExistName)) {
             getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
 
-            fetchApi(urlForFetch.createSelect, 'GET', {}, getCookie)
+            fetchApi(urlForFetch.selectImage, 'GET', {}, getCookie)
             .then((res) => {
                 console.log("Image select res : ");
                 console.log(res.content.images);
@@ -61,42 +61,67 @@ export const imageCreate = async (data) => {
                 reject(err);
             });
 
-            
-
-            // fetch(urlForFetch.createImage, {
-            //     method: 'POST',
-            //     headers: {
-            //         // 'Content-Type': 'multipart/form-data',
-            //         'Authorization': getCookie
-            //     },
-            //     body: body.formData
-            // })
-            // .then((res) => {
-            //     res.json().then((res) => {
-            //         console.log("Image create res : ", res);
-            //         resolve(res);
-            //     })
-            // })
-            // .catch((err) => {
-            //     console.error("Err : ", err);
-            //     reject(err);
-            // });
+        } else {
+            reject(null);
+        }
+    })
+}
 
 
 
-            // axios.post(urlForFetch.createImage, formData, {
-            //     headers: {
-            //         'Authorization': getCookie
-            //     }
-            // })
-            // .then((res) => {
-            //     console.log("Image create res : ", res);
-            //     resolve(res.data.content);
-            // })
-            // .catch((err) => {
-            //     console.error("Err : ", err);
-            //     reject(err);
-            // });
+
+
+export const imageUpdate = async (id, data) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    
+    let body = { 
+        image: data 
+    } 
+
+    return new Promise((resolve, reject) => {
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+
+            fetchApi(urlForFetch.imageUpdate+"/"+id, 'PUT', body, getCookie)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
+
+        } else {
+            reject(null);
+        }
+    })
+}
+
+
+
+
+export const imageDelete = async (id, data) => {
+    let getCookie = document.cookie;
+    let cookieExistName = cookieName + "=";
+
+    let body = { 
+        image: data 
+    }
+
+    return new Promise((resolve, reject) => {
+        if (getCookie.match(cookieExistName)) {
+            getCookie = getCookie.slice(getCookie.indexOf(cookieName)+cookieName.length+1);
+
+            fetchApi(urlForFetch.imageDelete+"/"+id, 'DELETE', body, getCookie)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                console.error("Err : ", err);
+                reject(err);
+            });
 
         } else {
             reject(null);

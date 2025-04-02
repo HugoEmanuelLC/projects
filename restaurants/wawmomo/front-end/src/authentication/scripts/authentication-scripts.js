@@ -16,15 +16,17 @@ export const fetchApi = async (url, method, body = {}, token = null) => {
 
     if (method === "POST" || method === "PUT") {
         if (body.values == undefined) {
-            console.log("body : IF ");
-            console.log(body);
             options.body = JSON.stringify(body);
-            // options.body = body;
+
         }else{
-            console.log("body : ELSE ");
-            console.log(body);
             options.body = body;
-            // options.body += {test : body.test};
+
+        }
+
+    } else if (method === "DELETE") {
+        if (Object.keys(body).length > 0) {
+            options.body = JSON.stringify(body);
+
         }
     }
 

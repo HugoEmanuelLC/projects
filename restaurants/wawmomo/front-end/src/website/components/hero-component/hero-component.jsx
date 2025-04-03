@@ -4,22 +4,24 @@ import { useEffect, useState } from "react";
 // Images
 import momos_bckg from '/website/hero-component/momos_bckg.jpg';
 import BtnsComponent from "../btns-component/btns-component";
+import { urlServer } from "../../../authentication/scripts/fetch-urls";
 
 
-function HeroComponent() {
+function HeroComponent(props) {
     const [images, setImages] = useState({
-        momos_bckg
+        momos_bckg,
+        image: urlServer + "/images/uploads/resized/"+props.imageSectionHero[0].image_name
     });
 
-    // useEffect(() => {
-    //     setImages({
-    //         momos_bckg
-    //     });
-    // }, []);
+    useEffect(() => {
+        console.log("props.imageSectionHero : ");
+        console.log(props.imageSectionHero);
+        console.log(images.image);
+    }, []);
 
     return (
         <section className='hero_component'
-            style={{"backgroundImage": `url(${images?.momos_bckg})`}}
+            style={{"backgroundImage": `url(${images?.image} )`}}
         >
             <div className="block_shadow">
                 <div className="container">

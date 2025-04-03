@@ -59,24 +59,10 @@ route.get('/timetable-list',
 
 
 // Images
-route.get('/images/select',
-    selectValuesController.selectValuesImagesListFromDB, modelFncForSendResToClient
+route.get('/images-list',
+    selectValuesController.selectValuesImagesAllListFromDB, modelFncForSendResToClient
 )
 
-route.get('/image/delete',
-    (req, res, next) => {
-        console.log("req.file");
-        req.file = { path: "test" }
-        console.log(req.file);
-        if (!req.file) {
-            return res.status(400).json({ status: 400, message: "file not found" })
-        }else{
-            return res.status(200).json({ status: 200, message: "file found", file: req.file })
 
-        }
-        // next()
-    }
-    // deleteValuesController.deleteValuesImageFromDB, modelFncForSendResToClient
-)
 
 export default route

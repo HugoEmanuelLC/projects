@@ -267,30 +267,20 @@ export const selectValuesImagesListFromDB = async (req, res, next) => {
 }
 
 
+// selectValuesImagesListFromDB
 
+export const selectValuesImagesAllListFromDB = async (req, res, next) => {
+    try {
+        req.body.configDB.tableName = "images"
 
-export const selectValuesImagesListWithSectionsFromDB = async (req, res, next) => {
-    // try {
-    //     req.body.configDB.select = `
-    //         images._id AS image_id, 
-    //         images.image_name, 
-    //         sections._id AS section_id, 
-    //         sections.section_name
-    //     `
-    //     req.body.configDB.tableName = "images"
-    //     req.body.configDB.tableName2 = "sections"
-    //     req.body.configDB.colonneName = "images.fk_auth"
-    //     req.body.configDB.colonneName2 = "sections.fk_auth"
-    //     req.body.configDB.colonneValue = req.body.configDB.infosFromDB._id
+    } catch (error) {
+        res.status(500).json({ status: 500, message: "server problem, impossible to select" })
+    }
 
-    // } catch (error) {
-    //     res.status(500).json({ status: 500, message: "server problem, impossible to select" })
-    // }
-
-    await selectValuesModel.selectImagesWithSections(
-    //     {
-    //     ...req.body.configDB
-    // }
+    await selectValuesModel.modelSelectAllFromDB(
+        {
+        ...req.body.configDB
+    }
     )
     .then(data => {
         req.body.res.status = data.status

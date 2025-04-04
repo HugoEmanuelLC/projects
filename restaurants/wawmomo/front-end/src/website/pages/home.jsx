@@ -111,9 +111,13 @@ function Home() {
             <HeroComponent imageSectionHero={imageSectionHero} />
             <div className="bloc_after_hero">
                 <AboutComponent />
-                <GalleryComponent />
+                <GalleryComponent imageSection4images={
+                    imageSection4images_1.concat(imageSection4images_2, imageSection4images_3, imageSection4images_4)
+                } />
                 <TimetableComponent />
-                <GalleryLocalComponent />
+                <GalleryLocalComponent imageSectionGalleryLocation={
+                    imageSectionGalleryLocation_1.concat(imageSectionGalleryLocation_2, imageSectionGalleryLocation_3)
+                } />
                 <LocationComponent />
                 <FooterComponent />
             </div>

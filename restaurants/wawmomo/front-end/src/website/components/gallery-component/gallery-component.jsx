@@ -1,12 +1,6 @@
 // Dependencies
 import { useEffect, useState } from 'react';
 
-// Images
-import massala from '/website/gallery-component/massala.jpg';
-import samosa from '/website/gallery-component/samosa.jpg';
-import momos from '/website/gallery-component/momos.jpg';
-import paninis from '/website/gallery-component/paninis.jpg';
-
 // Script
 import { urlServer } from "../../../authentication/scripts/fetch-urls";
 
@@ -26,7 +20,7 @@ function GalleryComponent(props) {
                 setGallery((prev) => {
                     return {
                         ...prev,
-                        image1: urlServer + "/images/uploads/resized/"+ image.image_name
+                        image1: urlServer + "/images/uploads/resized/"+ image?.image_name
                     }
                 })
             }

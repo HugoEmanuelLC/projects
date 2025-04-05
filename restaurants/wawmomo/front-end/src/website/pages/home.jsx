@@ -13,6 +13,7 @@ import LoadingComponent from "../components/loading-component/loading-component"
 
 // Script
 import { imagesList } from "./home-page-script";
+import { urlServer } from "../../authentication/scripts/fetch-urls";
 
 
 
@@ -27,6 +28,7 @@ function Home() {
     const [ imageSectionGalleryLocation_1, setImageSectionGalleryLocation_1 ] = useState([]);
     const [ imageSectionGalleryLocation_2, setImageSectionGalleryLocation_2 ] = useState([]);
     const [ imageSectionGalleryLocation_3, setImageSectionGalleryLocation_3 ] = useState([]);
+    const [ imageSectionLogo, setImageSectionLogo ] = useState([]);
 
     const handleLoading = () => {
         setLoading(true)
@@ -36,15 +38,8 @@ function Home() {
         return () => clearTimeout(timer)
     }
 
-    useEffect(() => {
-        loading == true && handleLoading()
-    }, [])
-
-
-    useEffect(() => {
-        // selectImageList.length == 0 &&
-        return () => {
-            imagesList()
+    const handleImagesList = async () => {
+        await imagesList()
         .then((res) => {
             console.log("res : ", res);
             res.map((image) => {
@@ -88,19 +83,39 @@ function Home() {
                         return [...prev, image]
                     })
                 }
+                if (image.sectionLogo === 1) {
+                    setImageSectionLogo((prev) => {
+                        return [...prev, image]
+                    })
+                }
             })
         })
         .catch((err) => {
             console.error("Err : ", err);
         });
-        }
+    }
+
+    useEffect(() => {
+        loading == true && handleLoading()
+    }, [])
+
+
+    useEffect( () => {
+        handleImagesList()
     }, []);
 
     useEffect(() => {
         
-        console.log("Website routes unmount")
-        console.log(imageSectionHero);
-    }, [imageSectionHero]);
+        let link = document.querySelector("link[rel~='icon']");
+        if (link) {
+            link.href = urlServer+"/images/uploads/resized/"+imageSectionLogo[0]?.image_name;
+        } else {
+            link = document.createElement("link");
+            link.rel = "icon";
+            link.href = urlServer+"/images/uploads/resized/"+imageSectionLogo[0]?.image_name;
+            document.head.appendChild(link);
+        }
+    }, [imageSectionLogo]);
 
 
 

@@ -250,7 +250,8 @@ export const selectValuesImagesListFromDB = async (req, res, next) => {
                 section4images_4: image.section4images_4,
                 sectionGalleryLocation_1: image.sectionGalleryLocation_1,
                 sectionGalleryLocation_2: image.sectionGalleryLocation_2,
-                sectionGalleryLocation_3: image.sectionGalleryLocation_3
+                sectionGalleryLocation_3: image.sectionGalleryLocation_3,
+                sectionLogo: image.sectionLogo,
             })
         })
 

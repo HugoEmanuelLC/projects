@@ -1,6 +1,9 @@
 // Dependencies
 import { useState, useEffect, use} from 'react';
 
+// Components
+import Popup, { ConfimationDelete } from '../../components/popup-component/popup-component';
+
 // Script
 import { imageCreate, selectListImages, imageUpdate, imageDelete } from './images-page-script';
 import { urlServer } from '../../../authentication/scripts/fetch-urls';
@@ -9,6 +12,7 @@ import { urlServer } from '../../../authentication/scripts/fetch-urls';
 function ImagesPage() {
     const [ file, setFile ] = useState()
     const [ images, setImages ] = useState([])
+    const [ delitedMenuPopup, setDelitedMenuPopup ] = useState(null)
 
     const handleSelectListImages = async () => {
         await selectListImages()
@@ -69,10 +73,30 @@ function ImagesPage() {
                             <img src={urlServer+"/images/uploads/resized/"+image.image_name} alt="" />
                             <h3>{image.image_name}</h3>
                             <p>{image.image_date}</p>
-                            <JointureImagesSections image={image} handleSelectListImages={handleSelectListImages} />
+                            <button onClick={()=>setDelitedMenuPopup(image)}>Supprimer</button>
+                            <JointureImagesSections image={image} 
+                            handleSelectListImages={handleSelectListImages} />
                         </div>
                     )
                 })}
+
+                {
+                    delitedMenuPopup !== null &&
+                    <Popup closePopup={() => setDelitedMenuPopup(null)}>
+                        <ConfimationDelete 
+                            datas={
+                                {
+                                    id: delitedMenuPopup.image_id,
+                                    name: delitedMenuPopup.image_name
+                                }
+                            }
+                            selectDatas={handleSelectListImages}
+                            msg="Image supprimé"
+                            closePopup={()=>setDelitedMenuPopup(null)}
+                            fnc={imageDelete}
+                        />
+                    </Popup>
+                }
             </div>
         </section>
     );
@@ -96,21 +120,18 @@ function JointureImagesSections(props) {
         {name: "sectionGalleryLocation_1", checked: false },
         {name: "sectionGalleryLocation_2", checked: false },
         {name: "sectionGalleryLocation_3", checked: false },
+        {name: "sectionLogo", checked: 0 },
     ]
     const [sectionsFromImages, setSectionsFromImages] = useState([]);
-    
     const [ sectionsSelected, setSectionsSelected ] = useState([])
+
+    const [ isSent, setIsSent ] = useState(false)
 
     const handleUpdateSectionInDB = async () => {
         let datas = {
             tableName: [],
             value: []
         }
-
-        console.log("sectionsFromImages : ");
-        console.log(sectionsFromImages);
-        console.log("sectionsSelected : ");
-        console.log(sectionsSelected);
 
         sectionsSelected.map((section) => {
             if (section.checked !== sectionsFromImages.find((s) => s.name === section.name)?.checked) {
@@ -119,12 +140,20 @@ function JointureImagesSections(props) {
             }
         })
 
-        console.log("datas : ");
-        console.log(datas.tableName);
-        console.log(datas.value);
-        console.log("datas : ");
-
         await imageUpdate(props.image.image_id, datas)
+        .then((res) => {
+            console.log("Image update res : ", res);
+            setIsSent(true)
+            return setTimeout(() => {
+                setIsSent(false)
+                setSectionsFromImages([...sectionsSelected])
+                // setSectionsSelected([...sectionsSelected])
+                // props.handleSelectListImages()
+            }, 2000);
+        })
+        .catch((err) => {
+            console.error("Image update err : ", err );
+        });
     }
 
     const handleSectionSelected = (e) => {
@@ -139,37 +168,20 @@ function JointureImagesSections(props) {
         })    
     }
 
-    const handleDeleteImage = async () => {
-        await imageDelete( props.image.image_id, props.image.image_name )
-        .then((res) => {
-            console.log("Image delete res : ", res);
-        })
-        .catch((err) => {
-            console.error("Image delete err : ", err );
-        });
-        props.handleSelectListImages()
-    }
-
     useEffect(() => {
         let tabtampon = []
         listSections.map((section) => {
             tabtampon.push({ name: section.name, checked: props.image[section.name] })
         })
-        
-        sectionsFromImages.length == 0 && 
-        setSectionsFromImages([...tabtampon])
-        setSectionsSelected([...tabtampon])
-    }, []);
 
-    useEffect(() => {
-        console.log("------------------------------ tabtampon : ");
-        console.log(sectionsSelected);
-        console.log("------------------------------ tabtampon : ");
-    }, [sectionsSelected]);
+        sectionsFromImages.length == 0 && setSectionsFromImages([...tabtampon])
+        sectionsSelected.length == 0 && setSectionsSelected([...tabtampon])
+    }, []);
 
     return (
         <div className="jointure_images_sections">
-            <button onClick={handleDeleteImage}>Supprimer</button>
+
+            { isSent && <span className='isSent'> modifier avec succès </span> }
             <fieldset>
                 <legend>Sections</legend>
                 {
@@ -178,7 +190,6 @@ function JointureImagesSections(props) {
                             <div key={index}>
                                 <input type="checkbox" 
                                     name={section.name} id={section.name} 
-                                    // onClick={()=>handleUpdateSectionInDB(section.name)} 
                                     onChange={handleSectionSelected} 
                                     checked={sectionsSelected.find((s) => s.name === section.name)?.checked } 
                                 />
@@ -189,7 +200,9 @@ function JointureImagesSections(props) {
                 }
             </fieldset>
             
-            <button onClick={handleUpdateSectionInDB}>Modifier</button>
+            <button onClick={handleUpdateSectionInDB}>
+                Modifier
+            </button> 
         </div>
     )
 }

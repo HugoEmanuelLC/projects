@@ -4,11 +4,6 @@ import { Splide, SplideTrack, SplideSlide } from '@splidejs/react-splide';
 // slider images
 import '@splidejs/react-splide/css';
 
-// Images
-import facade from '/website/gallery-local-component/facade.webp';
-import tablesexterieurs from '/website/gallery-local-component/tablesexterieurs.webp';
-import tablesinterieur from '/website/gallery-local-component/tablesinterieur.webp';
-
 // Script
 import { urlServer } from "../../../authentication/scripts/fetch-urls";
 

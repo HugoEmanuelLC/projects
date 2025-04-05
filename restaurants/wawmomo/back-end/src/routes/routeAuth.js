@@ -12,8 +12,9 @@ import * as createValuesController from '../dataBases/controllers/createValuesCo
 // import * as insertValuesController from '../dataBases/controllers/insertValuesController.js'
 // import * as deleteValuesController from '../dataBases/controllers/deleteValuesController.js'
 import upload from '../imagesConfig/multerConfig.js'
-import sharpConfig from "../imagesConfig/sharpConfig.js"
+// import sharpConfig from "../imagesConfig/sharpConfig.js"
 import { fsDeleteImage } from "../imagesConfig/fsConfig.js" 
+import jimpConfig from "../imagesConfig/jimConfig.js"
 
 
 const routeAuth = Router()
@@ -153,7 +154,7 @@ routeAuth.post('/image/create',
     (err, req, res, next) => {
         if (err) { return res.status(400).json({ error: err.message }); }
         next() },
-    modelObjectBodyForSessionForReq, treatmentInfosFromDB, sharpConfig, fsDeleteImage,
+    modelObjectBodyForSessionForReq, treatmentInfosFromDB, jimpConfig, fsDeleteImage,
     createValuesController.createValuesImageInDB, modelFncForSendResToClient 
 )
 // Sections jointure images

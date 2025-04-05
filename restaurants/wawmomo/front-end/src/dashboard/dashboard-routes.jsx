@@ -21,6 +21,9 @@ import TimetablePage from './pages/timetable-page/timetable';
 import ImagesPage from './pages/images-page/images-page';
 import ErrorPage from './pages/error-page/error';
 
+// Images
+import logo from '/dashboard/settings_icon.png';
+
 
 function DashboardRoutes(props) {
     // const { checkAuth } = useContext(DashContext);
@@ -43,9 +46,26 @@ function DashboardRoutes(props) {
     }, [loading])
 
 
-    // useEffect(() => {
-    //     checkAuth == false && handleLoading()
-    // }, [checkAuth])
+    useEffect(() => {
+        let link = document.querySelector("link[rel~='icon']");
+        if (link) {
+            link.href = logo;
+        } else {
+            link = document.createElement("link");
+            link.rel = "icon";
+            link.href = logo;
+            document.head.appendChild(link);
+        }
+
+        let title = document.querySelector("title");
+        if (title) {
+            title.innerHTML = "Dashboard";
+        } else {
+            title = document.createElement("title");
+            title.innerHTML = "Dashboard";
+            document.head.appendChild(title);
+        }
+    }, [])
 
 
     return (

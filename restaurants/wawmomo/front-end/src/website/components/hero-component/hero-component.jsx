@@ -1,8 +1,7 @@
 // Dependencies
 import { useEffect, useState } from "react";
 
-// Images
-import momos_bckg from '/website/hero-component/momos_bckg.jpg';
+// Components
 import BtnsComponent from "../btns-component/btns-component";
 
 // Script
@@ -11,7 +10,6 @@ import { urlServer } from "../../../authentication/scripts/fetch-urls";
 
 function HeroComponent(props) {
     const [images, setImages] = useState({
-        momos_bckg,
         image: urlServer + "/images/uploads/resized/"+props?.imageSectionHero[0]?.image_name
     });
 

@@ -1,7 +1,10 @@
-
+import { useEffect } from 'react';
 
 
 function AboutComponent() {
+
+
+    
     return (
         <section className="about_component">
             {/* <h2 className="titre container">About Us</h2> */}

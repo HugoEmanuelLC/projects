@@ -72,10 +72,10 @@ function ImagesPage() {
                         <div className="card" key={index}>
                             <img src={urlServer+"/images/uploads/resized/"+image.image_name} alt="" />
                             <h3>{image.image_name}</h3>
-                            <p>{image.image_date}</p>
-                            <button onClick={()=>setDelitedMenuPopup(image)}>Supprimer</button>
+                            <p>{image.image_date.slice(0, 10)}</p>
                             <JointureImagesSections image={image} 
-                            handleSelectListImages={handleSelectListImages} />
+                                handleSelectListImages={handleSelectListImages} 
+                                setDelitedMenuPopup={setDelitedMenuPopup} />
                         </div>
                     )
                 })}
@@ -90,6 +90,7 @@ function ImagesPage() {
                                     name: delitedMenuPopup.image_name
                                 }
                             }
+                            txt="l'image"
                             selectDatas={handleSelectListImages}
                             msg="Image supprimé"
                             closePopup={()=>setDelitedMenuPopup(null)}
@@ -112,20 +113,20 @@ export default ImagesPage;
 
 function JointureImagesSections(props) {
     let listSections = [
-        {name: "sectionHero", checked: false },
-        {name: "section4images_1", checked: false },
-        {name: "section4images_2", checked: false },
-        {name: "section4images_3", checked: false },
-        {name: "section4images_4", checked: false },
-        {name: "sectionGalleryLocation_1", checked: false },
-        {name: "sectionGalleryLocation_2", checked: false },
-        {name: "sectionGalleryLocation_3", checked: false },
-        {name: "sectionLogo", checked: 0 },
+        {name: "sectionHero", checked: false, txt: "first image of website"},
+        {name: "section4images_1", checked: false, txt: "image 1 of 4 gallery images"},
+        {name: "section4images_2", checked: false, txt: "image 2 of 4 gallery images"},
+        {name: "section4images_3", checked: false, txt: "image 3 of 4 gallery images"},
+        {name: "section4images_4", checked: false, txt: "image 4 of 4 gallery images"},
+        {name: "sectionGalleryLocation_1", checked: false, txt: "image 1 of gallery location"},
+        {name: "sectionGalleryLocation_2", checked: false, txt: "image 2 of gallery location"},
+        {name: "sectionGalleryLocation_3", checked: false, txt: "image 3 of gallery location"},
+        {name: "sectionLogo", checked: false, txt: "logo of website"},
     ]
     const [sectionsFromImages, setSectionsFromImages] = useState([]);
     const [ sectionsSelected, setSectionsSelected ] = useState([])
 
-    const [ isSent, setIsSent ] = useState(false)
+    const [ isSent, setIsSent ] = useState(null)
 
     const handleUpdateSectionInDB = async () => {
         let datas = {
@@ -142,17 +143,19 @@ function JointureImagesSections(props) {
 
         await imageUpdate(props.image.image_id, datas)
         .then((res) => {
-            console.log("Image update res : ", res);
-            setIsSent(true)
+            setIsSent("edit successfully")
             return setTimeout(() => {
-                setIsSent(false)
+                setIsSent(null)
                 setSectionsFromImages([...sectionsSelected])
                 // setSectionsSelected([...sectionsSelected])
                 // props.handleSelectListImages()
             }, 2000);
         })
         .catch((err) => {
-            console.error("Image update err : ", err );
+            setIsSent(err.message)
+            return setTimeout(() => {
+                setIsSent(null)
+            }, 2000);
         });
     }
 
@@ -180,29 +183,38 @@ function JointureImagesSections(props) {
 
     return (
         <div className="jointure_images_sections">
-
-            { isSent && <span className='isSent'> modifier avec succès </span> }
             <fieldset>
-                <legend>Sections</legend>
+                {/* <legend>Zones</legend> */}
                 {
                     sectionsSelected?.map((section, index) => {
                         return (
-                            <div key={index}>
+                            <div key={index} className='section'>
+                                <label htmlFor={section.name}>{
+                                    listSections.find((s) => s.name === section.name)?.txt    
+                                }</label>
                                 <input type="checkbox" 
                                     name={section.name} id={section.name} 
                                     onChange={handleSectionSelected} 
                                     checked={sectionsSelected.find((s) => s.name === section.name)?.checked } 
                                 />
-                                <label htmlFor={section.name}>{section.name}</label><br />
                             </div>
                         )
                     })
                 }
             </fieldset>
+
+            { isSent && <div className='isSent'> {isSent} </div> }
+
+            <div className="buttons">
+                <button onClick={()=>props.setDelitedMenuPopup(props.image)}>
+                    <i className='bx bx-trash'></i>
+                </button>
+                
+                <button onClick={handleUpdateSectionInDB}>
+                    <i className='bx bx-send'></i>
+                </button> 
+            </div>
             
-            <button onClick={handleUpdateSectionInDB}>
-                Modifier
-            </button> 
         </div>
     )
 }

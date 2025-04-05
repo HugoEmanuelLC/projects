@@ -37,7 +37,7 @@ function DashboardRoutes(props) {
             setLoading(false)
             // checkAuth == false ? navigate("/auth/login") : setLoading(false)
             // console.log("checkAuth : ", checkAuth);
-        }, 500)
+        }, 300)
         return () => clearTimeout(load)
     }
 

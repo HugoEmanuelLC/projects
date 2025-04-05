@@ -457,14 +457,13 @@ button {
 #website_bloc .popup_content .menus_list ul {
   display: flex;
   flex-direction: row; /* 'row' par défaut */
-  justify-content: center; /* 'center' par défaut */
+  justify-content: flex-start; /* 'center' par défaut */
   align-items: center; /* 'stretch' par défaut */
   flex-wrap: wrap;
   padding: 20px 10px;
 }
 #website_bloc .popup_content .menus_list ul li {
   display: inline-block;
-  padding: 10px;
   cursor: pointer;
 }
 #website_bloc .popup_content .menus_list ul li button {
@@ -525,6 +524,15 @@ button {
   font-weight: 100;
 }
 @media (min-width: 769px) {
+  #website_bloc .popup_content .menus_list ul {
+    display: flex;
+    flex-direction: row; /* 'row' par défaut */
+    justify-content: center; /* 'center' par défaut */
+    align-items: center; /* 'stretch' par défaut */
+  }
+  #website_bloc .popup_content .menus_list ul li button {
+    font-size: 16px;
+  }
   #website_bloc .popup_content .products_list .box .product_item h3 {
     font-size: 16px;
   }
@@ -585,7 +593,7 @@ button {
 #website_bloc #timetable .box table tbody tr td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   font-size: 14px;
 }
 #website_bloc #timetable .box table tbody tr .comment {

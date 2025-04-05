@@ -19,6 +19,12 @@ function TimetableComponent() {
     }
 
     useEffect(() => {
+        // AOS.init({
+        //     duration: 700,
+        //     delai: 500,
+        //     easing: 'ease-in-out',
+        // });
+
         handleTimetableSelect()
     }, [])
     
@@ -38,7 +44,7 @@ function TimetableComponent() {
                         {
                             timetable?.length > 0 && timetable.map((item, index) => {
                                 return (
-                                    <tr key={index}>
+                                    <tr key={index} >
                                         <td>{item.day_name}</td>
 
                                         <td>{

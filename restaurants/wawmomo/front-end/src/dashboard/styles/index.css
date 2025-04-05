@@ -298,6 +298,9 @@ button {
   gap: 10px;
   position: relative;
 }
+#dashboard_bloc .popup .popup_content h2 {
+  font-size: 14px;
+}
 #dashboard_bloc .popup .popup_content .close {
   position: absolute;
   top: 0;
@@ -394,13 +397,29 @@ button {
   }
 }
 #dashboard_bloc #images_page {
-  border: solid 1px red;
   /*
   creation d'une "card" pour chaque image avec 
   l'image, nom, date de creation en plus d'un bouton de suppression, 
   d'un choix de checkbox pour chaque image (une image peux avoir plusieurs sections "zones où elles seront dans le site web") 
   et d'un bouton de modification.
   */
+}
+#dashboard_bloc #images_page .list_head_links input {
+  margin: 5px 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+#dashboard_bloc #images_page .list_head_links button {
+  margin: 5px 0;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: darkgreen;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
 }
 #dashboard_bloc #images_page .images_container {
   display: flex;
@@ -409,20 +428,27 @@ button {
   align-items: flex-start; /* 'stretch' par défaut */
   flex-wrap: wrap;
 }
+#dashboard_bloc #images_page .jointure_images_sections {
+  width: 100%;
+}
 #dashboard_bloc #images_page .card {
   display: flex;
   flex-direction: column; /* 'row' par défaut */
   justify-content: center; /* 'center' par défaut */
   align-items: center; /* 'stretch' par défaut */
-  max-width: 300px;
+  max-width: calc(50% - 20px);
   margin: 10px;
   border: solid 1px rgba(144, 238, 144, 0.3);
   border-radius: 5px;
   overflow-x: hidden;
   overflow-wrap: break-word;
 }
-#dashboard_bloc #images_page .card span.isSent {
-  transition: all 0.5s ease-in-out;
+#dashboard_bloc #images_page .card .isSent {
+  color: darkgreen;
+  font-size: 12px;
+  margin: 5px 0;
+  text-align: center;
+  min-width: 100%;
 }
 #dashboard_bloc #images_page .card img {
   width: 100%;
@@ -433,11 +459,38 @@ button {
 }
 #dashboard_bloc #images_page .card h3 {
   align-self: flex-end;
-  font-size: 1.2em;
+  font-size: 12px;
   margin: 10px 0;
 }
 #dashboard_bloc #images_page .card p {
-  font-size: 0.9em;
+  font-size: 12px;
+  margin: 5px 0;
+}
+#dashboard_bloc #images_page .card label {
+  font-size: 12px;
+  margin: 5px 0;
+  text-align: center;
+}
+#dashboard_bloc #images_page .card .section {
+  display: flex;
+  flex-direction: column; /* 'row' par défaut */
+  justify-content: center; /* 'center' par défaut */
+  align-items: center; /* 'stretch' par défaut */
+  width: 100%;
+  margin: 10px 0;
+  background-color: rgba(144, 238, 144, 0.3);
+  border-radius: 5px;
+}
+#dashboard_bloc #images_page .card fieldset {
+  border: none;
+  width: 100%;
+}
+#dashboard_bloc #images_page .card .buttons {
+  display: flex;
+  flex-direction: row; /* 'row' par défaut */
+  justify-content: space-evenly; /* 'center' par défaut */
+  align-items: center; /* 'stretch' par défaut */
+  width: 100%;
   margin: 5px 0;
 }
 #dashboard_bloc #images_page .card button {
@@ -448,6 +501,7 @@ button {
   background-color: darkgreen;
   color: white;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 #dashboard_bloc #images_page .card button:hover {
   background-color: rgba(0, 100, 0, 0.3);
@@ -455,30 +509,16 @@ button {
 #dashboard_bloc #images_page .card input[type=checkbox] {
   margin: 5px 0;
 }
-#dashboard_bloc #images_page .card input[type=file] {
-  margin: 5px 0;
-}
-#dashboard_bloc #images_page .card input[type=text] {
-  margin: 5px 0;
-  padding: 5px;
-  border: solid 1px black;
-  border-radius: 5px;
-}
-#dashboard_bloc #images_page .card input[type=text]:focus {
-  outline: none;
-  border: solid 1px #007bff;
-}
-#dashboard_bloc #images_page .card input[type=text]:disabled {
-  background-color: #f0f0f0;
-  cursor: not-allowed;
-}
-#dashboard_bloc #images_page .card input[type=text]:disabled:focus {
-  outline: none;
-  border: solid 1px #f0f0f0;
-}
-#dashboard_bloc #images_page .card input[type=text]:disabled:hover {
-  background-color: #f0f0f0;
-  cursor: not-allowed;
+@media (min-width: 769px) {
+  #dashboard_bloc #images_page .images_container {
+    padding: 10px;
+  }
+  #dashboard_bloc #images_page .card {
+    max-width: 200px;
+  }
+  #dashboard_bloc #images_page .card h3 {
+    font-size: 16px;
+  }
 }
 #dashboard_bloc .box_content_settings {
   display: flex;

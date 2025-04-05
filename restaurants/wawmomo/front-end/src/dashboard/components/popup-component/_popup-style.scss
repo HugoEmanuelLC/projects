@@ -19,6 +19,10 @@
         gap: $padding_sm;
         position: relative;
 
+        h2{
+            font-size: $txt_size_sm;
+        }
+
         .close{
             position: absolute;
             top: 0;

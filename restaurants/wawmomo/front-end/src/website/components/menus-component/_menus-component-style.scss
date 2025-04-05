@@ -22,7 +22,7 @@
 
         ul{
             // border: solid 5px green;
-            @include flex(row, center, center);
+            @include flex(row, flex-start, center);
             flex-wrap: wrap;
             padding: $padding_md $padding_sm;
             // border-bottom: solid 3px $color_secondary;
@@ -30,7 +30,7 @@
 
             li{
                 display: inline-block;
-                padding: 10px;
+                // padding: 10px;
                 cursor: pointer;
 
                 button{
@@ -121,11 +121,17 @@
     }
 
     @include media-queries(md){
-        // .menus_list{
-        //     h2{
-        //         font-size: $txt_h3_size_sm;
-        //     }
-        // }
+        .menus_list{
+            ul{
+                @include flex(row, center, center);
+
+                li{
+                    button{
+                        font-size: $txt_h3_size_sm;
+                    }
+                }
+            }
+        }
 
         .products_list{
             .box{

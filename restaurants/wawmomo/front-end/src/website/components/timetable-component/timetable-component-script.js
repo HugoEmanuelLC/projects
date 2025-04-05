@@ -6,7 +6,6 @@ export const timetableList = () => {
     return new Promise((resolve, reject) => {
         fetchApi(urlForFetch.timetableList, 'GET', {}, null)
         .then((res) => {
-            console.log("Res : ", res.content.timetable);
             resolve(res.content.timetable);
         })
         .catch((err) => {

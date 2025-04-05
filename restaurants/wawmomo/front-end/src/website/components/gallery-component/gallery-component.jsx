@@ -52,9 +52,6 @@ function GalleryComponent(props) {
     }
 
     useEffect(() => {
-        console.log("gallery : ");
-        console.log(images);
-        console.log("test images : ---------------");
         traitementImages()
     }, [images]);
 

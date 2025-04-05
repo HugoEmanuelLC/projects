@@ -193,6 +193,10 @@ export const updateValuesTimeTableCommentFromDB = async (req, res, next) => {
 
 export const updateValuesImageFromDB = async (req, res, next) => {
     try {
+        if( req.body.image.tableName.length == 0 || req.body.image.value.length == 0 ){ 
+            return res.status(400).json({ status: 400, message: "no data to modify" })
+        }
+        
         let SETvalues = ""
         req.body.configDB.tableName = "images"
         req.body.configDB.colonneName = ["image_id", ...req.body.image.tableName]

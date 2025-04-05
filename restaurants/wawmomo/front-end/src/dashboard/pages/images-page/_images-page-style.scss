@@ -1,5 +1,5 @@
 #images_page{
-    border: solid 1px red;
+    // border: solid 1px red;
 
     /*
     creation d'une "card" pour chaque image avec 
@@ -7,11 +7,42 @@
     d'un choix de checkbox pour chaque image (une image peux avoir plusieurs sections "zones où elles seront dans le site web") 
     et d'un bouton de modification.
     */
+    // border: solid 1px $bck_color_primary;
+
+    .list_head_links{
+        input{
+            margin: 5px 0;
+            padding: 5px 10px;
+            // border: solid 1px black;
+            border-radius: 5px;
+            // background-color: white;
+            // color: black;
+            cursor: pointer;
+            font-size: $txt_size_mini;
+        }
+
+        button{
+            margin: 5px 0;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: $bck_color_tertiary;
+            color: white;
+            cursor: pointer;
+            font-size: $txt_size_mini;
+        }
+    }
 
     .images_container{
         // border: solid 1px blue;
         @include flex(row, flex-start, flex-start);
         flex-wrap: wrap;
+    }
+
+    .jointure_images_sections{
+        // border: solid 1px green;
+        // @include flex(row, center, center);
+        width: 100%;
     }
     
     .card{
@@ -20,7 +51,7 @@
         // justify-content: center;
         // align-items: center;
         @include flex(column, center, center);
-        max-width: 300px;
+        max-width: calc(50% - ($padding_sm * 2));
         // height: 300px;
         margin: 10px;
         border: solid 1px $bck_color_primary_op;
@@ -29,72 +60,129 @@
         overflow-wrap: break-word;
         
 
-        span.isSent{
-            transition: all 0.5s ease-in-out;
+        .isSent{
+            color: $bck_color_tertiary;
+            font-size: $txt_size_mini;
+            margin: 5px 0;
+            text-align: center;
+            min-width: 100%;
+            // border: solid 1px $bck_color_tertiary;
+        }
+
+        img{
+            width: 100%;
+            height: 150px;
+            // max-height: 300px;
+            object-fit: cover;
+            border-radius: 5px 5px 0 0;
+        }
+
+        h3{
+            align-self: flex-end;
+            font-size: $txt_size_mini;
+            margin: 10px 0;
+            // border: solid 1px black;
+        }
+
+        p{
+            font-size: $txt_size_mini;
+            margin: 5px 0;
+        }
+
+        label{
+            font-size: $txt_size_mini;
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        .section{
+            // border: solid 1px black;
+            @include flex(column, center, center);
+            width: 100%;
+            margin: $padding_sm 0;
+            // padding: 5px;
+            background-color: $bck_color_primary_op;
+            border-radius: 5px;
+        }
+
+        fieldset{
+            border: none ;
+            width: 100%;
+        }
+        // .checkboxes{
+        //     display: flex;
+        //     flex-direction: column;
+        //     align-items: center;
+        //     justify-content: center;
+        //     width: 100%;
+        //     margin: 5px 0;
+        // }
+
+        .buttons{
+            @include flex(row, space-evenly, center);
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        button{
+            margin: 5px 0;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: $bck_color_tertiary;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+
+            &:hover{
+                background-color: $bck_color_tertiary_op;
+            }
+        }
+
+        input[type="checkbox"]{
+            margin: 5px 0;
         }
     }
-    .card img{
-        width: 100%;
-        height: 150px;
-        // max-height: 300px;
-        object-fit: cover;
-        border-radius: 5px 5px 0 0;
-    }
+    
+    // .card input[type="file"]{
+    //     margin: 5px 0;
+    // }
 
-    .card h3{
-        align-self: flex-end;
-        font-size: 1.2em;
-        margin: 10px 0;
-        // border: solid 1px black;
-    }
+    // .card input[type="text"]{
+    //     margin: 5px 0;
+    //     padding: 5px;
+    //     border: solid 1px black;
+    //     border-radius: 5px;
+    // }
 
-    .card p{
-        font-size: 0.9em;
-        margin: 5px 0;
-    }
+    // .card input[type="text"]:focus{
+    //     outline: none;
+    //     border: solid 1px #007bff;
+    // }
+    // .card input[type="text"]:disabled{
+    //     background-color: #f0f0f0;
+    //     cursor: not-allowed;
+    // }
+    // .card input[type="text"]:disabled:focus{
+    //     outline: none;
+    //     border: solid 1px #f0f0f0;
+    // }
+    // .card input[type="text"]:disabled:hover{
+    //     background-color: #f0f0f0;
+    //     cursor: not-allowed;
+    // }
 
-    .card button{
-        margin: 5px 0;
-        padding: 5px 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: $bck_color_tertiary;
-        color: white;
-        cursor: pointer;
-    }
 
-    .card button:hover{
-        background-color: $bck_color_tertiary_op;
-    }
-
-    .card input[type="checkbox"]{
-        margin: 5px 0;
-    }
-    .card input[type="file"]{
-        margin: 5px 0;
-    }
-
-    .card input[type="text"]{
-        margin: 5px 0;
-        padding: 5px;
-        border: solid 1px black;
-        border-radius: 5px;
-    }
-
-    .card input[type="text"]:focus{
-        outline: none;
-        border: solid 1px #007bff;
-    }
-    .card input[type="text"]:disabled{
-        background-color: #f0f0f0;
-        cursor: not-allowed;
-    }
-    .card input[type="text"]:disabled:focus{
-        outline: none;
-        border: solid 1px #f0f0f0;
-    }
-    .card input[type="text"]:disabled:hover{
-        background-color: #f0f0f0;
-        cursor: not-allowed;
+    @include media-queries(md){
+        .images_container{
+            padding: $padding_sm;
+        }
+        .card{
+            max-width: 200px;
+            
+            h3{
+                font-size: $txt_size_md;
+            }
+        }
     }
 }

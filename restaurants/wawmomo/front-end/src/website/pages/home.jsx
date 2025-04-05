@@ -41,7 +41,6 @@ function Home() {
     const handleImagesList = async () => {
         await imagesList()
         .then((res) => {
-            console.log("res : ", res);
             res.map((image) => {
                 if (image.sectionHero === 1) {
                     setImageSectionHero((prev) => {

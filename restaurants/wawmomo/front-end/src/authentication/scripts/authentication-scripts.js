@@ -30,8 +30,8 @@ export const fetchApi = async (url, method, body = {}, token = null) => {
         }
     }
 
-    console.log("fetchApi options : ");
-    console.log(options);
+    // console.log("fetchApi options : ");
+    // console.log(options);
     
     return new Promise((resolve, reject) => {
         fetch(url, options)

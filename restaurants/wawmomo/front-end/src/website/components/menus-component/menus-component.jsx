@@ -29,6 +29,7 @@ function Menus(props){
             setProducts(res);
         })
         .catch((err) => {
+            setProducts([]);
             console.error("Err : ", err);
         });
     } 
@@ -68,7 +69,7 @@ function Menus(props){
             <h2>Menus</h2>
             <ul>
                 {
-                    menus?.length > 0 && menus.map((menu, index) => {
+                    menus?.length > 0 ? menus.map((menu, index) => {
                         return (
                             <li key={index}>
                                 <button onClick={(e)=>{setLoading(true);
@@ -77,7 +78,7 @@ function Menus(props){
                                     className={buttonActive == index ? "active" : ""}>{menu?.menu_name}</button>
                             </li>
                         )
-                    })
+                    }) : <div className="no_product">No menu found</div>
                 }
             </ul>
             {/* <hr /> */}
@@ -86,7 +87,7 @@ function Menus(props){
         <div className="popup_body products_list">
             <div className="box">
             {
-                products.length > 0 && products.map((product, index) => {
+                products?.length > 0 ? products.map((product, index) => {
                     return (
                         <div key={index} className="product_item">
                             <h3>{product?.product_name}</h3>
@@ -94,7 +95,7 @@ function Menus(props){
                             <span>{product?.product_price}€</span>
                         </div>
                     )
-                })
+                }) : <div className="no_product">No product found</div>
             }
             </div>
         </div>

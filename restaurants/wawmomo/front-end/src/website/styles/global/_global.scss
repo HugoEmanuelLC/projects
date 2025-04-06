@@ -12,6 +12,10 @@
 
     $sectionsSpacing_md: calc($padding_md * 5);
 
+    .hideSection{
+        display: none;
+    }
+
     @import '../../components/header-component/header-component-style';
     @import '../../components/hero-component/hero-component-style';
     @import '../../components/about-component/about-component-style';

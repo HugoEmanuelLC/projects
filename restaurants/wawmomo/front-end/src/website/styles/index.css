@@ -85,6 +85,9 @@ button {
   -o-object-fit: cover;
      object-fit: cover;
 }
+#website_bloc .hideSection {
+  display: none;
+}
 #website_bloc header {
   position: fixed;
   top: 0;
@@ -263,7 +266,7 @@ button {
   align-items: center; /* 'stretch' par défaut */
   gap: 10px;
   padding: 0 10px;
-  line-height: 1.5;
+  line-height: 1.2;
 }
 #website_bloc .hero_component .block_shadow .container .text {
   display: flex;
@@ -303,7 +306,7 @@ button {
   }
   #website_bloc .hero_component .block_shadow .container .text h1 {
     text-align: left;
-    font-size: min(90px, 8vw);
+    font-size: min(90px, 7vw);
   }
 }
 #website_bloc .about_component {
@@ -370,6 +373,9 @@ button {
   align-items: none; /* 'stretch' par défaut */
   gap: 10px;
   max-height: 200px;
+}
+#website_bloc .gallery_component .gallery .gallery_item .img {
+  background-color: rgb(242, 212, 126);
 }
 #website_bloc .gallery_component .gallery .big_small .img:first-child {
   width: 60%;
@@ -618,6 +624,7 @@ button {
 }
 #website_bloc #gallery_local_component .content .splide {
   height: 100%;
+  background-color: rgb(242, 212, 126);
 }
 #website_bloc #gallery_local_component .content .splide .splide__track {
   height: 100%;

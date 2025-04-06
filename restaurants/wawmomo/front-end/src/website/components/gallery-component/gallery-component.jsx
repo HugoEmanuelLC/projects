@@ -1,5 +1,5 @@
 // Dependencies
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 // Script
 import { urlServer } from "../../../authentication/scripts/fetch-urls";
@@ -13,6 +13,17 @@ function GalleryComponent(props) {
         image3: null,
         image4: null,
     });
+
+    const sectionTag = useRef(null);
+    
+    const handleHideSectionTag = () => {
+        if (gallery.image1 === null && gallery.image2 === null && gallery.image3 === null && gallery.image4 === null) {
+            sectionTag.current.classList.add('hideSection');
+        }
+        else {
+            sectionTag.current.classList.remove('hideSection');
+        }
+    };
 
     const traitementImages = () => {
         images.map((image) => {
@@ -55,29 +66,33 @@ function GalleryComponent(props) {
         traitementImages()
     }, [images]);
 
+    useEffect(() => {
+        handleHideSectionTag();
+    }, [gallery]);
+
 
     return (
-        <section className="gallery_component">
+        <section ref={sectionTag} className="gallery_component">
             <div className="gallery container">
 
                 <div className="gallery_item big_small">
                     <div className="img">
-                        <img src={gallery.image1} alt="gallery item" />
+                        {gallery.image1 && <img src={gallery.image1} alt="gallery item" />}
                     </div>
                     
                     <div className="img">
-                        <img src={gallery.image2} alt="gallery item" />
+                        {gallery.image2 && <img src={gallery.image2} alt="gallery item" />}
                     </div>
                     
                 </div>
 
                 <div className="gallery_item small_big">
                     <div className="img">
-                        <img src={gallery.image3} alt="gallery item" />
+                        {gallery.image3 && <img src={gallery.image3} alt="gallery item" />}
                     </div>
                     
                     <div className="img">
-                        <img src={gallery.image4} alt="gallery item" />
+                        {gallery.image4 && <img src={gallery.image4} alt="gallery item" />}
                     </div>
                 </div>
 

@@ -25,7 +25,7 @@
             @include flex(column, center, center);
             gap: $padding_sm;
             padding: 0 $padding_sm;
-            line-height: 1.5;
+            line-height: 1.2;
 
             .text{
                 // border: solid 3px blue;
@@ -86,7 +86,7 @@
                     line-height: 1;
                     h1{
                         text-align: left;
-                        font-size: min(90px, 8vw);
+                        font-size: min(90px, 7vw);
                     }
                 }
             }

@@ -18,6 +18,10 @@
             @include flex(row, none, none);
             gap: $padding_sm;
             max-height: 200px;
+
+            .img{
+                background-color: $color_secondary;
+            }
         }
 
         .big_small{

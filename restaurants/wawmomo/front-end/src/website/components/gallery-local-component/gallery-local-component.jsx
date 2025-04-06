@@ -1,5 +1,5 @@
 // Dependencies
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Splide, SplideTrack, SplideSlide } from '@splidejs/react-splide';
 // slider images
 import '@splidejs/react-splide/css';
@@ -16,6 +16,17 @@ function GalleryLocalComponent(props){
         image2: null, 
         image3: null,
     });
+
+    const sectionTag = useRef(null);
+    
+    const handleHideSectionTag = () => {
+        if (gallery.image1 === null && gallery.image2 === null && gallery.image3 === null) {
+            sectionTag.current.classList.add('hideSection');
+        }
+        else {
+            sectionTag.current.classList.remove('hideSection');
+        }
+    };
 
     const traitementImages = (images) => {
         images.map((image) => {
@@ -50,10 +61,14 @@ function GalleryLocalComponent(props){
         traitementImages(images)
     }, [images]);
 
+    useEffect(() => {
+        handleHideSectionTag()
+    }, [gallery]);
+
 
 
     return (
-        <section id="gallery_local_component" >
+        <section ref={sectionTag} id="gallery_local_component" >
             <div className="content container">
 
                 <Splide hasTrack={false}
@@ -73,21 +88,23 @@ function GalleryLocalComponent(props){
                     } }
                 >
                     <SplideTrack>
-                        <SplideSlide>
+                        {gallery?.image1 && <SplideSlide>
                             <div className="box_space_image" style={gallery?.image1 ? {"backgroundImage": "url('"+gallery?.image1+"')"} : {}}>
                                 <div className="box_space_shadow_image"></div>
                             </div>
-                        </SplideSlide>
-                        <SplideSlide>
+                        </SplideSlide>}
+
+                        {gallery?.image2 && <SplideSlide>
                             <div className="box_space_image" style={gallery?.image2 ? {"backgroundImage": "url('"+gallery?.image2+"')"} : {}}>
                                 <div className="box_space_shadow_image"></div>
                             </div>
-                        </SplideSlide>
-                        <SplideSlide>
+                        </SplideSlide>}
+
+                        {gallery?.image3 && <SplideSlide>
                             <div className="box_space_image" style={gallery?.image3 ? {"backgroundImage": "url('"+gallery?.image3+"')"} : {}}>
                                 <div className="box_space_shadow_image"></div>
                             </div>
-                        </SplideSlide>
+                        </SplideSlide>}
                     </SplideTrack>
                     <div className="splide__arrows"></div>
                 </Splide>

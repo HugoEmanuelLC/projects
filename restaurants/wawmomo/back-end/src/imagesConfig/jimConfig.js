@@ -2,10 +2,19 @@ import { Jimp } from 'jimp';
 import path from 'path';
 
 const jimpConfig = async (req, res, next) => {
+    const extensionsPossible = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff'];
+
     try {
         if (!req.file) {
             return res.status(400).json({ status: 400, message: "file not found" })
         }
+
+        let tampon = req.file.originalname.split('.')
+        let extension = tampon[tampon.length - 1]
+
+        extensionsPossible.includes('.' + extension) ?
+            console.log("file extension is valid")
+            : res.status(400).json({ status: 400, message: "file extension not valid" })
 
         const filePath = req.file.path;
         const newFileName = Date.now() + '_' + 'resize_' + req.file.originalname;

@@ -132,9 +132,6 @@ export const createValuesImageInDB = async (req, res, next) => {
         })
     
         req.body.configDB.SETvalues = SETvalues
-        
-        console.log("createValuesImageInDB -> req.body.configDB");
-        console.log(req.body.configDB);
 
     } catch (error) {
         console.log("createValuesImageInDB -> error");

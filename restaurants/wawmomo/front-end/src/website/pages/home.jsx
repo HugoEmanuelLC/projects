@@ -13,7 +13,7 @@ import LoadingComponent from "../components/loading-component/loading-component"
 
 // Script
 import { imagesList } from "./home-page-script";
-import { urlServer } from "../../authentication/scripts/fetch-urls";
+import { urlServerImages } from "../../authentication/scripts/fetch-urls";
 
 
 
@@ -107,11 +107,11 @@ function Home() {
         
         let link = document.querySelector("link[rel~='icon']");
         if (link) {
-            link.href = urlServer+"/images/uploads/resized/"+imageSectionLogo[0]?.image_name;
+            link.href = urlServerImages+"/images/uploads/resized/"+imageSectionLogo[0]?.image_name;
         } else {
             link = document.createElement("link");
             link.rel = "icon";
-            link.href = urlServer+"/images/uploads/resized/"+imageSectionLogo[0]?.image_name;
+            link.href = urlServerImages+"/images/uploads/resized/"+imageSectionLogo[0]?.image_name;
             document.head.appendChild(link);
         }
     }, [imageSectionLogo]);

@@ -166,8 +166,6 @@ export async function selectImagesWithSections(values){
                     }
 
                     if (result.length > 0) {
-                        console.log("modelSelectFromDB result");
-                        console.log(result);
                         resolve({
                             status: 200, 
                             message: "data found",

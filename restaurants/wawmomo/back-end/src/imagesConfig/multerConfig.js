@@ -4,7 +4,10 @@ import path from "path";
 const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
-    'image/png': 'png'
+    'image/png': 'png',
+    'image/gif': 'gif',
+    'image/bmp': 'bmp',
+    'image/tiff': 'tiff',
 };
 
 const storage = multer.diskStorage({
@@ -27,7 +30,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff'];
     const ext = path.extname(file.originalname).toLowerCase();
     if (allowedExtensions.includes(ext) ) {
         cb(null, true);

@@ -569,6 +569,10 @@ button {
   color: darkgreen;
   position: relative;
   transition: 0.3s;
+  text-transform: lowercase;
+}
+#dashboard_bloc .box_content_settings .list_head_links ul li::first-letter {
+  text-transform: uppercase;
 }
 #dashboard_bloc .box_content_settings .list_head_links ul li:hover {
   color: orange;

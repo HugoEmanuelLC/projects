@@ -44,6 +44,12 @@
                 position: relative;
                 transition: 0.3s;
 
+                text-transform: lowercase;
+
+                &::first-letter{
+                    text-transform: uppercase;
+                }
+
                 &:hover{
                     color: $bck_color_secondary;
                 }

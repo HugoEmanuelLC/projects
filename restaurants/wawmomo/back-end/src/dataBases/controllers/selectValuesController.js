@@ -158,8 +158,6 @@ export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => 
         ...req.body.configDB
     })
     .then(data => {
-        console.log("selectValuesProductsListFromMenuFromDB -> data");
-        console.log(data);
         let products = [];
         data.data.forEach(product => {
             products.push({

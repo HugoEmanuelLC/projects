@@ -6,7 +6,7 @@ import Popup, { ConfimationDelete } from '../../components/popup-component/popup
 
 // Script
 import { imageCreate, selectListImages, imageUpdate, imageDelete } from './images-page-script';
-import { urlServer } from '../../../authentication/scripts/fetch-urls';
+import { urlServerImages } from '../../../authentication/scripts/fetch-urls';
 
 
 function ImagesPage() {
@@ -70,7 +70,7 @@ function ImagesPage() {
                 {images && images.map((image, index) => {
                     return (
                         <div className="card" key={index}>
-                            <img src={urlServer+"/images/uploads/resized/"+image.image_name} alt="" />
+                            <img src={urlServerImages+"/images/uploads/resized/"+image.image_name} alt="" />
                             <h3>{image.image_name}</h3>
                             <p>{image.image_date.slice(0, 10)}</p>
                             <JointureImagesSections image={image} 

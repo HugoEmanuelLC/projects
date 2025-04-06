@@ -148,6 +148,11 @@ routeAuth.delete('/time-table-comment/delete/:params',
 
 
 
+
+
+
+
+
 // Images
 routeAuth.post('/image/create', 
     upload.single('file'), 
@@ -167,6 +172,24 @@ routeAuth.put('/image/update/:params',
 routeAuth.delete('/image/delete/:params',
     deleteValuesController.deleteValuesImageFromDB, fsDeleteImage, modelFncForSendResToClient
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // routeAuth.post('/sections-images/create/:params',

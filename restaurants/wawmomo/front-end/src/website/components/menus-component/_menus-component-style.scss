@@ -46,6 +46,11 @@
                     transition: all 0.3s ease;
                     // border: none;
                     cursor: pointer;
+                    text-transform: lowercase;
+
+                    &::first-letter{
+                        text-transform: uppercase;
+                    }
 
                     &.active{
                         background-color: $color_secondary;

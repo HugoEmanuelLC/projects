@@ -13,7 +13,7 @@ export function NewMenu(props) {
     const [ error, setError ] = useState(null)
 
     const handleChange = (e) => {
-        setNewMenu({...newMenu, [e.target.name]: e.target.value})
+        setNewMenu({...newMenu, [e.target.name]: e.target.value.toLowerCase()})
     }
 
     const handleSubmit = async (e) => {
@@ -67,7 +67,7 @@ export function UpdateMenu(props) {
     const [ error, setError ] = useState(null)
 
     const handleChange = (e) => {
-        setUpdateMenu({...updateMenu, [e.target.name]: e.target.value})
+        setUpdateMenu({...updateMenu, [e.target.name]: e.target.value.toLowerCase()})
     }
 
     const handleSubmit = async (e) => {

@@ -1,10 +1,18 @@
 const urlLocal = 'http://localhost:3001';
 const urlExterne = 'https://wawmomo-api-test.root.caprover.clavinas.com';
-// const urlExterne = 'http://image-uploader.root.caprover.clavinas.com';
-export const urlServer = urlLocal;
+
+const urlLocalStorageImages = 'http://localhost:3002';
+const urlExterneStorageImages = 'https://uploads-images-api.root.caprover.clavinas.com';
+
+// control de l'url de l'api
+export const urlServer = urlExterne;
+export const urlServerImages = urlExterneStorageImages;
 
 const urlApiAuth = urlServer+'/auth';
 const urlApi = urlServer;
+
+const urlApiAuthImages = urlServerImages+'/auth';
+const urlApiImages = urlServerImages;
 
 // const urlApiAuth = 'http://localhost:3001/auth';
 // const urlApi = 'http://localhost:3001';
@@ -33,10 +41,10 @@ const urlForFetch = {
     updateTimetableComment: urlApiAuth+'/time-table-comment/update',
     deleteTimetableComment: urlApiAuth+'/time-table-comment/delete',
 
-    selectImage: urlApiAuth+'/images/select',
-    createImage: urlApiAuth+'/image/create',
-    imageUpdate: urlApiAuth+'/image/update',
-    imageDelete: urlApiAuth+'/image/delete',
+    selectImage: urlApiAuthImages+'/images/select',
+    createImage: urlApiAuthImages+'/image/create',
+    imageUpdate: urlApiAuthImages+'/image/update',
+    imageDelete: urlApiAuthImages+'/image/delete',
 
     jointureImagesSections: urlApiAuth+'/jointure-images-sections/select',
     createSectionImage: urlApiAuth+'/sections-images/create',
@@ -44,7 +52,7 @@ const urlForFetch = {
     menusList: urlApi+'/menus-list',
     productsListFromMenu: urlApi+'/products-from-menu',
     timetableList: urlApi+'/timetable-list',
-    imagesList: urlApi+'/images-list',
+    imagesList: urlApiImages+'/images-list',
     
 }
 

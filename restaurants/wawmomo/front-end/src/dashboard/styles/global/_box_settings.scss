@@ -113,6 +113,11 @@
                     td{
                         padding: $padding_sm;
                         font-size: $txt_size_sm;
+                        text-transform: lowercase;
+
+                        &::first-letter{
+                            text-transform: uppercase;
+                        }
                     }
 
                     .actions{

@@ -15,7 +15,7 @@ export function NewProduct(props) {
     const [ error, setError ] = useState(null)
 
     const handleChange = (e) => {
-        setNewProduct({...newProduct, [e.target.name]: e.target.value})
+        setNewProduct({...newProduct, [e.target.name]: e.target.value.toLowerCase()})
     }
 
     const handleSubmit = async (e) => {
@@ -103,9 +103,9 @@ export function UpdateProduct(props){
                 else {productInfosToUpdate[place] = oldInfo}
             }
 
-            await productFnc("product_name", newProduct.product_name, props.product.product_name)
+            await productFnc("product_name", newProduct.product_name.toLowerCase(), props.product.product_name)
             await productFnc("product_price", newProduct.product_price, props.product.product_price)
-            await productFnc("product_description", newProduct.product_description, props.product.product_description)
+            await productFnc("product_description", newProduct.product_description.toLowerCase(), props.product.product_description)
     
             await productUpdate( props.product._id, productInfosToUpdate)
             .then((res) => {

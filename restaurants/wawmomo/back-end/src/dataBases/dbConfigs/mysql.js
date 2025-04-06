@@ -18,7 +18,7 @@ const tables = [
     }
 ]
 
-const connection = mysql.createPool(tables[1]);
+const connection = mysql.createPool(tables[0]);
 
 async function initialiserBaseDeDonnees() {
     return new Promise((resolve, reject) => {

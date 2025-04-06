@@ -245,6 +245,7 @@ button {
 }
 #website_bloc .hero_component {
   height: 60vh;
+  background-color: rgba(242, 212, 126, 0.7);
   background-position: center 60%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -520,6 +521,10 @@ button {
 #website_bloc .popup_content .products_list .box .product_item h3 {
   font-size: 14px;
   text-align: center;
+  text-transform: lowercase;
+}
+#website_bloc .popup_content .products_list .box .product_item h3::first-letter {
+  text-transform: uppercase;
 }
 #website_bloc .popup_content .products_list .box .product_item span {
   font-size: 14px;

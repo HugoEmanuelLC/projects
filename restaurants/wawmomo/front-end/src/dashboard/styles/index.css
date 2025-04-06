@@ -629,6 +629,10 @@ button {
 #dashboard_bloc .box_content_settings .list_datas table tbody tr td {
   padding: 10px;
   font-size: 14px;
+  text-transform: lowercase;
+}
+#dashboard_bloc .box_content_settings .list_datas table tbody tr td::first-letter {
+  text-transform: uppercase;
 }
 #dashboard_bloc .box_content_settings .list_datas table tbody tr .actions {
   display: flex;

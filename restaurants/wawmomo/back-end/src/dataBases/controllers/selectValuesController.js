@@ -147,6 +147,7 @@ export const selectValuesProductsListFromMenuFromDB = async (req, res, next) => 
     try {
         req.body.configDB.tableName = "products"
         req.body.configDB.colonneName = "fk_menu"
+        req.body.configDB.orderBy = "product_name ASC"
         req.body.configDB.colonneValue = req.params.params
 
     } catch (error) {

@@ -10,7 +10,9 @@ export async function modelSelectFromDB(values){
     return new Promise((resolve, reject) => {
         try {
             connection.query(
-                `SELECT * FROM ${values.tableName} WHERE ${values.colonneName} = ?`, values.colonneValue,
+                `SELECT * FROM ${values.tableName} WHERE ${values.colonneName} = ?` + 
+                    (values?.orderBy ? ` ORDER BY ${values.orderBy}` : ""), 
+                values.colonneValue,
                 (err, result) => {
                     if (err) {
                         console.log("modelSelectFromDB error");
@@ -89,7 +91,8 @@ export async function modelSelectAllFromDB(values){
     return new Promise((resolve, reject) => {
         try {
             connection.query(
-                `SELECT * FROM ${values.tableName}`,
+                `SELECT * FROM ${values.tableName}` + 
+                    (values.orderBy ? ` ORDER BY ${values.orderBy}` : ""),
                 (err, result) => {
                     if (err) {
                         console.log("modelSelectFromDB error");

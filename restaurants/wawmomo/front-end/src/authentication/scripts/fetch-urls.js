@@ -1,7 +1,7 @@
 const urlLocal = 'http://localhost:3001';
 const urlExterne = 'https://wawmomo-api-test.root.caprover.clavinas.com';
 // const urlExterne = 'http://image-uploader.root.caprover.clavinas.com';
-export const urlServer = urlExterne;
+export const urlServer = urlLocal;
 
 const urlApiAuth = urlServer+'/auth';
 const urlApi = urlServer;
